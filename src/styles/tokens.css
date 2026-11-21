@@ -1,0 +1,42 @@
+:root {
+  --content-width: 1320px;
+  --reading-width: 720px;
+  --page-gutter: 48px;
+  --radius-card: 14px;
+  --radius-image: var(--radius-card);
+  --radius-control: 12px;
+  --radius-pill: 999px;
+  --space-section: clamp(72px, 9vw, 144px);
+  --space-home: clamp(48px, 5.5vw, 80px);
+  --ease: 180ms ease;
+  --display: var(--serif);
+  --serif: 'EB Garamond Variable', 'Iowan Old Style', 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif;
+  --sans: 'Schibsted Grotesk Variable', 'Helvetica Neue', Arial, sans-serif;
+  --mono: 'Cascadia Code', 'SFMono-Regular', Consolas, monospace;
+  --heading-weight: 500;
+  --heading-tracking: 0;
+  /* --page-* keep the base colors so header panels can undo the over-hero overrides. */
+  --page-text: #FFFFFF;
+  --page-line: #262626;
+  --background: #000000;
+  --surface: #0D0D0D;
+  --surface-elevated: #171717;
+  --text: var(--page-text);
+  --muted: #A3A3A3;
+  --accent: #E8AE3C;
+  --on-accent: #000000;
+  --accent-ink: #000000;
+  --focus: var(--accent);
+  --line: var(--page-line);
+  --divider: color-mix(in srgb, var(--text) 20%, var(--background));
+  --control-line: #7A7A7A;
+  --shadow: #00000040;
+  --hero-background: #1A1708;
+  --on-hero: #FFFFFF;
+  --hero-ink: #000000;
+  --border-hover: var(--accent);
+  --diamond-light: #D2F4FF;
+  --diamond: #5BC8F5;
+  --diamond-deep: #2380DC;
+  color-scheme: dark;
+}

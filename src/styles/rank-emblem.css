@@ -1,0 +1,106 @@
+/* Rank emblem (E to S). Markup: <span class="rank" data-rank="B"><i><span>B</span></i><b></b></span>. Size it with --s. */
+.rank {
+  --s: 28px;
+  --c: 24%;
+  --gh: color-mix(in srgb, var(--accent) 45%, var(--text));
+  --gl: color-mix(in srgb, var(--accent) 60%, var(--background));
+  --sheen: linear-gradient(105deg, transparent 38%, color-mix(in srgb, var(--text) 60%, transparent) 50%, transparent 62%) 140% 0 / 260% 100% no-repeat;
+  --oct: var(--c) 0, calc(100% - var(--c)) 0, 100% var(--c), 100% calc(100% - var(--c)), calc(100% - var(--c)) 100%, var(--c) 100%, 0 calc(100% - var(--c)), 0 var(--c);
+  --oct-hole: calc(var(--c) + 0.5px) 1px, calc(100% - var(--c) - 0.5px) 1px, calc(100% - 1px) calc(var(--c) + 0.5px), calc(100% - 1px) calc(100% - var(--c) - 0.5px), calc(100% - var(--c) - 0.5px) calc(100% - 1px), calc(var(--c) + 0.5px) calc(100% - 1px), 1px calc(100% - var(--c) - 0.5px), 1px calc(var(--c) + 0.5px);
+  --shape: polygon(var(--oct));
+  --star: polygon(50% 0, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0 50%, 38% 38%);
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  isolation: isolate;
+  width: var(--s);
+  height: var(--s);
+  font-family: var(--display);
+  font-size: calc(var(--s) * 0.66);
+  font-weight: 800;
+  line-height: 1;
+  color: var(--accent-ink);
+}
+.rank::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background: var(--rc);
+  clip-path: polygon(evenodd, var(--oct), var(--oct-hole));
+}
+.rank i { position: absolute; inset: 2px; display: grid; place-items: center; font-style: normal; background: var(--plate); clip-path: polygon(var(--oct)); }
+/* The browser centers the letter's line box, not its ink: --dx and --dy (em, measured per rank) correct it. Re-measure if the font changes. */
+.rank i > span { position: relative; display: block; left: var(--dx, 0); top: var(--dy, 0); }
+.rank[data-rank='E'] { --dx: -0.0037em; --dy: -0.0297em; }
+.rank[data-rank='D'] { --dx: 0.035em; --dy: -0.0267em; }
+.rank[data-rank='C'] { --dx: 0.0115em; --dy: -0.0311em; }
+.rank[data-rank='B'] { --dx: 0.005em; --dy: -0.0304em; }
+.rank[data-rank='A'] { --dx: 0em; --dy: -0.0192em; }
+.rank[data-rank='S'] { --dx: 0.0058em; --dy: -0.031em; }
+.rank b { position: absolute; inset: 0; z-index: 2; pointer-events: none; clip-path: var(--shape); background: var(--sheen); }
+
+.rank[data-rank='E'] {
+  --cuh: color-mix(in srgb, var(--accent) 70%, var(--accent));
+  --cu: color-mix(in srgb, var(--accent) 50%, var(--accent));
+  --cul: color-mix(in srgb, var(--accent) 30%, var(--accent));
+}
+@supports (color: oklch(from red l c h)) {
+  .rank[data-rank='E'] {
+    --cuh: oklch(from var(--accent) calc(l * 0.95) calc(c * 0.8) calc(h - 36));
+    --cu: oklch(from var(--accent) calc(l * 0.76) calc(c * 0.8) calc(h - 36));
+    --cul: oklch(from var(--accent) calc(l * 0.56) calc(c * 0.8) calc(h - 36));
+  }
+}
+.rank[data-rank='E'] { --rc: var(--cuh); --plate: linear-gradient(135deg, var(--cuh) 0%, var(--cu) 48%, var(--cul) 100%); }
+
+.rank[data-rank='D'] {
+  --iron: color-mix(in srgb, var(--diamond-deep) 12%, var(--muted));
+  --rc: color-mix(in srgb, var(--iron) 70%, var(--text));
+  --plate: linear-gradient(135deg, color-mix(in srgb, var(--iron) 88%, var(--text)) 0%, color-mix(in srgb, var(--iron) 74%, var(--background)) 48%, color-mix(in srgb, var(--iron) 56%, var(--background)) 100%);
+}
+
+.rank[data-rank='C'] {
+  --rc: var(--text);
+  --plate: linear-gradient(135deg, color-mix(in srgb, var(--text) 42%, var(--muted)) 0%, color-mix(in srgb, var(--text) 24%, var(--muted)) 40%, color-mix(in srgb, var(--text) 10%, var(--muted)) 55%, color-mix(in srgb, var(--text) 24%, var(--muted)) 75%, color-mix(in srgb, var(--text) 42%, var(--muted)) 100%);
+}
+
+.rank[data-rank='B'] {
+  --rc: var(--accent);
+  --spark: var(--gh);
+  --plate: linear-gradient(135deg, var(--gh) 0%, var(--accent) 40%, var(--gl) 54%, var(--accent) 72%, var(--gh) 100%);
+}
+
+.rank[data-rank='A'] {
+  --pth: color-mix(in srgb, var(--diamond-light) 35%, var(--text));
+  --ptm: color-mix(in srgb, var(--diamond) 22%, var(--text));
+  --ptl: color-mix(in srgb, var(--diamond-deep) 28%, var(--muted));
+  --rc: var(--pth);
+  --spark: var(--pth);
+  --plate: linear-gradient(135deg, var(--pth) 0%, var(--ptm) 42%, var(--ptl) 56%, var(--ptm) 74%, var(--pth) 100%);
+}
+
+.rank[data-rank='S'] {
+  --rc: var(--diamond-light);
+  --spark: var(--diamond-light);
+  --plate: linear-gradient(135deg, var(--diamond-light) 0%, var(--diamond) 38%, var(--diamond-deep) 100%);
+}
+
+.rank:is([data-rank='B'], [data-rank='A'], [data-rank='S'])::after {
+  content: '';
+  position: absolute;
+  top: -24%;
+  right: -24%;
+  z-index: 3;
+  width: 40%;
+  height: 40%;
+  background: var(--spark);
+  clip-path: var(--star);
+}
+
+@keyframes rank-pop { 40% { transform: scale(1.18); } }
+@keyframes rank-nudge { 0%, 10%, 100% { transform: scale(1); } 5% { transform: scale(1.24); } }
+@keyframes rank-nudge-sweep { 0% { background-position: 140% 0; } 10%, 100% { background-position: -40% 0; } }
+@keyframes rank-sweep { from { background-position: 140% 0; } to { background-position: -40% 0; } }
+@keyframes rank-twinkle { 40% { transform: scale(1.6) rotate(45deg); } to { transform: rotate(90deg); } }

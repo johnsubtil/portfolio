@@ -1,0 +1,174 @@
+{
+  "metadata": {
+    "title": "John Subtil",
+    "description": "Personal portfolio of John Subtil: the projects I have built and how each one evolved."
+  },
+  "navigation": {
+    "projects": "Projects",
+    "home": "Home",
+    "posts": "Posts",
+    "about": "About"
+  },
+  "common": {
+    "home": "Home",
+    "homeLabel": "John Subtil homepage",
+    "skip": "Skip to content",
+    "breadcrumbs": "Breadcrumbs",
+    "clearFilters": "Clear filters",
+    "updated": "Updated"
+  },
+  "header": {
+    "navigation": "Main",
+    "switchLanguage": "Switch to Portuguese",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
+  },
+  "pagination": {
+    "label": "Pagination",
+    "previous": "Previous",
+    "next": "Next",
+    "page": "Page {page}",
+    "summary": "Page {current} of {total}"
+  },
+  "projects": {
+    "contents": "In this project",
+    "title": "Projects",
+    "metaDescription": "All the projects by John Subtil, and where each one stands.",
+    "searchLabel": "Search projects",
+    "searchPlaceholder": "Name, description, keyword or skill",
+    "statusLabel": "Status",
+    "allStatuses": "All statuses",
+    "statuses": {
+      "planned": "Planned",
+      "in-progress": "In progress",
+      "completed": "Completed"
+    },
+    "statusOne": "project found.",
+    "statusMany": "projects found.",
+    "empty": "No projects yet.",
+    "emptyFilter": "No projects found. Try another word or clear the filters.",
+    "about": "Lorem ipsum",
+    "links": "Project links",
+    "skillsLabel": "Tools and skills",
+    "skillFilter": "See projects using",
+    "categories": {
+      "software": "Software engineering",
+      "art": "Digital art",
+      "security": "Cybersecurity",
+      "hardware": "Hardware engineering",
+      "pedagogy": "Pedagogy",
+      "design": "Design",
+      "games": "Game development",
+      "video": "Video and content",
+      "stories": "Writing"
+    },
+    "recent": "Recent projects",
+    "allProjects": "See all projects",
+    "categoryLabel": "Type",
+    "allCategories": "All types",
+    "explore": "Explore",
+    "carouselPrevious": "Previous project",
+    "carouselNext": "Next project",
+    "slideLabel": "{current} of {total}",
+    "carouselGoTo": "Go to project {n}"
+  },
+  "posts": {
+    "contents": "In this post",
+    "title": "Posts",
+    "metaDescription": "Notes, articles and essays by John Subtil about his projects and the ideas behind them.",
+    "recent": "Recent posts",
+    "allPosts": "View all posts",
+    "searchLabel": "Search posts",
+    "searchPlaceholder": "Title, project or keyword",
+    "empty": "No posts yet.",
+    "emptyFilter": "No posts found. Try another word or clear the filters.",
+    "statusOne": "post found.",
+    "statusMany": "posts found.",
+    "unavailable": "Translation unavailable",
+    "unavailableDescription": "This post is only available in Portuguese.",
+    "readOriginal": "Read original in Portuguese",
+    "originalLanguage": "Portuguese",
+    "projectLabel": "Project",
+    "allProjects": "All projects",
+    "previous": "Previous post",
+    "next": "Next post",
+    "navigation": "More from the journal",
+    "published": "Published"
+  },
+  "footer": {
+    "rights": "All rights reserved.",
+    "socials": "Social media",
+    "email": "Email",
+    "socialsAndContact": "Social media and contact"
+  },
+  "search": {
+    "title": "Search",
+    "metaDescription": "Search the projects and posts of John Subtil.",
+    "label": "Search the site",
+    "close": "Close search",
+    "placeholder": "Projects, posts or skills",
+    "submit": "Search",
+    "suggestions": "Search suggestions",
+    "hint": "Type a word to see suggestions.",
+    "results": "Search results",
+    "seeAll": "See all results",
+    "loading": "Loading results…",
+    "empty": "No results found. Try different words.",
+    "error": "Results could not be loaded. Reload the page to try again.",
+    "project": "Project",
+    "post": "Post",
+    "resultOne": "result found.",
+    "resultMany": "results found.",
+    "noScript": "You can browse the projects and posts pages."
+  },
+  "notFound": {
+    "title": "Page not found",
+    "home": "Back to home"
+  },
+  "ranks": {
+    "rank": "Rank",
+    "guide": "How the ranks work",
+    "titles": {
+      "E": "Novice",
+      "D": "Advanced beginner",
+      "C": "Competent",
+      "B": "Proficient",
+      "A": "Expert",
+      "S": "Master"
+    }
+  },
+  "about": {
+    "title": "About",
+    "metaDescription": "John Subtil writes stories and also makes software. Meet the author and how the work happens.",
+    "statement": "Lorem ipsum <strong>dolor sit amet</strong>, consectetur adipiscing elit. Sed do <strong>eiusmod tempor</strong> incididunt ut labore et <strong>dolore magna</strong> aliqua.",
+    "story": [
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
+      "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.",
+      "Sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium."
+    ],
+    "portraitAlt": "Portrait of John Subtil",
+    "reachLabel": "Reach me"
+  },
+  "home": {
+    "heroLineOne": "Lorem ipsum",
+    "heroLineTwo": "dolor sit amet",
+    "heroDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    "heroPrimary": "See projects",
+    "heroSecondary": "Follow along",
+    "introductionLabel": "About",
+    "introduction": "I'm John, a curious person: I take <strong>what I learn</strong> in one field into <strong>what I build</strong> in another. This site is my <strong>open notebook</strong>, where I share projects, experiments and discoveries as they take shape.",
+    "disciplinesLabel": "What I do",
+    "disciplines": {
+      "software": "I build systems from database to interface: secure, tested APIs, tuned queries and deployment.",
+      "hardware": "I assemble and program circuits and microcontrollers, from the test bench to a board that runs alone.",
+      "pedagogy": "I design learning paths: hard concepts in short steps, with exercises and feedback.",
+      "design": "I design interfaces and visual identities: type, color and rhythm serving a clear idea.",
+      "games": "I prototype small games: rules, pacing and feel tested before any art, in short cycles.",
+      "art": "I draw and paint digitally: studies of light, form and color, from sketches to finished pieces.",
+      "security": "I study how systems break: threat modeling, code review and hands-on labs, to defend what I build.",
+      "video": "I produce videos for social media: scripts, editing and publishing, built from the stories I write.",
+      "stories": "I write stories and worlds: characters, plots and the small rules of a living universe."
+    },
+    "readMore": "More about me"
+  }
+}

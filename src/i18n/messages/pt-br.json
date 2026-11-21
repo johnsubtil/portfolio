@@ -1,0 +1,174 @@
+{
+  "metadata": {
+    "title": "John Subtil",
+    "description": "Portfólio pessoal de John Subtil: os projetos que construí e como cada um evoluiu."
+  },
+  "navigation": {
+    "projects": "Projetos",
+    "home": "Início",
+    "posts": "Posts",
+    "about": "Sobre"
+  },
+  "common": {
+    "home": "Início",
+    "homeLabel": "Página inicial do John Subtil",
+    "skip": "Pular para o conteúdo",
+    "breadcrumbs": "Caminho de navegação",
+    "clearFilters": "Limpar filtros",
+    "updated": "Atualizado em"
+  },
+  "header": {
+    "navigation": "Navegação principal",
+    "switchLanguage": "Mudar para inglês",
+    "openMenu": "Abrir menu",
+    "closeMenu": "Fechar menu"
+  },
+  "pagination": {
+    "label": "Paginação",
+    "previous": "Anterior",
+    "next": "Próxima",
+    "page": "Página {page}",
+    "summary": "Página {current} de {total}"
+  },
+  "projects": {
+    "contents": "Neste projeto",
+    "title": "Projetos",
+    "metaDescription": "Todos os projetos de John Subtil e em que ponto cada um está.",
+    "searchLabel": "Pesquisar projetos",
+    "searchPlaceholder": "Nome, descrição, palavra-chave ou habilidade",
+    "statusLabel": "Status",
+    "allStatuses": "Todos os status",
+    "statuses": {
+      "planned": "Planejado",
+      "in-progress": "Em andamento",
+      "completed": "Concluído"
+    },
+    "statusOne": "projeto encontrado.",
+    "statusMany": "projetos encontrados.",
+    "empty": "Nenhum projeto por enquanto.",
+    "emptyFilter": "Nenhum projeto encontrado. Tente outra palavra ou limpe os filtros.",
+    "about": "Lorem ipsum",
+    "links": "Links do projeto",
+    "skillsLabel": "Ferramentas e habilidades",
+    "skillFilter": "Ver projetos com",
+    "categories": {
+      "software": "Engenharia de software",
+      "art": "Arte digital",
+      "security": "Cibersegurança",
+      "hardware": "Engenharia de hardware",
+      "pedagogy": "Pedagogia",
+      "design": "Design",
+      "games": "Desenvolvimento de jogos",
+      "video": "Vídeo e conteúdo",
+      "stories": "Escrita"
+    },
+    "recent": "Projetos recentes",
+    "allProjects": "Ver todos os projetos",
+    "categoryLabel": "Tipo",
+    "allCategories": "Todos os tipos",
+    "explore": "Explorar",
+    "carouselPrevious": "Projeto anterior",
+    "carouselNext": "Próximo projeto",
+    "slideLabel": "{current} de {total}",
+    "carouselGoTo": "Ir para o projeto {n}"
+  },
+  "posts": {
+    "contents": "Neste post",
+    "title": "Posts",
+    "metaDescription": "Notas, artigos e ensaios de John Subtil sobre seus projetos e as ideias por trás deles.",
+    "recent": "Posts recentes",
+    "allPosts": "Ver todos os posts",
+    "searchLabel": "Pesquisar posts",
+    "searchPlaceholder": "Título, projeto ou palavra-chave",
+    "empty": "Nenhum post por enquanto.",
+    "emptyFilter": "Nenhum post encontrado. Tente outra palavra ou limpe os filtros.",
+    "statusOne": "post encontrado.",
+    "statusMany": "posts encontrados.",
+    "unavailable": "Tradução indisponível",
+    "unavailableDescription": "Este post está disponível apenas em inglês.",
+    "readOriginal": "Ler original em inglês",
+    "originalLanguage": "Inglês",
+    "projectLabel": "Projeto",
+    "allProjects": "Todos os projetos",
+    "previous": "Publicação anterior",
+    "next": "Próxima publicação",
+    "navigation": "Mais publicações",
+    "published": "Publicado em"
+  },
+  "footer": {
+    "rights": "Todos os direitos reservados.",
+    "socials": "Redes sociais",
+    "email": "E-mail",
+    "socialsAndContact": "Redes sociais e contato"
+  },
+  "search": {
+    "title": "Pesquisa",
+    "metaDescription": "Pesquise os projetos e posts de John Subtil.",
+    "label": "Pesquisar no site",
+    "close": "Fechar pesquisa",
+    "placeholder": "Projetos, posts ou skills",
+    "submit": "Pesquisar",
+    "suggestions": "Sugestões de pesquisa",
+    "hint": "Digite algo para ver sugestões.",
+    "results": "Resultados da pesquisa",
+    "seeAll": "Ver todos os resultados",
+    "loading": "Carregando resultados…",
+    "empty": "Nenhum resultado encontrado. Tente outras palavras.",
+    "error": "Não foi possível carregar os resultados. Recarregue a página para tentar novamente.",
+    "project": "Projeto",
+    "post": "Post",
+    "resultOne": "resultado encontrado.",
+    "resultMany": "resultados encontrados.",
+    "noScript": "Você ainda pode navegar pelas páginas de projetos e posts."
+  },
+  "notFound": {
+    "title": "Página não encontrada",
+    "home": "Voltar ao início"
+  },
+  "ranks": {
+    "rank": "Rank",
+    "guide": "Como funcionam os ranks",
+    "titles": {
+      "E": "Novato",
+      "D": "Iniciante avançado",
+      "C": "Competente",
+      "B": "Proficiente",
+      "A": "Especialista",
+      "S": "Mestre"
+    }
+  },
+  "about": {
+    "title": "Sobre",
+    "metaDescription": "John Subtil escreve histórias e também cria software. Conheça o autor e como o trabalho acontece.",
+    "statement": "Lorem ipsum <strong>dolor sit amet</strong>, consectetur adipiscing elit. Sed do <strong>eiusmod tempor</strong> incididunt ut labore et <strong>dolore magna</strong> aliqua.",
+    "story": [
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
+      "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.",
+      "Sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium."
+    ],
+    "portraitAlt": "Retrato de John Subtil",
+    "reachLabel": "Fale comigo"
+  },
+  "home": {
+    "heroLineOne": "Lorem ipsum",
+    "heroLineTwo": "dolor sit amet",
+    "heroDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    "heroPrimary": "Ver projetos",
+    "heroSecondary": "Acompanhar nas redes",
+    "introductionLabel": "Sobre",
+    "introduction": "Sou o John, alguém curioso: levo <strong>o que aprendo</strong> em uma área para <strong>o que construo</strong> em outra. Este site é meu <strong>caderno aberto</strong>, onde compartilho projetos, experimentos e descobertas enquanto ganham forma.",
+    "disciplinesLabel": "O que eu faço",
+    "disciplines": {
+      "software": "Construo sistemas do banco à interface: APIs seguras e testadas, consultas afinadas e deploy.",
+      "hardware": "Monto e programo circuitos e microcontroladores, da bancada de testes à placa que roda sozinha.",
+      "pedagogy": "Desenho trilhas de estudo: conceitos difíceis em passos curtos, com exercícios e retorno.",
+      "design": "Desenho interfaces e identidades visuais: tipografia, cor e ritmo a serviço de uma ideia clara.",
+      "games": "Prototipo jogos pequenos: regras, ritmo e sensação de controle antes de qualquer arte.",
+      "art": "Desenho e pinto digitalmente: estudos de luz, forma e cor, de esboços a ilustrações acabadas.",
+      "security": "Estudo como sistemas quebram: modelagem de ameaças, revisão de código e laboratórios práticos.",
+      "video": "Produzo vídeos para redes sociais: roteiro, edição e publicação a partir das histórias que escrevo.",
+      "stories": "Escrevo histórias e mundos: personagens, enredos e pequenas regras de um universo vivo."
+    },
+    "readMore": "Mais sobre mim"
+  }
+}

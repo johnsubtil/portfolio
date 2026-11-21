@@ -1,0 +1,416 @@
+.inner-page.catalog-page {
+  padding-top: 28px;
+}
+
+.catalog-page .back-link {
+  margin-bottom: 24px;
+}
+
+.catalog-page .page-heading {
+  margin-bottom: 28px;
+}
+
+.catalog-page h1 {
+  margin: 0;
+  font-size: clamp(2.8rem, 5vw, 4rem);
+}
+
+.catalog-controls {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) auto;
+  align-items: end;
+  gap: 18px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--line);
+}
+
+@media (min-width: 901px) {
+  .catalog-controls[data-facets='0'] { grid-template-columns: minmax(0, 1fr) auto; }
+  .catalog-controls[data-facets='2'] { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, 1fr) auto; }
+}
+
+.catalog-controls label {
+  display: grid;
+  min-width: 0;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.catalog-controls input,
+.catalog-controls select,
+.catalog-controls button {
+  width: 100%;
+  min-width: 0;
+  min-height: 44px;
+  padding: 10px 14px;
+  border: 1px solid var(--control-line);
+  border-radius: var(--radius-control);
+  color: var(--text);
+  background: var(--background);
+}
+
+.catalog-controls input::placeholder {
+  color: var(--muted);
+  opacity: 1;
+}
+
+.catalog-controls input:hover,
+.catalog-controls select:hover {
+  border-color: var(--accent);
+}
+
+.catalog-controls option {
+  color: var(--text);
+  background: var(--background);
+}
+
+.catalog-controls button {
+  width: auto;
+  padding-inline: 24px;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.catalog-controls button:hover {
+  color: var(--accent-ink);
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.catalog-status {
+  margin: 20px 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.catalog-empty {
+  padding-block: 24px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.catalog-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(32px, 4vw, 56px) clamp(20px, 3vw, 44px);
+}
+
+.project-list.project-list-page .catalog-cover .cover-image {
+  aspect-ratio: 16 / 10;
+}
+
+.catalog-card {
+  min-width: 0;
+}
+
+.catalog-card > a {
+  display: block;
+  height: 100%;
+}
+
+.catalog-card > a:focus-visible {
+  outline-offset: 6px;
+}
+
+.catalog-cover {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-card);
+}
+
+.catalog-cover .cover-image {
+  border-radius: 0;
+  transition: transform 500ms cubic-bezier(.2, .65, .3, 1);
+}
+
+.catalog-card > a:hover .cover-image {
+  transform: scale(1.03);
+}
+
+.catalog-card > a:is(:hover, :focus-visible) {
+  color: var(--text);
+}
+
+.project-list .catalog-cover {
+  border: 1px solid var(--line);
+  transition: border-color var(--ease);
+}
+
+.project-list .catalog-cover .cover-image {
+  aspect-ratio: 10 / 11;
+}
+
+.project-list .catalog-cover .cover-image[data-placeholder] {
+  background:
+    radial-gradient(90% 60% at 80% 0%, color-mix(in srgb, var(--accent) 30%, var(--surface)), transparent 75%),
+    linear-gradient(160deg, var(--surface-elevated), var(--surface));
+}
+
+.project-list .catalog-card > a:is(:hover, :focus-visible) .catalog-cover {
+  border-color: var(--border-hover);
+}
+
+.project-list .catalog-cover .cover-image[data-skeleton] {
+  background: var(--surface-elevated);
+}
+
+.project-list .catalog-skeleton .catalog-cover::after {
+  display: none;
+}
+
+.skeleton-bar {
+  display: block;
+  width: 44%;
+  height: 0.7rem;
+  border-radius: var(--radius-pill);
+  background: var(--surface-elevated);
+}
+
+.project-list .catalog-cover::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0;
+  height: 55%;
+  background: linear-gradient(to top, color-mix(in srgb, var(--hero-ink) 82%, transparent), transparent);
+  pointer-events: none;
+}
+
+.poster-title {
+  position: absolute;
+  inset: auto 0 0;
+  z-index: 1;
+  color: var(--on-hero);
+  padding: 24px 20px;
+  font-size: clamp(1.4rem, 2.4vw, 2rem);
+  font-weight: var(--heading-weight);
+  line-height: 1.1;
+  letter-spacing: var(--heading-tracking);
+  text-align: center;
+  text-wrap: balance;
+}
+
+.catalog-caption {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  margin: 16px 0 0;
+  color: var(--accent);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.post-list .catalog-cover .cover-image {
+  aspect-ratio: 16 / 10;
+}
+
+.catalog-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 12px;
+  margin-top: 22px;
+  color: var(--muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.catalog-format {
+  color: var(--accent);
+}
+
+.catalog-sep {
+  color: var(--muted);
+}
+
+.catalog-context {
+  color: var(--accent);
+}
+
+.catalog-meta time {
+  margin-left: auto;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.catalog-title {
+  margin: 12px 0 0;
+  font-size: clamp(1.3rem, 2vw, 1.6rem);
+  font-weight: var(--heading-weight);
+  line-height: 1.15;
+  letter-spacing: var(--heading-tracking);
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+}
+
+.catalog-card > a:is(:hover, :focus-visible) .poster-title {
+  color: var(--accent);
+}
+
+.catalog-card > a:is(:hover, :focus-visible) .catalog-title {
+  color: var(--accent);
+}
+
+.catalog-description {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+.post-list-horizontal .catalog-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px 44px;
+}
+
+.post-list-horizontal .catalog-card > a {
+  display: grid;
+  grid-template-columns: minmax(0, 9rem) minmax(0, 1fr);
+  align-items: center;
+  gap: 20px;
+}
+
+.post-list-horizontal .catalog-meta {
+  margin-top: 0;
+}
+
+.post-list-horizontal .catalog-meta time {
+  flex-basis: 100%;
+  margin-left: 0;
+}
+
+.post-list-horizontal .catalog-title {
+  margin-top: 8px;
+  font-size: 1.1rem;
+  line-height: 1.25;
+}
+
+.post-list-horizontal .catalog-description {
+  display: none;
+}
+
+.catalog-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 48px;
+}
+
+.catalog-pagination a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 10px 18px;
+  border: 1px solid var(--control-line);
+  border-radius: var(--radius-pill);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.catalog-pagination a:hover {
+  color: var(--accent-ink);
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.catalog-pagination a[data-direction] {
+  gap: 10px;
+}
+
+.catalog-pagination a[data-direction='next']::before,
+.catalog-pagination a[data-direction='previous']::after {
+  display: none;
+}
+
+.catalog-pagination a[aria-current='page'] {
+  color: var(--on-accent);
+  background: var(--text);
+  border-color: var(--text);
+}
+
+.catalog-page-summary {
+  flex-basis: 100%;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.8rem;
+  line-height: 1.7;
+}
+
+@media (max-width: 900px) {
+  .catalog-controls {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .catalog-query {
+    grid-column: 1 / -1;
+  }
+
+  .catalog-controls[data-facets='0'] .catalog-query {
+    grid-column: auto;
+  }
+
+  .catalog-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .catalog-controls,
+  .catalog-controls[data-facets='0'] {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .catalog-controls[data-facets='0'] .catalog-query,
+  .catalog-controls button {
+    grid-column: 1 / -1;
+  }
+
+  .catalog-controls input,
+  .catalog-controls select {
+    font-size: 1rem;
+  }
+
+  .post-filters label {
+    grid-column: 1 / -1;
+  }
+
+  .catalog-controls button {
+    width: 100%;
+    justify-self: stretch;
+  }
+
+  .catalog-grid,
+  .post-list-horizontal .catalog-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .catalog-pagination {
+    gap: 6px;
+  }
+
+  .catalog-pagination a {
+    padding-inline: 10px;
+  }
+
+  .catalog-pagination a[data-direction] {
+    font-size: 0;
+  }
+
+}

@@ -1,0 +1,100 @@
+---
+import '../styles/global.css';
+import SiteHeader from '../components/layout/SiteHeader.astro';
+import SiteFooter from '../components/layout/SiteFooter.astro';
+import AmbientBackground from '../components/layout/AmbientBackground.astro';
+import ScrollProgress from '../components/motion/ScrollProgress';
+import { site } from '../config/site';
+import {
+  defaultLocale,
+  getLocale,
+  localeSettings,
+  localizedUrl,
+  supportedLocales,
+  unlocalizedPath,
+  type Locale,
+} from '../i18n/locales';
+import { getUI } from '../i18n/ui';
+
+interface Props {
+  title?: string;
+  description?: string;
+  noindex?: boolean;
+  availableLocales?: readonly Locale[];
+  image?: string;
+  ambient?: boolean;
+}
+
+const locale = getLocale(Astro.url);
+const text = getUI(locale);
+const defaultImage = '/og-image.png';
+const {
+  title = text.metadata.title,
+  description = text.metadata.description,
+  noindex = false,
+  availableLocales = supportedLocales,
+  image = defaultImage,
+  ambient = true,
+} = Astro.props;
+const absolute = (path: string) => new URL(path, Astro.site).href;
+const canonicalUrl = absolute(Astro.url.pathname);
+const barePath = unlocalizedPath(Astro.url.pathname);
+const alternates = availableLocales.length > 1
+  ? availableLocales.map((alternate) => ({
+    locale: alternate,
+    href: absolute(localizedUrl(alternate, barePath)),
+  }))
+  : [];
+const otherLocales = alternates.filter(({ locale: alternate }) => alternate !== locale);
+const defaultAlternate = alternates.find(({ locale: alternate }) => alternate === defaultLocale);
+---
+
+<!doctype html>
+<html lang={localeSettings[locale].language}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content={site.themeColor} />
+    <link rel="canonical" href={canonicalUrl} />
+    {alternates.map(({ locale: alternate, href }) => (
+      <link rel="alternate" hreflang={localeSettings[alternate].language} href={href} />
+    ))}
+    {defaultAlternate && <link rel="alternate" hreflang="x-default" href={defaultAlternate.href} />}
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/icons/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/images/site/apple-touch-icon.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:locale" content={localeSettings[locale].openGraph} />
+    {otherLocales.map(({ locale: alternate }) => (
+      <meta property="og:locale:alternate" content={localeSettings[alternate].openGraph} />
+    ))}
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={absolute(image)} />
+    {image === defaultImage && (
+      <>
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+      </>
+    )}
+    <meta property="og:image:alt" content={site.name} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <title>{title}</title>
+    <slot name="head" />
+  </head>
+  <body>
+    {ambient && <AmbientBackground />}
+    <a class="skip-link" href="#content">
+      {text.common.skip}
+    </a>
+    <SiteHeader />
+    <slot />
+    <SiteFooter />
+    <ScrollProgress client:load />
+  </body>
+</html>

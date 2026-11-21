@@ -1,0 +1,181 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Breadcrumbs from '../components/layout/Breadcrumbs.astro';
+import { site } from '../config/site';
+import { getLocale, localizedUrl, type Locale } from '../i18n/locales';
+import { getUI } from '../i18n/ui';
+import '../styles/prose.css';
+
+interface Props {
+  class?: string;
+  heading: string;
+  description?: string;
+  metaDescription?: string;
+  noindex?: boolean;
+  availableLocales?: readonly Locale[];
+  breadcrumbs?: { label: string; href?: string }[];
+  ambient?: boolean;
+}
+
+const locale = getLocale(Astro.url);
+const text = getUI(locale);
+const {
+  heading,
+  description,
+  metaDescription,
+  noindex = false,
+  availableLocales,
+  breadcrumbs,
+  ambient = true,
+} = Astro.props;
+---
+
+<BaseLayout title={`${heading} - ${site.name}`} description={metaDescription ?? description} noindex={noindex} availableLocales={availableLocales} ambient={ambient}>
+  <slot name="head" slot="head" />
+  <main id="content" class:list={['inner-page', 'wrap', Astro.props.class]} tabindex="-1">
+    {breadcrumbs ? (
+      <Breadcrumbs items={breadcrumbs} />
+    ) : (
+      <a class="text-link back-link" href={localizedUrl(locale)}>
+        <span class="arrow-icon arrow-back" aria-hidden="true"></span> {text.common.home}
+      </a>
+    )}
+
+    <div class="page-content">
+      <slot name="sidebar" />
+      <div class="page-main">
+        <slot name="heading">
+          <header class="page-heading">
+            <h1>{heading}</h1>
+            {description && <p class="page-description">{description}</p>}
+          </header>
+        </slot>
+
+        <slot />
+      </div>
+    </div>
+  </main>
+</BaseLayout>
+
+<script>
+  import { initializeProseTables } from '../scripts/article/tables';
+
+  initializeProseTables();
+</script>
+
+<style>
+  .inner-page {
+    padding-top: 45px;
+    padding-bottom: var(--space-section);
+    min-height: 65vh;
+  }
+
+  .page-main {
+    min-width: 0;
+  }
+
+  .article-page {
+    max-width: var(--reading-width);
+    --article-reading-width: var(--reading-width);
+    --article-sidebar-width: 224px;
+    --article-column-gap: 64px;
+  }
+
+  .project-page {
+    --contents-top-offset: 0px;
+  }
+
+  .article-page .page-content {
+    max-width: var(--article-reading-width);
+    margin-inline: auto;
+  }
+
+  .article-with-contents .page-content {
+    display: grid;
+    grid-template-columns: var(--article-sidebar-width) minmax(0, 1fr);
+    max-width: none;
+    align-items: start;
+    column-gap: var(--article-column-gap);
+  }
+
+  .article-with-contents .page-main {
+    grid-column: 2;
+  }
+
+  @media (min-width: 1488px) {
+    .article-with-contents {
+      max-width: calc(var(--article-sidebar-width) + var(--article-column-gap) + var(--article-reading-width));
+      width: calc(100% - 2 * var(--page-gutter));
+      position: relative;
+      inset-inline-start: calc((var(--article-sidebar-width) + var(--article-column-gap)) / -2);
+    }
+  }
+
+  @media (width < 1488px) {
+    .article-with-contents .page-content {
+      display: block;
+      max-width: var(--article-reading-width);
+      margin-inline: auto;
+    }
+  }
+
+  .back-link {
+    margin-bottom: 55px;
+    color: var(--muted);
+  }
+
+  .page-heading {
+    margin-bottom: 55px;
+  }
+
+  .inner-page.post-page .page-description {
+    max-width: none;
+    text-align: left;
+    hyphens: auto;
+  }
+
+  .inner-page.post-page .page-heading {
+    max-width: var(--article-reading-width);
+    text-align: left;
+    padding-bottom: 28px;
+    margin-bottom: 36px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .inner-page.post-page h1 {
+    font-size: clamp(2.4rem, 4.2vw, 4.5rem);
+    line-height: 1.1;
+    letter-spacing: var(--heading-tracking);
+  }
+
+  h1 {
+    margin: 22px 0 28px;
+    font-size: clamp(2.8rem, 6.2vw, 5.6rem);
+    line-height: 1.02;
+    letter-spacing: var(--heading-tracking);
+    font-weight: var(--heading-weight);
+    overflow-wrap: anywhere;
+  }
+
+  .page-description {
+    max-width: 65ch;
+    color: var(--muted);
+    font-size: 1.05rem;
+    line-height: 1.75;
+    margin-bottom: 22px;
+  }
+
+  @media (max-width: 640px) {
+    .inner-page {
+      padding-top: 25px;
+    }
+
+    .back-link {
+      margin-bottom: 35px;
+    }
+
+    .page-heading {
+      margin-bottom: 32px;
+    }
+  }
+</style>
