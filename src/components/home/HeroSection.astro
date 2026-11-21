@@ -1,0 +1,26 @@
+---
+import HeroScene from '../motion/HeroScene';
+import FeaturedHero from './FeaturedHero.astro';
+import { homeFeaturedLimit } from '../../config/content';
+import { getLocale, localizedUrl } from '../../i18n/locales';
+import { getProjects } from '../../lib/content/queries';
+import { getUI } from '../../i18n/ui';
+
+const locale = getLocale(Astro.url);
+const text = getUI(locale);
+const featured = (await getProjects(locale))
+  .filter((project) => project.data.featured)
+  .slice(0, homeFeaturedLimit);
+---
+
+{featured.length > 0 ? (
+  <FeaturedHero projects={featured} />
+) : (
+  <HeroScene client:load copy={{
+    lineOne: text.home.heroLineOne,
+    lineTwo: text.home.heroLineTwo,
+    description: text.home.heroDescription,
+    primary: { label: text.home.heroPrimary, href: localizedUrl(locale, '/projects/') },
+    secondary: { label: text.home.heroSecondary, href: '#social' },
+  }} />
+)}

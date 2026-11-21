@@ -1,0 +1,196 @@
+---
+import { homeCategories } from '../../config/content';
+import { ranks, nicheRanks, rankGuidePost } from '../../config/ranks';
+import '../../styles/rank-emblem.css';
+import { getLocale, localizedUrl } from '../../i18n/locales';
+import { getUI } from '../../i18n/ui';
+import { getPosts } from '../../lib/content/queries';
+import { contentSlug } from '../../lib/content/identity';
+
+const locale = getLocale(Astro.url);
+const text = getUI(locale);
+const projectsUrl = localizedUrl(locale, '/projects/');
+const hasGuide = rankGuidePost ? (await getPosts(locale)).some((post) => contentSlug(post.id) === rankGuidePost) : false;
+const guideUrl = hasGuide ? localizedUrl(locale, `/posts/${rankGuidePost}/`) : undefined;
+
+const niches = homeCategories.map((category) => ({
+  rank: nicheRanks[category]?.rank,
+  name: text.projects.categories[category],
+  description: text.home.disciplines[category],
+  href: `${projectsUrl}?${new URLSearchParams({ category })}`,
+}));
+
+---
+
+{niches.length > 0 && (
+  <div class="disciplines">
+    <div class="label">
+      <h3 class="eyebrow">{text.home.disciplinesLabel}</h3>
+      {guideUrl && (
+        <a class="guide-link" href={guideUrl} title={text.ranks.guide}>
+          <span aria-hidden="true">?</span>
+          <span class="visually-hidden">{text.ranks.guide}</span>
+        </a>
+      )}    </div>
+    <ul class="niches">
+      {niches.map((niche) => (
+        <li>
+          <a href={niche.href}>
+            {niche.rank && (
+              <span class="rank-box">
+                <span class="rank" data-rank={niche.rank} aria-hidden="true"><i><span>{niche.rank}</span></i><b></b></span>
+              </span>
+            )}
+            <span class="niche-head">
+              <span class="discipline-name">{niche.name}</span>
+              {niche.rank && <span class="visually-hidden">{text.ranks.rank} {niche.rank}: {text.ranks.titles[niche.rank]}</span>}
+            </span>
+            <span class="discipline-description">{niche.description}</span>
+          </a>
+          {niche.rank && (
+            <div class="rank-tip">
+              <span class="tip-ladder" aria-hidden="true">
+                {ranks.map((rank) => (
+                  <span class="rank" data-rank={rank} data-current={rank === niche.rank ? '' : undefined}><i><span>{rank}</span></i><b></b></span>
+                ))}
+              </span>
+              <strong aria-hidden="true">{text.ranks.titles[niche.rank]}</strong>
+            </div>
+          )}
+        </li>
+      ))}
+    </ul>
+  </div>
+)}
+
+<style>
+  .disciplines {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 3fr);
+    grid-template-areas: 'label niches';
+    gap: 24px 48px;
+    margin-top: clamp(24px, 3vw, 44px);
+    padding-top: 24px;
+    border-top: 1px solid var(--divider);
+  }
+  .disciplines .label { grid-area: label; align-self: start; display: flex; align-items: center; gap: 10px; margin: 1px 0 0; }
+  .disciplines .label .eyebrow { margin: 0; }
+  .niches { grid-area: niches; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; margin: 0; padding: 0; list-style: none; }
+  .niches li { position: relative; transition: opacity var(--ease); }
+
+  .niches a { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: 12px; align-items: center; }
+  .niches .rank { --s: 22px; }
+  .niche-head { grid-column: 1 / -1; min-width: 0; }
+  .rank-box + .niche-head { grid-column: 2; }
+  .discipline-name { display: block; font-size: 1.05rem; font-weight: 700; line-height: 1.3; letter-spacing: -0.02em; text-wrap: balance; }
+  .discipline-description { grid-column: 1 / -1; display: block; margin-top: 10px; color: var(--muted); font-size: 0.92rem; line-height: 1.6; }
+  .niches a:focus-visible { color: var(--text); }
+  .niches a:focus-visible .discipline-name { color: var(--accent); }
+
+  .rank-box { position: relative; display: inline-grid; cursor: help; }
+  .rank-tip {
+    position: absolute;
+    top: 30px;
+    left: 0;
+    z-index: 5;
+    display: grid;
+    justify-items: start;
+    gap: 6px;
+    padding: 9px 11px 10px;
+    white-space: nowrap;
+    color: var(--text);
+    background: var(--surface-elevated);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-control);
+    font: 600 0.78rem / 1.3 var(--sans);
+    opacity: 0;
+    transform: translateY(-4px);
+    pointer-events: none;
+    transition: opacity 160ms ease, transform 160ms ease;
+  }
+  .niches li:has(a:focus-visible) .rank-tip,
+  .niches li[data-open] .rank-tip { opacity: 1; transform: none; }
+  .niches li:has(a:focus-visible),
+  .niches li[data-open] { z-index: 2; }
+  .tip-ladder { display: flex; gap: 6px; padding-bottom: 2px; }
+  .rank-tip .rank { --s: 24px; }
+  .tip-ladder .rank:not([data-current]) { opacity: 0.26; filter: grayscale(1); }
+
+  .guide-link {
+    display: inline-grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    border: 1px solid var(--accent);
+    border-radius: var(--radius-pill);
+    color: var(--accent);
+    font-size: 0.72rem;
+    font-weight: 700;
+    line-height: 1;
+    transition: color var(--ease), background var(--ease);
+  }
+  .guide-link:is(:hover, :focus-visible) { color: var(--on-accent); background: var(--accent); }
+  @media (pointer: coarse) {
+    .guide-link { position: relative; }
+    .guide-link::before { content: ''; position: absolute; inset: -12px; }
+  }
+
+  .niches li::after { content: ''; position: absolute; top: -12px; left: 0; right: 0; height: 1px; background: var(--accent); transform: scaleX(0); transform-origin: 0 50%; transition: transform 320ms ease; pointer-events: none; }
+  .niches li:has(a:focus-visible)::after { transform: scaleX(1); }
+  @media (hover: hover) and (pointer: fine) {
+    .niches a:hover { color: var(--text); }
+    .niches a:hover .discipline-name { color: var(--accent); }
+    .niches li:has(.rank-box:hover) { z-index: 2; }
+    .niches li:has(.rank-box:hover) .rank-tip { opacity: 1; transform: none; }
+    .niches li:has(a:hover)::after { transform: scaleX(1); }
+    .niches:has(a:is(:hover, :focus-visible)) li:not(:has(a:is(:hover, :focus-visible))) { opacity: 0.6; }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .niches:not(:has(a:focus-visible, li[data-open])) .rank-box > .rank { animation: rank-nudge 8s cubic-bezier(0.3, 1.5, 0.5, 1) 2s infinite; }
+    .niches:not(:has(a:focus-visible, li[data-open])) .rank-box > .rank b { animation: rank-nudge-sweep 8s ease-out 2s infinite; }
+    @media (hover: hover) and (pointer: fine) {
+      .niches:has(a:hover) .rank-box > .rank,
+      .niches:has(a:hover) .rank-box > .rank b { animation: none; }
+    }
+
+    /* After the rules above so they win. */
+    :is(.niches a:focus-visible, .niches li[data-open] a) .rank-box > .rank { animation: rank-pop 420ms cubic-bezier(0.3, 1.5, 0.5, 1) 1; }
+    :is(.niches a:focus-visible, .niches li[data-open] a) .rank-box > .rank b { animation: rank-sweep 800ms ease-out 1 both; }
+    :is(.niches a:focus-visible, .niches li[data-open] a) .rank-box > .rank:is([data-rank='B'], [data-rank='A'], [data-rank='S'])::after { animation: rank-twinkle 700ms ease-out 1; }
+    @media (hover: hover) and (pointer: fine) {
+      .niches a:hover .rank-box > .rank { animation: rank-pop 420ms cubic-bezier(0.3, 1.5, 0.5, 1) 1; }
+      .niches a:hover .rank-box > .rank b { animation: rank-sweep 800ms ease-out 1 both; }
+      .niches a:hover .rank-box > .rank:is([data-rank='B'], [data-rank='A'], [data-rank='S'])::after { animation: rank-twinkle 700ms ease-out 1; }
+    }
+  }
+
+  @media (max-width: 1200px) { .niches { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 640px) {
+    .disciplines { grid-template-columns: minmax(0, 1fr); grid-template-areas: 'label' 'niches'; }
+    .niches { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  }
+</style>
+
+<script>
+  const touch = window.matchMedia('(hover: none), (pointer: coarse)');
+  const items = document.querySelectorAll<HTMLElement>('.niches li');
+  const closeAll = () => items.forEach((item) => item.removeAttribute('data-open'));
+
+  document.addEventListener('click', (event) => {
+    const box = (event.target as Element).closest('.rank-box');
+    if (!box || !touch.matches) return;
+    event.preventDefault();
+    const item = box.closest('li');
+    const wasOpen = item?.hasAttribute('data-open');
+    closeAll();
+    if (item && !wasOpen) item.setAttribute('data-open', '');
+  });
+  document.addEventListener('pointerdown', (event) => {
+    if (!(event.target as Element).closest('.rank-box')) closeAll();
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') closeAll();
+  });
+</script>

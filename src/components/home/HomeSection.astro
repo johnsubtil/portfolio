@@ -1,0 +1,23 @@
+---
+interface Props {
+  id: string;
+  title: string;
+  href?: string;
+  linkLabel?: string;
+}
+const { id, title, href, linkLabel } = Astro.props;
+---
+<section class="home-section wrap" aria-labelledby={id}>
+  <div class="home-section-heading">
+    <h2 id={id}>{title}</h2>
+    {href && linkLabel && <a class="text-link" href={href}>{linkLabel}</a>}
+  </div>
+  <slot />
+</section>
+<style>
+  .home-section { margin-block: var(--space-home); padding-top: 32px; border-top: 1px solid var(--divider); }
+  :global(.hero) + .home-section { margin-top: 0; border-top: 0; }
+  .home-section-heading { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 16px 24px; margin-bottom: 24px; }
+  h2 { margin: 0; font-size: clamp(1.5rem, 3vw, 2rem); letter-spacing: var(--heading-tracking); }
+  @media (max-width: 640px) { .home-section { margin-block: 48px; padding-top: 24px; } }
+</style>

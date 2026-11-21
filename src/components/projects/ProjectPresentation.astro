@@ -1,0 +1,200 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import CoverImage from '../media/CoverImage.astro';
+import ProjectStatusBadge from './ProjectStatusBadge.astro';
+import { showProjectCategory } from '../../config/content';
+import { formatContentDate } from '../../lib/content/dates';
+import { getLocale, localizedUrl } from '../../i18n/locales';
+import { getUI } from '../../i18n/ui';
+import Icon from '../ui/Icon.astro';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+}
+
+const { project } = Astro.props;
+const { title, description, subtitle, status, category, updated, presentationImage, cover, links, skills } = project.data;
+const locale = getLocale(Astro.url);
+const text = getUI(locale);
+const projectsUrl = localizedUrl(locale, '/projects/');
+const skillHref = (skill: string) => `${projectsUrl}?${new URLSearchParams({ q: skill })}`;
+const projectLinks = ([
+  { href: links.website, label: 'Website', icon: 'globe' },
+  { href: links.github, label: 'GitHub', icon: 'github' },
+  { href: links.behance, label: 'Behance', icon: 'behance' },
+  { href: links.instagram, label: 'Instagram', icon: 'instagram' },
+  { href: links.tiktok, label: 'TikTok', icon: 'tiktok' },
+  { href: links.youtube, label: 'YouTube', icon: 'youtube' },
+] as const).filter((link) => link.href);
+---
+
+<section class="project-presentation" aria-labelledby="project-title">
+  <header class="project-introduction">
+    <h1 id="project-title">{title}</h1>
+    {subtitle && <p class="project-subtitle">{subtitle}</p>}
+    <p class="project-description">{description}</p>
+  </header>
+  <div class="project-details">
+    <div class="project-meta">
+      {showProjectCategory && <><span class="project-category">{text.projects.categories[category]}</span><span class="project-sep" aria-hidden="true">•</span></>}
+      <ProjectStatusBadge status={status} />
+      <time datetime={updated.toISOString()}>{text.common.updated} {formatContentDate(updated, locale)}</time>
+    </div>
+    {projectLinks.length > 0 && (
+      <nav class="project-links" aria-label={text.projects.links}>
+        {projectLinks.map(({ href, label, icon }) => (
+          <a href={href} aria-label={`${label} · ${title}`} title={label}>
+            <Icon name={icon} />
+          </a>
+        ))}
+      </nav>
+    )}
+  </div>
+  <figure class="project-media">
+    <CoverImage cover={presentationImage ?? cover} loading="eager" />
+    {presentationImage?.caption && <figcaption>{presentationImage.caption}</figcaption>}
+  </figure>
+  <div class="project-content">
+    <article class="prose project-body" aria-label={`${text.projects.about} ${title}`}>
+      <slot />
+    </article>
+  </div>
+  {skills.length > 0 && (
+    <section class="project-skills" aria-labelledby="project-skills-title">
+      <h2 id="project-skills-title" class="eyebrow">{text.projects.skillsLabel}</h2>
+      <ul class="skill-list">
+        {skills.map((skill) => <li><a href={skillHref(skill)} title={`${text.projects.skillFilter} ${skill}`}>{skill}</a></li>)}
+      </ul>
+    </section>
+  )}
+</section>
+
+<style>
+  .project-presentation {
+    max-width: var(--content-width);
+    margin-inline: auto;
+  }
+  .project-introduction,
+  .project-media,
+  .project-body {
+    min-width: 0;
+  }
+  .project-details {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px 32px;
+    margin-top: 24px;
+  }
+  .project-skills { margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--line); }
+  .project-skills h2 { margin: 0 0 8px; }
+  .skill-list { display: flex; flex-wrap: wrap; gap: 0 18px; margin: 0; padding: 0; list-style: none; }
+  .skill-list a {
+    display: inline-block;
+    color: var(--text);
+    font: 500 0.95rem / 1.9 var(--sans);
+    overflow-wrap: anywhere;
+    transition: color var(--ease);
+  }
+  .skill-list a::before { content: '#' / ''; margin-right: 1px; color: var(--muted); transition: color var(--ease); }
+  .skill-list a:is(:hover, :focus-visible) { color: var(--accent); }
+  .skill-list a:is(:hover, :focus-visible)::before { color: var(--accent); }
+  .skill-list a:focus-visible { outline-offset: 3px; }
+  @media (pointer: coarse) { .skill-list a { padding-block: 9px; } }
+  .project-sep { color: var(--muted); }
+  .project-category {
+    color: var(--accent);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .project-meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px 16px;
+  }
+  time,
+  figcaption {
+    color: var(--muted);
+    font: 0.8rem / 1.7 var(--sans);
+  }
+  h1 {
+    margin: 0 0 18px;
+    font-size: clamp(2.25rem, 4.2vw, 3.75rem);
+    line-height: 1.1;
+    letter-spacing: var(--heading-tracking);
+    overflow-wrap: anywhere;
+  }
+  .project-subtitle {
+    margin: 0 0 12px;
+    font-size: clamp(1.25rem, 1.8vw, 1.6rem);
+    font-weight: 600;
+    line-height: 1.35;
+    letter-spacing: -0.025em;
+    color: var(--accent);
+  }
+  .project-description {
+    margin: 0;
+    color: var(--muted);
+    font-size: 1.1rem;
+    line-height: 1.8;
+    text-align: left;
+    hyphens: auto;
+  }
+  .project-content {
+    margin-top: 40px;
+    padding-top: 32px;
+    border-top: 1px solid var(--line);
+  }
+  .project-body {
+    width: 100%;
+    max-width: none;
+    margin-inline: auto;
+    font-size: 1.1rem;
+    line-height: 1.85;
+  }
+  .project-media {
+    margin: 28px 0 0;
+  }
+  .project-media :global(.cover-image) {
+    height: clamp(260px, 38vw, 440px);
+    aspect-ratio: auto;
+  }
+  figcaption {
+    margin-top: 14px;
+  }
+  .project-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  .project-links a {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-pill);
+    color: var(--text);
+    transition: color var(--ease);
+  }
+  .project-links :global(svg) {
+    width: 20px;
+    height: 20px;
+  }
+  .project-links a:is(:hover, :focus-visible) { color: var(--accent); }
+  @media (pointer: coarse) {
+    .project-links a { width: 44px; height: 44px; }
+  }
+  @media (max-width: 640px) {
+    .project-media :global(.cover-image) {
+      height: auto;
+      aspect-ratio: 8 / 5;
+    }
+    .project-content {
+      margin-top: 28px;
+    }
+  }
+</style>

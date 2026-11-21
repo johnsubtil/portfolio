@@ -1,0 +1,71 @@
+---
+interface Props {
+  cover?: { src: string; alt?: string };
+  loading?: 'lazy' | 'eager';
+  skeleton?: boolean;
+}
+
+const { cover, loading = 'lazy', skeleton = false } = Astro.props;
+---
+
+<div
+  class="cover-image"
+  data-placeholder={skeleton || !cover?.src ? '' : undefined}
+  data-skeleton={skeleton ? '' : undefined}
+  aria-hidden={skeleton || !cover?.src ? 'true' : undefined}
+>
+  {skeleton ? null : cover?.src ? (
+    <img
+      src={cover.src}
+      alt={cover.alt ?? ''}
+      width="800"
+      height="500"
+      loading={loading}
+      decoding="async"
+    />
+  ) : (
+    <svg class="placeholder-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+      <rect x="6" y="9" width="36" height="30" rx="4" />
+      <circle cx="17" cy="20" r="3.5" />
+      <path d="M6 33l10-9 8 7 6-5 12 10" />
+    </svg>
+  )}
+</div>
+
+<style>
+  .cover-image {
+    position: relative;
+    aspect-ratio: 8 / 5;
+    border-radius: var(--radius-image);
+    overflow: hidden;
+    background: var(--surface);
+  }
+
+  img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    color: transparent;
+    font-size: 0;
+  }
+
+  .cover-image[data-placeholder] {
+    display: grid;
+    place-items: center;
+    color: var(--muted);
+    background:
+      linear-gradient(135deg, color-mix(in srgb, var(--surface-elevated) 70%, var(--background)), var(--surface));
+  }
+
+  .cover-image[data-skeleton] {
+    background: var(--surface-elevated);
+  }
+
+  .placeholder-icon {
+    width: clamp(28px, 18%, 56px);
+    height: auto;
+    opacity: 0.5;
+  }
+</style>

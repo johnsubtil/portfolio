@@ -1,0 +1,102 @@
+---
+import { getCollection } from 'astro:content';
+import {
+  defaultLocale,
+  getLocale,
+  languageStorageKey,
+  localeSettings,
+  localizedUrl,
+  supportedLocales,
+  unlocalizedPath,
+} from '../../i18n/locales';
+import { getUI } from '../../i18n/ui';
+
+const locale = getLocale(Astro.url);
+const text = getUI(locale);
+const nextLocale = supportedLocales.find((candidate) => candidate !== locale) ?? defaultLocale;
+const currentPath = unlocalizedPath(Astro.url.pathname);
+const projectSlug = currentPath.match(/^\/projects\/([^/]+)\/?$/)?.[1];
+const projectTranslationMissing = projectSlug && !(await getCollection('projects'))
+  .some((project) => project.id === `${nextLocale}/${projectSlug}`);
+const destinationPath = projectTranslationMissing ? '/projects/' : currentPath;
+const href = localizedUrl(nextLocale, destinationPath);
+---
+
+<div class="language-switcher">
+  <button
+    type="button"
+    aria-label={`${localeSettings[locale].short}: ${text.header.switchLanguage}`}
+    title={text.header.switchLanguage}
+    data-language-toggle
+    data-language={nextLocale}
+    data-href={href}
+    data-storage-key={languageStorageKey}
+    hidden
+  >
+    {localeSettings[locale].short}
+  </button>
+  <noscript>
+    <a
+      href={href}
+      lang={localeSettings[nextLocale].language}
+      hreflang={localeSettings[nextLocale].language}
+      aria-label={text.header.switchLanguage}
+    >
+      {localeSettings[nextLocale].short}
+    </a>
+  </noscript>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('[data-language-toggle]').forEach((button) => {
+    button.hidden = false;
+    button.addEventListener('click', () => {
+      const href = button.dataset.href;
+      const language = button.dataset.language;
+      const key = button.dataset.storageKey;
+      if (!href || !language || !key) return;
+
+      const destination = new URL(href, window.location.origin);
+      destination.search = window.location.search;
+      destination.hash = window.location.hash;
+      destination.searchParams.delete('lang');
+
+      try {
+        localStorage.setItem(key, language);
+      } catch {}
+
+      window.location.assign(destination.href);
+    });
+  });
+</script>
+
+<style>
+  .language-switcher {
+    width: var(--header-control-size, 44px);
+    height: var(--header-control-size, 44px);
+    flex-shrink: 0;
+  }
+
+  button,
+  a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    padding: 0 10px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-pill);
+    background: transparent;
+    color: var(--text);
+    font: 600 0.72rem var(--sans);
+    cursor: pointer;
+  }
+
+  button:hover,
+  a:hover {
+    color: var(--accent-ink);
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+</style>

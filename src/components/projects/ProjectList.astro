@@ -1,0 +1,127 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import '../../styles/catalog.css';
+import CoverImage from '../media/CoverImage.astro';
+import CatalogPagination from '../catalog/CatalogPagination.astro';
+import { homeCategories, projectCategories, projectStatuses, showProjectCategory } from '../../config/content';
+import { contentSlug } from '../../lib/content/identity';
+import { getLocale, localizedUrl } from '../../i18n/locales';
+import { getUI } from '../../i18n/ui';
+
+interface Props {
+  projects: CollectionEntry<'projects'>[];
+  showFilters?: boolean;
+  headingLevel?: 'h2' | 'h3';
+  skeletonSlots?: number;
+}
+
+const { projects, showFilters = true, headingLevel = 'h2', skeletonSlots = 0 } = Astro.props;
+const Heading = headingLevel;
+const hasStatusChoices = new Set(projects.map((project) => project.data.status)).size > 1;
+const hasCategoryChoices = new Set(projects.map((project) => project.data.category)).size > 1;
+const categoryOptions = projectCategories.filter((category) =>
+  homeCategories.includes(category) || projects.some((project) => project.data.category === category));
+const initialFacets = Number(hasStatusChoices) + Number(hasCategoryChoices);
+const locale = getLocale(Astro.url);
+const text = getUI(locale);
+---
+
+<div class:list={['project-list', { 'project-list-page': showFilters }]} data-project-list>
+  {showFilters && (
+    <form class="project-filters catalog-controls" data-facets={initialFacets} hidden>
+      <label class="catalog-query">
+        <span>{text.projects.searchLabel}</span>
+        <input type="search" name="q" placeholder={text.projects.searchPlaceholder} />
+      </label>
+      <label data-status-filter hidden={!hasStatusChoices}>
+        <span>{text.projects.statusLabel}</span>
+        <select name="status">
+          <option value="all">{text.projects.allStatuses}</option>
+          {projectStatuses.map((status) => (
+            <option value={status}>{text.projects.statuses[status]}</option>
+          ))}
+        </select>
+      </label>
+      <label data-category-filter hidden={!hasCategoryChoices}>
+        <span>{text.projects.categoryLabel}</span>
+        <select name="category">
+          <option value="all">{text.projects.allCategories}</option>
+          {categoryOptions.map((category) => (
+            <option value={category}>{text.projects.categories[category]}</option>
+          ))}
+        </select>
+      </label>
+      <button type="reset">{text.common.clearFilters}</button>
+    </form>
+  )}
+  {showFilters && (
+    <p
+      class="project-status catalog-status"
+      role="status"
+      aria-atomic="true"
+      data-singular={text.projects.statusOne}
+      data-plural={text.projects.statusMany}
+      hidden
+    ></p>
+  )}
+
+  <div class="catalog-grid">
+    {projects.map((project) => {
+      const slug = contentSlug(project.id);
+      const searchText = [
+        project.data.title,
+        project.data.description,
+        text.projects.statuses[project.data.status],
+        text.projects.categories[project.data.category],
+        ...project.data.skills,
+      ].join(' ');
+      return (
+        <article
+          class="catalog-card"
+          data-project-card
+          data-status={project.data.status}
+          data-category={project.data.category}
+          data-search={searchText}
+        >
+          <a href={localizedUrl(locale, `/projects/${slug}/`)}>
+            <Heading class="visually-hidden">{project.data.title}</Heading>
+            <div class="catalog-cover">
+              <CoverImage cover={project.data.cover} />
+              <span class="poster-title" aria-hidden="true">{project.data.title}</span>
+            </div>
+            <p class="catalog-caption">
+              {showProjectCategory && <><span>{text.projects.categories[project.data.category]}</span><span class="catalog-sep" aria-hidden="true">•</span></>}
+              <span>{text.projects.statuses[project.data.status]}</span>
+            </p>
+          </a>
+        </article>
+      );
+    })}
+    {Array.from({ length: skeletonSlots }, () => (
+      <article class="catalog-card catalog-skeleton" aria-hidden="true">
+        <div class="catalog-cover"><CoverImage skeleton /></div>
+        <p class="catalog-caption"><span class="skeleton-bar"></span></p>
+      </article>
+    ))}
+  </div>
+
+  {projects.length === 0 && <p class="catalog-empty">{text.projects.empty}</p>}
+  {showFilters && (
+    <>
+      <p class="catalog-empty" data-project-empty hidden>{text.projects.emptyFilter}</p>
+      <CatalogPagination />
+    </>
+  )}
+</div>
+
+<script>
+  import { initializeCatalogFilters } from '../../scripts/catalog/filters';
+
+  initializeCatalogFilters({
+    kind: 'project',
+    facets: [
+      { name: 'status', hideWhenSingleChoice: true },
+      { name: 'category', hideWhenSingleChoice: true },
+    ],
+  });
+</script>

@@ -1,0 +1,118 @@
+---
+const seeds = Array.from({ length: 24 });
+const leaves = Array.from({ length: 9 });
+---
+
+<div class="ambient" aria-hidden="true">
+  <div class="motes">
+    {seeds.map(() => <b></b>)}
+  </div>
+  <div class="leaves">
+    {leaves.map(() => <i></i>)}
+  </div>
+</div>
+
+<style>
+  .ambient { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+
+  .motes b {
+    position: absolute;
+    top: 0;
+    left: var(--x);
+    width: calc(var(--s) * var(--k, 1));
+    height: calc(var(--s) * var(--k, 1));
+    opacity: 0;
+    animation: seed-fall var(--t) linear var(--d) infinite;
+    will-change: transform, opacity;
+  }
+  .motes b::before {
+    content: '';
+    position: absolute;
+    inset: -360%;
+    border-radius: 50%;
+    background: radial-gradient(circle, color-mix(in srgb, var(--accent) 40%, transparent) 0%, color-mix(in srgb, var(--accent) 15%, transparent) 30%, transparent 68%);
+    animation: seed-aura var(--tw) ease-in-out infinite alternate;
+  }
+  .motes b::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--accent) 30%, var(--text));
+    box-shadow: 0 0 3px color-mix(in srgb, var(--accent) 60%, transparent);
+    animation: seed-twinkle var(--tw) ease-in-out infinite alternate;
+  }
+  .motes b:nth-child(1) { --x: 45.4%; --s: 4px; --t: 55s; --d: -29s; --dx: -29px; --o: 0.86; --tw: 4.1s; }
+  .motes b:nth-child(2) { --x: 60.9%; --s: 2px; --t: 32s; --d: -29s; --dx: 27px; --o: 0.54; --tw: 5.3s; }
+  .motes b:nth-child(3) { --x: 68.6%; --s: 2px; --t: 51s; --d: -29s; --dx: -57px; --o: 0.51; --tw: 4.3s; }
+  .motes b:nth-child(4) { --x: 7.7%; --s: 2px; --t: 41s; --d: -39s; --dx: -67px; --o: 0.71; --tw: 4.0s; }
+  .motes b:nth-child(5) { --x: 82.9%; --s: 4px; --t: 40s; --d: -19s; --dx: 18px; --o: 0.8; --tw: 4.0s; }
+  .motes b:nth-child(6) { --x: 28.7%; --s: 4px; --t: 31s; --d: -23s; --dx: 38px; --o: 0.84; --tw: 4.2s; }
+  .motes b:nth-child(7) { --x: 4.9%; --s: 4px; --t: 32s; --d: -26s; --dx: -36px; --o: 0.67; --tw: 5.8s; }
+  .motes b:nth-child(8) { --x: 83.3%; --s: 2px; --t: 39s; --d: -14s; --dx: -48px; --o: 0.67; --tw: 5.0s; }
+  .motes b:nth-child(9) { --x: 42.3%; --s: 4px; --t: 38s; --d: -18s; --dx: 23px; --o: 0.64; --tw: 2.5s; }
+  .motes b:nth-child(10) { --x: 41.4%; --s: 2px; --t: 34s; --d: -16s; --dx: -18px; --o: 0.53; --tw: 5.3s; }
+  .motes b:nth-child(11) { --x: 19.1%; --s: 4px; --t: 38s; --d: -29s; --dx: -64px; --o: 0.85; --tw: 3.9s; }
+  .motes b:nth-child(12) { --x: 38.8%; --s: 3px; --t: 52s; --d: -14s; --dx: -35px; --o: 0.89; --tw: 5.9s; }
+  .motes b:nth-child(13) { --x: 58.9%; --s: 2px; --t: 39s; --d: -12s; --dx: 56px; --o: 0.79; --tw: 2.8s; }
+  .motes b:nth-child(14) { --x: 97.0%; --s: 2px; --t: 54s; --d: -17s; --dx: -67px; --o: 0.77; --tw: 5.4s; }
+  .motes b:nth-child(15) { --x: 39.1%; --s: 2px; --t: 31s; --d: -7s; --dx: -18px; --o: 0.77; --tw: 3.7s; }
+  .motes b:nth-child(16) { --x: 45.5%; --s: 4px; --t: 56s; --d: -54s; --dx: -42px; --o: 0.58; --tw: 3.0s; }
+  .motes b:nth-child(17) { --x: 89.2%; --s: 4px; --t: 41s; --d: -13s; --dx: -65px; --o: 0.78; --tw: 4.4s; }
+  .motes b:nth-child(18) { --x: 67.9%; --s: 3px; --t: 56s; --d: -39s; --dx: -44px; --o: 0.52; --tw: 2.8s; }
+  .motes b:nth-child(19) { --x: 51.2%; --s: 3px; --t: 41s; --d: -26s; --dx: 44px; --o: 0.87; --tw: 4.5s; }
+  .motes b:nth-child(20) { --x: 30.2%; --s: 2px; --t: 30s; --d: -5s; --dx: -48px; --o: 0.75; --tw: 5.5s; }
+  .motes b:nth-child(21) { --x: 61.0%; --s: 3px; --t: 39s; --d: -14s; --dx: -22px; --o: 0.62; --tw: 4.0s; }
+  .motes b:nth-child(22) { --x: 7.8%; --s: 2px; --t: 44s; --d: -24s; --dx: -23px; --o: 0.66; --tw: 5.6s; }
+  .motes b:nth-child(23) { --x: 96.1%; --s: 4px; --t: 34s; --d: -3s; --dx: -48px; --o: 0.91; --tw: 4.9s; }
+  .motes b:nth-child(24) { --x: 94.4%; --s: 2px; --t: 30s; --d: -16s; --dx: -64px; --o: 0.64; --tw: 2.9s; }
+
+  .leaves i {
+    position: absolute;
+    top: 0;
+    left: var(--x);
+    width: calc(var(--w) * var(--k, 1));
+    height: calc(var(--w) * var(--k, 1) * 1.6);
+    border-radius: 0 100% 0 100%;
+    background: color-mix(in srgb, var(--accent) 85%, var(--text));
+    box-shadow: 0 0 9px 2px color-mix(in srgb, var(--accent) 38%, transparent);
+    opacity: 0;
+    animation: leaf-fall var(--t) linear var(--d) infinite;
+    will-change: transform, opacity;
+  }
+  .leaves i:nth-child(1) { --x: 3.4%; --w: 9px; --t: 40s; --d: -24s; --sw: -64px; --r: -387deg; --o: 0.52; }
+  .leaves i:nth-child(2) { --x: 18.3%; --w: 6px; --t: 45s; --d: -27s; --sw: -63px; --r: 303deg; --o: 0.57; }
+  .leaves i:nth-child(3) { --x: 27.7%; --w: 6px; --t: 41s; --d: -5s; --sw: -38px; --r: -365deg; --o: 0.63; }
+  .leaves i:nth-child(4) { --x: 41.0%; --w: 9px; --t: 46s; --d: -45s; --sw: 50px; --r: 438deg; --o: 0.47; }
+  .leaves i:nth-child(5) { --x: 52.3%; --w: 6px; --t: 36s; --d: -6s; --sw: 36px; --r: -328deg; --o: 0.55; }
+  .leaves i:nth-child(6) { --x: 62.7%; --w: 9px; --t: 36s; --d: -1s; --sw: 45px; --r: -351deg; --o: 0.55; }
+  .leaves i:nth-child(7) { --x: 74.7%; --w: 8px; --t: 42s; --d: -29s; --sw: 64px; --r: -383deg; --o: 0.53; }
+  .leaves i:nth-child(8) { --x: 82.9%; --w: 9px; --t: 44s; --d: -13s; --sw: -48px; --r: -381deg; --o: 0.49; }
+  .leaves i:nth-child(9) { --x: 93.4%; --w: 8px; --t: 45s; --d: -3s; --sw: -66px; --r: 343deg; --o: 0.47; }
+
+  @keyframes seed-fall {
+    0% { transform: translate3d(0, -6vh, 0); opacity: 0; }
+    12% { opacity: var(--o); }
+    88% { opacity: var(--o); }
+    100% { transform: translate3d(var(--dx), 108vh, 0); opacity: 0; }
+  }
+  @keyframes seed-twinkle { from { opacity: 0.55; } to { opacity: 1; } }
+  @keyframes seed-aura { from { opacity: 0.45; transform: scale(0.8); } to { opacity: 1; transform: scale(1.15); } }
+  @keyframes leaf-fall {
+    0% { transform: translate3d(0, -6vh, 0) rotate(0deg); opacity: 0; }
+    8% { opacity: var(--o); }
+    50% { transform: translate3d(var(--sw), 52vh, 0) rotate(calc(var(--r) * 0.5)); }
+    92% { opacity: var(--o); }
+    100% { transform: translate3d(calc(var(--sw) * -0.4), 108vh, 0) rotate(var(--r)); opacity: 0; }
+  }
+
+  @media (pointer: coarse), (max-width: 640px) {
+    .motes, .leaves { --k: 0.6; }
+    .motes b:nth-child(3n), .leaves i:nth-child(even) { display: none; }
+    .leaves i { box-shadow: 0 0 6px 1px color-mix(in srgb, var(--accent) 45%, transparent); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .motes, .leaves { display: none; }
+  }
+</style>

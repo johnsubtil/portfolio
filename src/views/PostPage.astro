@@ -1,0 +1,121 @@
+---
+import { render } from 'astro:content';
+import PageLayout from '../layouts/PageLayout.astro';
+import ArticleContents from '../components/layout/ArticleContents.astro';
+import { contentLocale, contentSlug } from '../lib/content/identity';
+import { getPosts, type Post } from '../lib/content/queries';
+import { formatContentDate } from '../lib/content/dates';
+import CoverImage from '../components/media/CoverImage.astro';
+import { getLocale, localeSettings, localizedUrl, type Locale } from '../i18n/locales';
+import { getUI } from '../i18n/ui';
+import { articleContentsMinimum } from '../config/content';
+import Cta from '../components/ui/Cta.astro';
+
+interface Props {
+  post: Post;
+  locales: Locale[];
+}
+
+const { post, locales } = Astro.props;
+const locale = getLocale(Astro.url);
+const text = getUI(locale);
+const originalLocale = contentLocale(post.id);
+const hasTranslation = originalLocale === locale;
+const rendered = hasTranslation ? await render(post) : undefined;
+const Content = rendered?.Content;
+const headings = rendered?.headings.filter(({ depth }) => depth === 2) ?? [];
+const hasContents = headings.length >= articleContentsMinimum;
+const project = post.project;
+const projectUrl = project ? localizedUrl(locale, `/projects/${contentSlug(project.id)}/`) : undefined;
+const originalUrl = localizedUrl(originalLocale, `/posts/${contentSlug(post.id)}/`);
+const posts = hasTranslation ? await getPosts(locale) : [];
+const position = posts.findIndex((entry) => entry.id === post.id);
+const newer = position > 0 ? posts[position - 1] : undefined;
+const older = position >= 0 ? posts[position + 1] : undefined;
+const trail = [
+  { label: text.common.home, href: localizedUrl(locale) },
+  { label: text.posts.title, href: localizedUrl(locale, '/posts/') },
+];
+const breadcrumbs = hasTranslation
+  ? [...trail, ...(project ? [{ label: project.data.title, href: projectUrl }] : []), { label: post.data.title }]
+  : [...trail, { label: text.posts.unavailable }];
+---
+
+<PageLayout
+  class={`article-page post-page${hasContents ? ' article-with-contents' : ''}`}
+  heading={hasTranslation ? post.data.title : text.posts.unavailable}
+  description={
+    hasTranslation ? post.data.description : text.posts.unavailableDescription
+  }
+  breadcrumbs={breadcrumbs}
+  noindex={!hasTranslation}
+  ambient={false}
+  availableLocales={locales}
+>
+  <Fragment slot="sidebar">
+    {hasContents && <ArticleContents headings={headings} label={text.posts.contents} />}
+  </Fragment>
+  {Content && (
+    <div class="post-reading">
+      <div class="post-meta">
+        <span class="post-labels">
+          <span class="post-format">{post.data.format}</span>
+          {project && <><span class="post-sep" aria-hidden="true">•</span><a class="post-project" href={projectUrl}>{project.data.title}</a></>}
+        </span>
+        <time datetime={post.data.publishedAt.toISOString()}>{text.posts.published} {formatContentDate(post.data.publishedAt, locale)}</time>
+        {post.data.updated.getTime() !== post.data.publishedAt.getTime() && <time datetime={post.data.updated.toISOString()}>{text.common.updated} {formatContentDate(post.data.updated, locale)}</time>}
+      </div>
+      <div class="post-cover"><CoverImage cover={post.data.cover ?? project?.data.cover} loading="eager" /></div>
+      <article class="prose post-body" aria-label={post.data.title}>
+        <Content />
+      </article>
+      {(older || newer) && <nav class="post-neighbors" aria-label={text.posts.navigation}>
+        {older && <a href={localizedUrl(locale, `/posts/${contentSlug(older.id)}/`)} rel="prev"><span>{text.posts.previous}</span><strong>{older.data.title}</strong></a>}
+        {newer && <a href={localizedUrl(locale, `/posts/${contentSlug(newer.id)}/`)} rel="next"><span>{text.posts.next}</span><strong>{newer.data.title}</strong></a>}
+      </nav>}
+    </div>
+  )}
+
+  {!hasTranslation && (
+    <section class="translation-notice" aria-labelledby="original-title">
+      <p class="eyebrow">{text.posts.originalLanguage}</p>
+      <h2 id="original-title" lang={localeSettings[originalLocale].language}>
+        {post.data.title}
+      </h2>
+      <Cta href={originalUrl} variant="fill" tone="light">{text.posts.readOriginal}</Cta>
+    </section>
+  )}
+
+</PageLayout>
+
+<style>
+  .post-meta { display: flex; flex-wrap: wrap; gap: 12px 24px; margin-bottom: 28px; color: var(--muted); font-size: 0.8rem; line-height: 1.7; }
+  .post-labels { display: inline-flex; flex-wrap: wrap; gap: 4px 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
+  .post-format, .post-project { color: var(--accent); }
+  .post-sep { color: var(--muted); }
+  .post-cover { margin-bottom: 32px; }
+  .post-neighbors { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 24px; margin-top: var(--space-section); padding-top: 24px; border-top: 1px solid var(--line); }
+  .post-neighbors a { display: grid; gap: 8px; min-height: 44px; padding-block: 8px; }
+  .post-neighbors span { color: var(--muted); font-size: 0.8rem; }
+  .post-neighbors strong { line-height: 1.5; }
+  .translation-notice {
+    padding: 35px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-card);
+    background: var(--surface);
+  }
+  .translation-notice h2 {
+    margin: 18px 0 28px;
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    letter-spacing: var(--heading-tracking);
+  }
+  .post-body {
+    min-width: 0;
+    max-width: var(--article-reading-width);
+    margin-inline: auto;
+  }
+  .post-reading {
+    max-width: var(--article-reading-width);
+    margin-inline: auto;
+  }
+</style>

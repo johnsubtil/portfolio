@@ -1,0 +1,313 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import CoverImage from '../media/CoverImage.astro';
+import Cta from '../ui/Cta.astro';
+import { homeHeroInterval } from '../../config/content';
+import { contentSlug } from '../../lib/content/identity';
+import { getLocale, localizedUrl } from '../../i18n/locales';
+import { getUI } from '../../i18n/ui';
+
+interface Props {
+  projects: CollectionEntry<'projects'>[];
+}
+
+const { projects } = Astro.props;
+const locale = getLocale(Astro.url);
+const text = getUI(locale);
+const total = projects.length;
+const slideLabel = (current: number) =>
+  text.projects.slideLabel.replace('{current}', String(current)).replace('{total}', String(total));
+const goToLabel = (position: number) => text.projects.carouselGoTo.replace('{n}', String(position));
+---
+
+<section class="featured-hero" aria-roledescription="carousel" aria-label={text.projects.recent} data-carousel data-interval={homeHeroInterval}>
+  <h1 class="visually-hidden">{text.metadata.title}</h1>
+
+  <div class="slides">
+    {projects.map((project, index) => {
+      const slug = contentSlug(project.id);
+      const titleId = `featured-${slug}`;
+      return (
+        <article
+          class="slide"
+          data-slide
+          data-active={index === 0 ? '' : undefined}
+          aria-roledescription="slide"
+          aria-labelledby={titleId}
+          aria-label={total > 1 ? slideLabel(index + 1) : undefined}
+        >
+          <div class="slide-media"><CoverImage cover={project.data.cover} loading="eager" /></div>
+          <div class="slide-content">
+            <h2 id={titleId}>{project.data.title}</h2>
+            <Cta class="slide-cta" href={localizedUrl(locale, `/projects/${slug}/`)} variant="fill" tone="light" srSuffix={project.data.title}>{text.projects.explore}</Cta>
+          </div>
+        </article>
+      );
+    })}
+  </div>
+
+  {total > 1 && (
+    <>
+      <button class="arrow arrow-prev" type="button" data-prev hidden aria-label={text.projects.carouselPrevious}>
+        <svg viewBox="0 0 24 48" aria-hidden="true" focusable="false"><path d="M20 2 4 24l16 22" /></svg>
+      </button>
+      <button class="arrow arrow-next" type="button" data-next hidden aria-label={text.projects.carouselNext}>
+        <svg viewBox="0 0 24 48" aria-hidden="true" focusable="false"><path d="m4 2 16 22L4 46" /></svg>
+      </button>
+      <div class="dots" data-dots hidden>
+        {projects.map((_, index) => (
+          <button
+            type="button"
+            data-dot
+            data-active={index === 0 ? '' : undefined}
+            aria-label={goToLabel(index + 1)}
+            aria-current={index === 0 ? 'true' : 'false'}
+          ><span class="bar" aria-hidden="true"><i></i></span></button>
+        ))}
+      </div>
+    </>
+  )}
+</section>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-carousel]').forEach((root) => {
+    const slides = Array.from(root.querySelectorAll<HTMLElement>('[data-slide]'));
+    const dots = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-dot]'));
+    if (slides.length < 2) return;
+
+    let current = 0;
+    const show = (index: number) => {
+      current = (index + slides.length) % slides.length;
+      slides.forEach((slide, position) => {
+        const active = position === current;
+        slide.toggleAttribute('data-active', active);
+        slide.setAttribute('aria-hidden', String(!active));
+        slide.inert = !active;
+      });
+      dots.forEach((dot, position) => {
+        dot.toggleAttribute('data-active', position === current);
+        dot.setAttribute('aria-current', String(position === current));
+      });
+    };
+
+    // Restart the progress bar on every change, even when the slide stays the same.
+    const restartProgress = () => {
+      root.removeAttribute('data-fade');
+      document.getAnimations().forEach((animation) => {
+        if ((animation as CSSAnimation).animationName?.includes('slide-progress')) animation.currentTime = 0;
+      });
+    };
+    const go = (index: number) => { show(index); restartProgress(); };
+
+    root.querySelector('[data-prev]')?.addEventListener('click', () => go(current - 1));
+    root.querySelector('[data-next]')?.addEventListener('click', () => go(current + 1));
+    dots.forEach((dot, position) => dot.addEventListener('click', () => go(position)));
+    root.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowLeft') go(current - 1);
+      else if (event.key === 'ArrowRight') go(current + 1);
+    });
+
+    let startX = 0;
+    root.addEventListener('pointerdown', (event) => { startX = event.clientX; });
+    root.addEventListener('pointerup', (event) => {
+      const distance = event.clientX - startX;
+      if (event.pointerType === 'touch' && Math.abs(distance) > 50) go(current + (distance < 0 ? 1 : -1));
+    });
+
+    root.querySelectorAll<HTMLElement>('[data-prev], [data-next], [data-dots]').forEach((control) => { control.hidden = false; });
+
+    const interval = Number(root.dataset.interval) || 0;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (interval > 0 && !reduceMotion.matches) {
+      root.style.setProperty('--hero-interval', `${interval}ms`);
+      root.setAttribute('data-autoplay', '');
+
+      let overButton = false;
+      let offscreen = false;
+      const updatePause = () => {
+        const keyboardFocus = root.matches(':has(.slide-cta:focus-visible, .arrow:focus-visible)');
+        root.toggleAttribute('data-paused', overButton || keyboardFocus || offscreen || document.hidden);
+      };
+
+      root.addEventListener('animationend', (event) => {
+        if (!event.animationName.includes('slide-progress')) return;
+        root.setAttribute('data-fade', '');
+        show(current + 1);
+      });
+      const onButton = (target: EventTarget | null) => target instanceof Element && target.closest('.slide-cta, .arrow') !== null;
+      root.addEventListener('pointerover', (event) => { if (event.pointerType !== 'touch' && onButton(event.target)) { overButton = true; updatePause(); } });
+      root.addEventListener('pointerout', (event) => { if (!onButton(event.relatedTarget)) { overButton = false; updatePause(); } });
+      root.addEventListener('focusin', updatePause);
+      root.addEventListener('focusout', () => setTimeout(updatePause));
+      document.addEventListener('visibilitychange', updatePause);
+      new IntersectionObserver(([entry]) => { offscreen = !entry.isIntersecting; updatePause(); }, { threshold: 0.3 }).observe(root);
+      updatePause();
+    }
+
+    show(0);
+  });
+</script>
+
+<style>
+  .featured-hero {
+    position: relative;
+    height: max(640px, 100svh);
+    overflow: clip;
+    color: var(--on-hero);
+    background: var(--hero-ink);
+    --hero-fade: clamp(240px, 36vh, 380px);
+    --hero-pad: calc(var(--hero-fade) * 0.5 + 50px);
+    --arrow-offset: 112px;
+  }
+
+  .slides { position: absolute; inset: 0; }
+  .featured-hero::after {
+    content: '';
+    position: absolute;
+    inset: auto 0 -1px;
+    height: var(--hero-fade);
+    z-index: 1;
+    background: linear-gradient(
+      to top,
+      var(--background) 0%,
+      color-mix(in srgb, var(--background) 88%, transparent) 12%,
+      color-mix(in srgb, var(--background) 62%, transparent) 28%,
+      color-mix(in srgb, var(--background) 34%, transparent) 46%,
+      color-mix(in srgb, var(--background) 12%, transparent) 66%,
+      transparent 88%
+    );
+    pointer-events: none;
+  }
+  .slide {
+    position: absolute;
+    inset: 0;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 700ms ease, visibility 0s linear 700ms;
+  }
+  .slide[data-active] { visibility: visible; opacity: 1; transition-delay: 0s; }
+
+  .slide-media { position: absolute; inset: 0; }
+  .slide-media :global(img) { border-radius: 0; }
+  .slide-media :global(.cover-image) {
+    position: absolute;
+    inset: 0;
+    aspect-ratio: auto;
+    border-radius: 0;
+    background: var(--hero-ink);
+    transform: scale(1.05);
+    transition: transform 1800ms cubic-bezier(.2, .65, .3, 1);
+  }
+  .slide[data-active] .slide-media :global(.cover-image) { transform: scale(1); }
+  .slide[data-active]:has(.slide-cta:hover) .slide-media :global(.cover-image) { transform: scale(1.04); }
+  .slide-media :global(.cover-image[data-placeholder]) {
+    background:
+      radial-gradient(80% 70% at 70% 15%, color-mix(in srgb, var(--accent) 46%, var(--hero-ink)), transparent 70%),
+      linear-gradient(160deg, color-mix(in srgb, var(--accent) 8%, var(--hero-ink)), var(--hero-ink));
+  }
+  .slide-media :global(.placeholder-icon) { width: clamp(56px, 7vw, 104px); opacity: 0.2; color: var(--on-hero); }
+  .slide::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(
+        to top,
+        color-mix(in srgb, var(--hero-ink) 45%, transparent) 0%,
+        color-mix(in srgb, var(--hero-ink) 32%, transparent) 25%,
+        color-mix(in srgb, var(--hero-ink) 10%, transparent) 50%,
+        transparent 72%
+      ),
+      linear-gradient(rgb(0 0 0 / 55%), transparent 26%);
+    pointer-events: none;
+  }
+
+  .slide-content {
+    position: absolute;
+    inset: auto 0 var(--hero-pad);
+    z-index: 2;
+    display: grid;
+    justify-items: center;
+    gap: 28px;
+    padding-inline: clamp(64px, 9vw, 160px);
+    text-align: center;
+  }
+  .slide-content :global(.cta-light) { color: var(--hero-ink); background: var(--on-hero); }
+  .slide-content :global(.cta-light:is(:hover, :focus-visible)) { color: var(--accent-ink); background: var(--accent); }
+  h2 {
+    margin: 0;
+    max-width: 14ch;
+    font-size: clamp(2.8rem, 8vw, 7.5rem);
+    font-weight: var(--heading-weight);
+    line-height: 1;
+    letter-spacing: var(--heading-tracking);
+    text-wrap: balance;
+  }
+
+  .arrow {
+    position: absolute;
+    bottom: var(--hero-pad);
+    z-index: 3;
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 52px;
+    padding: 0;
+    border: 0;
+    color: var(--on-hero);
+    background: none;
+    opacity: 0.8;
+    transition: opacity var(--ease);
+  }
+  .arrow-prev { left: 50%; margin-left: calc(-1 * (var(--arrow-offset) + 48px)); }
+  .arrow-next { left: 50%; margin-left: var(--arrow-offset); }
+  .arrow:is(:hover, :focus-visible) { opacity: 1; color: var(--accent); }
+  .arrow:focus-visible { outline-color: var(--on-hero); outline-offset: -4px; }
+  .arrow svg { width: 22px; height: 44px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+
+  .dots { position: absolute; inset: auto 0 calc(var(--hero-pad) - 50px); z-index: 3; display: flex; justify-content: center; gap: 2px; }
+  .dots button { position: relative; width: 40px; height: 44px; padding: 0; border: 0; background: none; cursor: pointer; }
+  .dots .bar {
+    position: absolute;
+    inset: 50% 6px auto;
+    height: 3px;
+    margin-top: -1.5px;
+    overflow: hidden;
+    border-radius: 2px;
+    background: color-mix(in srgb, var(--on-hero) 35%, transparent);
+    transition: background var(--ease);
+  }
+  .dots button:is(:hover, :focus-visible) .bar { background: var(--accent); }
+  .dots .bar i { display: block; width: 100%; height: 100%; border-radius: 2px; background: var(--on-hero); opacity: 0; will-change: transform; }
+  .dots button[data-active] .bar i { opacity: 1; }
+  .dots button[data-active]:is(:hover, :focus-visible) .bar i { background: var(--accent); }
+  @media (prefers-reduced-motion: no-preference) {
+    .featured-hero[data-autoplay] .dots button[data-active] .bar i {
+      transform: translateX(-100%);
+      animation: slide-progress var(--hero-interval, 6s) linear forwards;
+    }
+    .featured-hero[data-autoplay][data-paused] .dots button[data-active] .bar i { animation-play-state: paused; }
+    .featured-hero[data-fade] .dots button:not([data-active]) .bar i { transition: opacity 600ms ease; }
+  }
+  @keyframes slide-progress { to { transform: translateX(0); } }
+  .dots button:focus-visible { outline-color: var(--on-hero); outline-offset: -4px; }
+
+  @media (max-width: 640px) {
+    .featured-hero {
+      --hero-fade: 96px;
+      --hero-pad: 76px;
+      height: calc(70vw + 236px);
+    }
+    .slide-media :global(.cover-image:not([data-placeholder])) {
+      inset: 56px -6% auto;
+      height: auto;
+      aspect-ratio: 8 / 5;
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0, var(--background) 10%, var(--background) 72%, transparent 100%);
+      mask-image: linear-gradient(to bottom, transparent 0, var(--background) 10%, var(--background) 72%, transparent 100%);
+    }
+    h2 { max-width: none; font-size: clamp(2rem, 9.6vw, 2.6rem); }
+    .slide-content { padding-inline: 24px; gap: 22px; }
+    .slide-content :global(.cta) { padding: 12px 22px; font-size: 0.75rem; }
+    .featured-hero { --arrow-offset: 96px; }
+  }
+</style>

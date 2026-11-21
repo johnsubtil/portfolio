@@ -1,0 +1,23 @@
+---
+import ProjectList from '../projects/ProjectList.astro';
+import HomeSection from './HomeSection.astro';
+import { homeProjectLimit } from '../../config/content';
+import { getProjects } from '../../lib/content/queries';
+import { placeholderSlots } from '../../lib/content/slots';
+import { getLocale, localizedUrl } from '../../i18n/locales';
+import { getUI } from '../../i18n/ui';
+
+const locale = getLocale(Astro.url);
+const text = getUI(locale);
+const recentProjects = (await getProjects(locale)).slice(0, homeProjectLimit);
+---
+
+{/* The section stays on the home page even with no projects; the list shows its own empty message. */}
+<HomeSection
+  id="recent-projects-title"
+  title={text.projects.title}
+  href={localizedUrl(locale, '/projects/')}
+  linkLabel={text.projects.allProjects}
+>
+  <ProjectList projects={recentProjects} showFilters={false} headingLevel="h3" skeletonSlots={placeholderSlots(homeProjectLimit, recentProjects.length)} />
+</HomeSection>

@@ -1,0 +1,98 @@
+---
+import { getLocale } from '../../i18n/locales';
+import { getUI } from '../../i18n/ui';
+
+interface Props {
+  items: { label: string; href?: string }[];
+}
+
+const { items } = Astro.props;
+const text = getUI(getLocale(Astro.url));
+---
+
+<nav class="breadcrumbs" aria-label={text.common.breadcrumbs}>
+  <ol>
+    {items.map((item, index) => (
+      <li>
+        {index > 0 && <span class="separator" aria-hidden="true">•</span>}
+        {item.href
+          ? <a href={item.href}>{item.label}</a>
+          : <span aria-current="page">{item.label}</span>}
+      </li>
+    ))}
+  </ol>
+</nav>
+
+<style>
+  .breadcrumbs {
+    margin-bottom: 45px;
+    color: var(--muted);
+    font-size: 0.85rem;
+    line-height: 1.6;
+  }
+  ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 12px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+  a,
+  [aria-current] {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+  a:hover {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+  [aria-current] {
+    color: var(--text);
+  }
+  :global(.article-page) .breadcrumbs {
+    max-width: var(--article-reading-width);
+    margin-inline: auto;
+  }
+  :global(.article-page) ol {
+    justify-content: center;
+  }
+  @media (min-width: 1488px) {
+    :global(.article-with-contents) .breadcrumbs {
+      margin-inline-start: calc(var(--article-sidebar-width) + var(--article-column-gap));
+      margin-inline-end: 0;
+    }
+  }
+  @media (max-width: 640px) {
+    .breadcrumbs {
+      margin-bottom: 25px;
+    }
+
+    :global(.post-page) ol {
+      column-gap: 8px;
+    }
+
+    :global(.post-page) li {
+      gap: 8px;
+    }
+
+    :global(.post-page) li:last-child {
+      flex-basis: 100%;
+      justify-content: center;
+      text-align: center;
+    }
+
+    :global(.post-page) li:last-child .separator {
+      display: none;
+    }
+  }
+</style>

@@ -1,0 +1,26 @@
+---
+import PostFeed from './PostFeed.astro';
+import HomeSection from './HomeSection.astro';
+import { homePostLimit } from '../../config/content';
+import { getPosts } from '../../lib/content/queries';
+import { placeholderSlots } from '../../lib/content/slots';
+import { getLocale, localizedUrl } from '../../i18n/locales';
+import { getUI } from '../../i18n/ui';
+
+const locale = getLocale(Astro.url);
+const text = getUI(locale);
+const recentPosts = (await getPosts(locale)).slice(0, homePostLimit);
+---
+
+<HomeSection
+  id="recent-posts-title"
+  title={text.posts.recent}
+  href={localizedUrl(locale, '/posts/')}
+  linkLabel={text.posts.allPosts}
+>
+  {recentPosts.length > 0 ? <PostFeed posts={recentPosts} skeletonSlots={placeholderSlots(homePostLimit, recentPosts.length)} /> : <p class="empty">{text.posts.empty}</p>}
+</HomeSection>
+
+<style>
+  .empty { margin: 0; padding-block: 24px; color: var(--muted); line-height: 1.7; }
+</style>

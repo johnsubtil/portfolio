@@ -1,0 +1,12 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import SearchResults from '../components/search/SearchResults.astro';
+import { getLocale } from '../i18n/locales';
+import { getUI } from '../i18n/ui';
+
+const text = getUI(getLocale(Astro.url));
+---
+
+<PageLayout class="catalog-page" heading={text.search.title} metaDescription={text.search.metaDescription} noindex>
+  <SearchResults />
+</PageLayout>

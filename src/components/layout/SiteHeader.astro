@@ -1,0 +1,238 @@
+---
+import LanguageSwitcher from '../i18n/LanguageSwitcher.astro';
+import HeaderSearch from '../search/HeaderSearch.astro';
+import Wordmark from './Wordmark.astro';
+import { getLocale, localizedUrl, unlocalizedPath } from '../../i18n/locales';
+import { getUI } from '../../i18n/ui';
+
+const locale = getLocale(Astro.url);
+const text = getUI(locale);
+const pathname = unlocalizedPath(Astro.url.pathname);
+const links = [
+  { href: localizedUrl(locale), label: text.navigation.home, current: pathname === '/' },
+  { href: localizedUrl(locale, '/projects/'), label: text.navigation.projects, current: pathname.startsWith('/projects/') },
+  { href: localizedUrl(locale, '/posts/'), label: text.navigation.posts, current: pathname.startsWith('/posts/') },
+  { href: localizedUrl(locale, '/about/'), label: text.navigation.about, current: pathname.startsWith('/about/') },
+];
+---
+
+<div class:list={['header-shell', { 'on-home': pathname === '/' }]}>
+  <header class="site-header wrap">
+    <a class="brand" href={localizedUrl(locale)} aria-label={text.common.homeLabel}>
+      <Wordmark />
+    </a>
+    <nav id="main-navigation" aria-label={text.header.navigation}>
+      {links.map((link) => <a href={link.href} aria-current={link.current ? 'page' : undefined}>{link.label}</a>)}
+    </nav>
+    <div class="header-actions">
+      <HeaderSearch />
+      <LanguageSwitcher />
+      <button class="menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-controls="mobile-menu" aria-label={text.header.openMenu}>
+        <span class="menu-bars" aria-hidden="true"></span>
+      </button>
+    </div>
+  </header>
+</div>
+
+{/* Side menu for phones. It lives outside the header so the header's own transforms cannot affect it. */}
+<div class="menu-backdrop" data-menu-backdrop></div>
+<div id="mobile-menu" class="mobile-menu" role="dialog" aria-modal="true" aria-label={text.header.navigation} inert>
+  <button class="menu-close" type="button" data-menu-close aria-label={text.header.closeMenu}>
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18" /></svg>
+  </button>
+  <nav aria-label={text.header.navigation}>
+    {links.map((link) => (
+      <a href={link.href} aria-current={link.current ? 'page' : undefined}>
+        {link.label}<span class="arrow-icon" aria-hidden="true"></span>
+      </a>
+    ))}
+  </nav>
+</div>
+
+<script>
+  const shell = document.querySelector<HTMLElement>('.header-shell.on-home');
+  const toggle = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
+  const menu = document.getElementById('mobile-menu');
+  const backdrop = document.querySelector<HTMLElement>('[data-menu-backdrop]');
+  const phone = window.matchMedia('(max-width: 640px)');
+
+  const setMenu = (open: boolean) => {
+    if (!menu || !toggle || !backdrop) return;
+    menu.classList.toggle('is-open', open);
+    backdrop.classList.toggle('is-open', open);
+    menu.inert = !open;
+    toggle.setAttribute('aria-expanded', String(open));
+    document.documentElement.classList.toggle('menu-open', open);
+    if (open) menu.querySelector<HTMLElement>('a')?.focus();
+    else if (menu.contains(document.activeElement)) toggle.focus();
+  };
+
+  if (menu && toggle && backdrop) {
+    menu.inert = true;
+    toggle.addEventListener('click', () => setMenu(!menu.classList.contains('is-open')));
+    backdrop.addEventListener('click', () => setMenu(false));
+    menu.querySelector('[data-menu-close]')?.addEventListener('click', () => setMenu(false));
+    menu.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => setMenu(false)));
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && menu.classList.contains('is-open')) setMenu(false);
+    });
+    phone.addEventListener('change', () => { if (!phone.matches) setMenu(false); });
+  }
+
+  if (shell) {
+    let lastY = window.scrollY;
+    const update = () => {
+      const y = window.scrollY;
+      const busy = shell.contains(document.activeElement)
+        || shell.querySelector('[data-header-search][open]')
+        || menu?.classList.contains('is-open');
+      shell.classList.toggle('is-scrolled', y > 40);
+      shell.classList.toggle('is-hidden', phone.matches && y > 240 && y > lastY && !busy);
+      lastY = y;
+    };
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+  }
+</script>
+
+<style>
+  .header-shell { background: var(--background); color: var(--text); }
+  .header-shell.on-home {
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: 30;
+    padding-top: 10px;
+    background: transparent;
+    transition: transform 300ms ease;
+    --text: var(--on-hero);
+    --line: var(--on-hero);
+    --focus: var(--on-hero);
+    --on-accent: var(--hero-ink);
+  }
+
+  .site-header { position: relative; z-index: 10; display: flex; align-items: center; gap: 12px; min-height: 76px; transition: background 250ms ease, border-color 250ms ease, padding 250ms ease, min-height 250ms ease; border: 1px solid transparent; border-radius: var(--radius-card); }
+  .header-shell.is-hidden { transform: translateY(-130%); }
+  .on-home.is-scrolled .site-header { min-height: 64px; padding-inline: 20px; background: color-mix(in srgb, var(--hero-ink) 92%, transparent); border-color: color-mix(in srgb, var(--on-hero) 12%, transparent); }
+  .brand { display: inline-flex; align-items: center; min-height: 44px; }
+
+  nav { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+  nav a {
+    display: inline-flex; align-items: center; min-height: 40px; padding: 0 20px;
+    border: 1px solid var(--control-line); border-radius: var(--radius-pill);
+    color: var(--text); font-size: .72rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; text-decoration: none;
+    transition: background var(--ease), color var(--ease), border-color var(--ease);
+  }
+  nav a:hover { color: var(--accent-ink); background: var(--accent); border-color: var(--accent); }
+  nav a[aria-current="page"] { color: var(--accent-ink); background: var(--accent); border-color: var(--accent); }
+  .on-home nav a { border-color: color-mix(in srgb, var(--on-hero) 60%, transparent); }
+  .on-home nav a:is(:hover, :focus-visible), .on-home nav a[aria-current="page"] { border-color: var(--accent); }
+
+  .header-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+
+  .menu-toggle {
+    display: none;
+    place-items: center;
+    width: var(--header-control-size, 44px);
+    height: var(--header-control-size, 44px);
+    padding: 0;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    color: var(--text);
+    background: none;
+    cursor: pointer;
+    transition: background var(--ease), border-color var(--ease);
+  }
+  .menu-toggle:hover { color: var(--accent-ink); background: var(--accent); border-color: var(--accent); }
+  .menu-bars, .menu-bars::before, .menu-bars::after { display: block; width: 18px; height: 2px; border-radius: 2px; background: currentColor; }
+  .menu-bars { position: relative; }
+  .menu-bars::before, .menu-bars::after { content: ''; position: absolute; left: 0; }
+  .menu-bars::before { top: -6px; }
+  .menu-bars::after { top: 6px; }
+
+  .menu-backdrop, .mobile-menu { display: none; }
+
+  @media (max-width: 1200px) {
+    .site-header:has(:global([data-header-search][open])) nav { display: none; }
+    .site-header:has(:global([data-header-search][open])) .header-actions { flex: 1; min-width: 0; }
+  }
+
+  @media (max-width: 640px) and (scripting: enabled) {
+    .site-header { min-height: 64px; }
+    #main-navigation { display: none; }
+    .brand { margin-right: auto; }
+    .menu-toggle { display: grid; }
+    .on-home.is-scrolled .site-header { padding-inline: 14px; }
+    .site-header:has(:global([data-header-search][open])) .brand,
+    .site-header:has(:global([data-header-search][open])) :global(.language-switcher),
+    .site-header:has(:global([data-header-search][open])) .menu-toggle { display: none; }
+
+    .menu-backdrop {
+      display: block;
+      position: fixed;
+      inset: 0;
+      z-index: 55;
+      background: rgb(0 0 0 / 70%);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 250ms ease;
+    }
+    .menu-backdrop.is-open { opacity: 1; pointer-events: auto; }
+
+    .mobile-menu {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      position: fixed;
+      inset: 0 0 0 auto;
+      z-index: 60;
+      width: min(86vw, 360px);
+      padding: 20px 20px 32px;
+      --text: var(--page-text);
+      --line: var(--page-line);
+      --focus: var(--accent);
+      --on-accent: var(--background);
+      border-left: 1px solid var(--line);
+      background: var(--background);
+      transform: translateX(100%);
+      visibility: hidden;
+      transition: transform 300ms cubic-bezier(.2, .65, .3, 1), visibility 0s linear 300ms;
+    }
+    .mobile-menu.is-open { transform: translateX(0); visibility: visible; transition-delay: 0s; }
+
+    .menu-close {
+      align-self: flex-end;
+      display: grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      padding: 0;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      color: var(--text);
+      background: none;
+      cursor: pointer;
+    }
+    .menu-close svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; }
+
+    .mobile-menu nav { display: grid; gap: 12px; margin: 0; }
+    .mobile-menu nav a {
+      justify-content: space-between;
+      min-height: 60px;
+      padding: 0 26px;
+      font-size: 0.9rem;
+      border-color: var(--control-line);
+    }
+  }
+
+  @media (max-width: 640px) and (scripting: none) {
+    .site-header { flex-wrap: wrap; gap: 0 12px; padding-block: 12px 8px; }
+    .brand { margin-right: auto; }
+    nav { order: 3; flex-basis: 100%; margin-left: 0; padding-top: 6px; }
+  }
+
+  @media (max-width: 480px) { .brand :global(.wordmark) { font-size: 1.3rem; } }
+</style>
+
+<style is:global>
+  html.menu-open { overflow: hidden; }
+</style>

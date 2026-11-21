@@ -1,0 +1,80 @@
+---
+interface Props {
+  href: string;
+  variant?: 'fill' | 'wipe';
+  tone?: 'light' | 'outline';
+  external?: boolean;
+  srSuffix?: string;
+  title?: string;
+  class?: string;
+}
+
+const { href, variant = 'fill', tone = 'light', external = false, srSuffix, title, class: className } = Astro.props;
+---
+
+<a
+  class:list={['cta', `cta-${variant}`, `cta-${tone}`, className]}
+  href={href}
+  title={title}
+  target={external ? '_blank' : undefined}
+  rel={external ? 'noopener noreferrer' : undefined}
+>
+  <span class="cta-label"><slot />{srSuffix && <span class="visually-hidden">: {srSuffix}</span>}</span>
+  <svg class="cta-arrow" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+    <path d="M2.5 8h11M9 3.5 13.5 8 9 12.5" />
+  </svg>
+</a>
+
+<style>
+  .cta {
+    position: relative;
+    isolation: isolate;
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    min-height: 52px;
+    padding: 14px 30px;
+    border: 1px solid transparent;
+    border-radius: var(--radius-pill);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: transform 180ms ease, background 300ms ease, color 300ms ease, border-color 300ms ease;
+  }
+  .cta:active { transform: scale(0.97); }
+  .cta:focus-visible { outline-offset: 4px; }
+
+  .cta-arrow {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.75;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: transform 300ms cubic-bezier(.2, .65, .3, 1);
+  }
+  .cta:is(:hover, :focus-visible) .cta-arrow { transform: translateX(4px); }
+
+  .cta-light { color: var(--on-accent); background: var(--text); }
+  .cta-outline { color: var(--text); border-color: var(--control-line); background: transparent; }
+
+  .cta-fill:is(:hover, :focus-visible) { color: var(--accent-ink); background: var(--accent); }
+
+  .cta-wipe { overflow: clip; transition: transform 180ms ease, color 450ms ease, border-color 450ms ease; }
+  .cta-wipe::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 450ms cubic-bezier(.2, .65, .3, 1);
+  }
+  .cta-wipe:is(:hover, :focus-visible) { color: var(--accent-ink); border-color: var(--accent); }
+  .cta-wipe:is(:hover, :focus-visible)::before { transform: scaleX(1); }
+</style>

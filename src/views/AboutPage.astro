@@ -1,0 +1,79 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import { aboutPortrait, site } from '../config/site';
+import { getLocale } from '../i18n/locales';
+import { getUI } from '../i18n/ui';
+import Icon from '../components/ui/Icon.astro';
+import '../styles/catalog.css';
+
+const locale = getLocale(Astro.url);
+const text = getUI(locale);
+const about = text.about;
+---
+
+<PageLayout class="catalog-page about-page" heading={about.title} metaDescription={about.metaDescription}>
+  <section class="about-intro" aria-label={about.title}>
+    <figure class="portrait" data-placeholder={aboutPortrait ? undefined : ''}>
+      {aboutPortrait ? (
+        <img src={aboutPortrait} alt={about.portraitAlt} width="800" height="1000" loading="eager" decoding="async" />
+      ) : (
+        <svg class="portrait-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+          <circle cx="24" cy="18" r="8" />
+          <path d="M8 42c1.5-9 8-14 16-14s14.5 5 16 14" />
+        </svg>
+      )}
+    </figure>
+    <div class="about-text">
+      <p class="about-statement" set:html={about.statement} />
+      <div class="about-body">
+        {about.story.map((paragraph) => <p>{paragraph}</p>)}
+      </div>
+      <div class="about-reach">
+        <p class="eyebrow">{about.reachLabel}</p>
+        <ul class="find-links" aria-label={text.footer.socialsAndContact}>
+          {site.socials.map((social) => (
+            <li>
+              <a href={social.href} rel="me noopener" target="_blank" aria-label={`${social.platform} · ${social.name}`} title={social.platform}>
+                <Icon name={social.icon} />
+              </a>
+            </li>
+          ))}
+          <li>
+            <a href={`mailto:${site.email}`} aria-label={`${text.footer.email}: ${site.email}`} title={site.email}>
+              <Icon name="email" />
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  .about-intro { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(32px, 5vw, 72px); align-items: stretch; }
+  .about-text { display: flex; flex-direction: column; }
+
+  .portrait { position: relative; display: grid; place-items: center; width: 100%; margin: 0; overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius-card); background: var(--surface); }
+  .portrait::before { content: ''; grid-area: 1 / 1; padding-top: 125%; }
+  .portrait > * { grid-area: 1 / 1; }
+  .portrait img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; border-radius: 0; }
+  .portrait[data-placeholder] { color: var(--muted); background: linear-gradient(160deg, var(--surface-elevated), var(--surface)); }
+  .portrait-icon { width: clamp(56px, 24%, 96px); height: auto; opacity: 0.5; }
+
+  .about-statement { margin: 0 0 28px; font-family: var(--serif); font-size: clamp(1.7rem, 3.2vw, 2.8rem); line-height: 1.18; letter-spacing: var(--heading-tracking); text-align: justify; text-justify: inter-word; text-wrap: pretty; }
+  .about-statement :global(:is(strong, b)) { color: var(--accent); font-weight: 600; }
+  .about-body p { margin: 0 0 1.1em; color: var(--muted); font-size: 1.05rem; line-height: 1.75; text-align: justify; text-justify: inter-word; }
+  .about-body p:last-child { margin-bottom: 0; }
+
+  .about-reach { margin-top: auto; padding-top: 36px; }
+  .about-reach .eyebrow { margin: 0 0 14px; }
+  .find-links { display: flex; flex-wrap: wrap; gap: 12px; margin: 0; padding: 0; list-style: none; }
+  .find-links a { display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid var(--control-line); border-radius: var(--radius-pill); color: var(--text); }
+  .find-links a:hover { border-color: var(--accent); color: var(--accent-ink); background: var(--accent); }
+  .find-links :global(svg) { width: 20px; height: 20px; fill: currentColor; }
+
+  @media (max-width: 900px) {
+    .about-intro { grid-template-columns: minmax(0, 1fr); }
+    .portrait { max-width: 420px; }
+  }
+</style>

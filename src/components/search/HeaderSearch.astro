@@ -1,0 +1,253 @@
+---
+import { getLocale, localizedUrl } from '../../i18n/locales';
+import { getUI } from '../../i18n/ui';
+import '../../styles/search.css';
+
+const locale = getLocale(Astro.url);
+const text = getUI(locale);
+---
+
+<details
+  class="header-search"
+  data-header-search
+  data-index-url={`${localizedUrl(locale)}search-index.json`}
+  data-project-label={text.search.project}
+  data-post-label={text.search.post}
+  data-hint={text.search.hint}
+  data-loading={text.search.loading}
+  data-empty={text.search.empty}
+  data-error={text.search.error}
+  data-one={text.search.resultOne}
+  data-many={text.search.resultMany}
+>
+  <summary
+    aria-label={text.search.label}
+    title={text.search.label}
+    data-open-label={text.search.label}
+    data-close-label={text.search.close}
+  >
+    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+      <circle cx="10.5" cy="10.5" r="6.5" />
+      <path d="m16 16 5 5" />
+    </svg>
+    <svg class="close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+      <path d="m6 6 12 12M6 18 18 6" />
+    </svg>
+  </summary>
+  <form role="search" action={localizedUrl(locale, '/search/')} method="get">
+    <label class="visually-hidden" for="header-search-input">{text.search.label}</label>
+    <div class="search-fields">
+      <input
+        id="header-search-input"
+        name="q"
+        type="search"
+        role="combobox"
+        autocomplete="off"
+        aria-autocomplete="list"
+        aria-expanded="false"
+        aria-controls="header-search-suggestions"
+        placeholder={text.search.placeholder}
+      />
+      <button type="submit" aria-label={text.search.submit} title={text.search.submit}>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <circle cx="10.5" cy="10.5" r="6.5" />
+          <path d="m16 16 5 5" />
+        </svg>
+      </button>
+    </div>
+  </form>
+  <div class="search-suggestions" hidden>
+    <p class="suggestion-status" role="status" aria-atomic="true">{text.search.hint}</p>
+    <ul
+      id="header-search-suggestions"
+      class="search-results-list"
+      role="listbox"
+      aria-label={text.search.suggestions}
+      hidden
+    ></ul>
+    <a class="all-results text-link" href={localizedUrl(locale, '/search/')} hidden>
+      {text.search.seeAll}
+    </a>
+  </div>
+</details>
+
+<script>
+  import { initializeHeaderSearch } from '../../scripts/search/header';
+
+  initializeHeaderSearch();
+</script>
+
+<style>
+  .header-search {
+    position: relative;
+    flex-shrink: 0;
+    width: var(--header-control-size, 44px);
+    height: var(--header-control-size, 44px);
+    transition: width 180ms ease;
+  }
+
+  .header-search[open] {
+    width: clamp(280px, 26vw, 360px);
+  }
+
+  summary {
+    float: left;
+    display: grid;
+    place-items: center;
+    width: var(--header-control-size, 44px);
+    height: var(--header-control-size, 44px);
+    padding: 10px;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    color: var(--text);
+    cursor: pointer;
+    list-style: none;
+  }
+
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  summary:hover,
+  details[open] summary:hover {
+    color: var(--accent-ink);
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .close-icon,
+  details[open] .search-icon {
+    display: none;
+  }
+
+  details[open] .close-icon {
+    display: block;
+  }
+
+  form {
+    --text: var(--page-text);
+    --line: var(--page-line);
+    --focus: var(--accent);
+    --on-accent: var(--background);
+    margin-left: calc(var(--header-control-size, 44px) + 16px);
+  }
+
+  .search-suggestions {
+    --text: var(--page-text);
+    --line: var(--page-line);
+    --focus: var(--accent);
+    --on-accent: var(--background);
+    position: absolute;
+    top: calc(100% + 10px);
+    left: auto;
+    right: 0;
+    width: max(100%, 340px);
+    z-index: 1;
+    max-height: min(70vh, 560px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 8px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-card);
+    background: var(--background);
+    box-shadow: 0 16px 40px var(--shadow);
+  }
+
+  .search-fields {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 44px;
+  }
+
+  .search-fields:has(input:focus-visible) {
+    border-radius: var(--radius-pill);
+    outline: 2px solid var(--accent);
+    outline-offset: 4px;
+  }
+
+  input:focus-visible {
+    outline: none;
+  }
+
+  input,
+  button {
+    min-width: 0;
+    min-height: 44px;
+    padding: 10px;
+    border: 1px solid var(--control-line);
+    border-radius: var(--radius-control);
+    font-size: 0.95rem;
+  }
+
+  input {
+    width: 100%;
+    color: var(--text);
+    background: var(--background);
+    border-radius: var(--radius-pill) 0 0 var(--radius-pill);
+    padding-left: 16px;
+  }
+
+  input::placeholder {
+    color: var(--muted);
+    opacity: 1;
+  }
+
+  input:hover {
+    border-color: var(--accent);
+  }
+
+  button {
+    display: grid;
+    place-items: center;
+    color: var(--on-accent);
+    background: var(--text);
+    border-radius: 0 var(--radius-pill) var(--radius-pill) 0;
+  }
+
+  button:hover {
+    color: var(--accent-ink);
+    background: var(--accent);
+  }
+
+  .suggestion-status {
+    margin: 8px 12px;
+    color: var(--muted);
+    font-size: 0.8rem;
+    line-height: 1.6;
+  }
+  .search-results-list {
+    --thumb: 3.5rem;
+    --result-padding: 8px 10px;
+  }
+  .search-results-list :global(.search-result) {
+    column-gap: 14px;
+    row-gap: 2px;
+  }
+  .search-results-list :global(.search-result-description) {
+    display: none;
+  }
+  .search-results-list :global(.search-result-title) {
+    font-size: 0.9rem;
+  }
+  .all-results {
+    padding-inline: 12px;
+    font-size: 0.85rem;
+  }
+
+  @media (max-width: 1200px) {
+    .header-search[open] {
+      flex: 1;
+      min-width: 0;
+      width: auto;
+    }
+  }
+
+  @media (max-width: 640px) {
+    input {
+      font-size: 1rem;
+    }
+    .search-suggestions {
+      left: 0;
+      width: 100%;
+    }
+  }
+</style>

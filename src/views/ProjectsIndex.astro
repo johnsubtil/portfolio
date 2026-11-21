@@ -1,0 +1,20 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import ProjectList from '../components/projects/ProjectList.astro';
+import { getProjects } from '../lib/content/queries';
+import { getLocale } from '../i18n/locales';
+import { getUI } from '../i18n/ui';
+
+const locale = getLocale(Astro.url);
+const text = getUI(locale);
+const projects = await getProjects(locale);
+---
+
+<PageLayout
+  class="catalog-page"
+  heading={text.projects.title}
+  metaDescription={text.projects.metaDescription}
+>
+  <ProjectList projects={projects} />
+</PageLayout>
+

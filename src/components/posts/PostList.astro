@@ -1,0 +1,104 @@
+---
+import { getProjects, type Post } from '../../lib/content/queries';
+import '../../styles/catalog.css';
+import CoverImage from '../media/CoverImage.astro';
+import CatalogPagination from '../catalog/CatalogPagination.astro';
+import { contentSlug } from '../../lib/content/identity';
+import { formatContentDate } from '../../lib/content/dates';
+import { getLocale, localizedUrl } from '../../i18n/locales';
+import { getUI } from '../../i18n/ui';
+
+interface Props {
+  posts: Post[];
+  showFilters?: boolean;
+  headingLevel?: 'h2' | 'h3';
+  layout?: 'grid' | 'horizontal';
+}
+
+const { posts, showFilters = true, headingLevel = 'h3', layout = 'grid' } = Astro.props;
+const Heading = headingLevel;
+const locale = getLocale(Astro.url);
+const text = getUI(locale);
+const projects = showFilters ? await getProjects(locale) : [];
+---
+
+<div class:list={['post-list', { 'post-list-horizontal': layout === 'horizontal' }]} data-post-list>
+  {showFilters && (
+    <form class="post-filters catalog-controls" hidden>
+      <label class="catalog-query">
+        <span>{text.posts.searchLabel}</span>
+        <input type="search" name="q" placeholder={text.posts.searchPlaceholder} />
+      </label>
+      <label>
+        <span>{text.posts.projectLabel}</span>
+        <select name="project">
+          <option value="all">{text.posts.allProjects}</option>
+          {projects.map((project) => (
+            <option value={contentSlug(project.id)}>
+              {project.data.title}
+            </option>
+          ))}
+        </select>
+      </label>
+      <button type="reset">{text.common.clearFilters}</button>
+    </form>
+  )}
+  {showFilters && (
+    <p
+      class="post-status catalog-status"
+      role="status"
+      aria-atomic="true"
+      data-singular={text.posts.statusOne}
+      data-plural={text.posts.statusMany}
+      hidden
+    ></p>
+  )}
+
+  <div class="catalog-grid">
+    {posts.map((post) => {
+      const slug = contentSlug(post.id);
+      const searchText = [
+        post.data.title,
+        post.data.description,
+        post.data.format,
+        post.project?.data.title ?? '',
+      ].join(' ');
+      return (
+        <article
+          class="catalog-card"
+          data-post-card
+          data-project={post.project ? contentSlug(post.project.id) : ''}
+          data-search={searchText}
+        >
+          <a href={localizedUrl(locale, `/posts/${slug}/`)} aria-labelledby={`post-${slug}`}>
+            <div class="catalog-cover">
+              <CoverImage cover={post.data.cover ?? post.project?.data.cover} />
+            </div>
+            <div class="catalog-body">
+              <div class="catalog-meta">
+                <span class="catalog-labels"><span class="catalog-format">{post.data.format}</span>{post.project && <><span class="catalog-sep" aria-hidden="true">&nbsp;•&nbsp;</span><span class="catalog-context">{post.project.data.title}</span></>}</span>
+                <time datetime={post.data.publishedAt.toISOString()}>{formatContentDate(post.data.publishedAt, locale)}</time>
+              </div>
+              <Heading class="catalog-title" id={`post-${slug}`}>{post.data.title}</Heading>
+              <p class="catalog-description">{post.data.description}</p>
+            </div>
+          </a>
+        </article>
+      );
+    })}
+  </div>
+
+  {posts.length === 0 && <p class="catalog-empty">{text.posts.empty}</p>}
+  {showFilters && (
+    <p class="catalog-empty" data-post-empty hidden>
+      {text.posts.emptyFilter}
+    </p>
+  )}
+  {showFilters && <CatalogPagination />}
+</div>
+
+<script>
+  import { initializeCatalogFilters } from '../../scripts/catalog/filters';
+
+  initializeCatalogFilters({ kind: 'post', facets: [{ name: 'project' }] });
+</script>

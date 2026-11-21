@@ -1,0 +1,32 @@
+---
+import SocialLinks from './SocialLinks.astro';
+import Wordmark from './Wordmark.astro';
+import { getLocale, localizedUrl } from '../../i18n/locales';
+import { getUI } from '../../i18n/ui';
+const locale = getLocale(Astro.url);
+const text = getUI(locale);
+---
+
+<footer class="site-footer" id="social">
+  <div class="footer-bottom wrap">
+    <p class="copyright">
+      <span class="copyright-owner"><a href={localizedUrl(locale)} aria-label={text.common.homeLabel}><Wordmark /></a></span>
+      <span>{text.footer.rights}</span>
+    </p>
+    <SocialLinks includeEmail />
+  </div>
+</footer>
+
+<style>
+  .site-footer { color: var(--text); background: var(--surface-elevated); }
+  .footer-bottom { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px 32px; padding-block: 24px; }
+  .copyright { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 14px; margin: 0; color: var(--muted); font-size: 0.7rem; line-height: 1.7; }
+  .copyright-owner { display: inline-flex; align-items: baseline; gap: 8px; }
+  .copyright-owner a { display: inline-flex; align-items: center; min-height: 44px; color: var(--text); }
+  .copyright-owner :global(.wordmark) { font-size: 1.05rem; letter-spacing: -0.01em; }
+  @media (max-width: 640px) {
+    .footer-bottom { flex-direction: column-reverse; align-items: center; gap: 4px; padding-block: 20px 24px; }
+    .footer-bottom :global(.social-links) { justify-content: center; }
+    .copyright { flex-basis: auto; justify-content: center; text-align: center; }
+  }
+</style>

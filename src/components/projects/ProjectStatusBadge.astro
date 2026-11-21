@@ -1,0 +1,27 @@
+---
+import type { ProjectStatus } from '../../config/content';
+import { getLocale } from '../../i18n/locales';
+import { getUI } from '../../i18n/ui';
+
+interface Props {
+  status: ProjectStatus;
+}
+
+const { status } = Astro.props;
+const text = getUI(getLocale(Astro.url));
+---
+
+<span class="status-badge" data-status={status}>
+  <span class="visually-hidden">{text.projects.statusLabel}: </span>
+  {text.projects.statuses[status]}
+</span>
+
+<style>
+  .status-badge {
+    color: var(--accent);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+</style>

@@ -1,0 +1,118 @@
+---
+import type { MarkdownHeading } from 'astro';
+
+interface Props {
+  headings: MarkdownHeading[];
+  label: string;
+}
+
+const { headings, label } = Astro.props;
+---
+
+<nav class="article-contents" aria-labelledby="article-contents-title" data-article-contents>
+  <details open>
+    <summary id="article-contents-title">
+      {label}
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+        <path d="m6 9 6 6 6-6" />
+      </svg>
+    </summary>
+    <ol>
+      {headings.map((heading, index) => (
+        <li>
+          <a href={`#${heading.slug}`}>
+            <span class="contents-number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+            <span>{heading.text}</span>
+          </a>
+        </li>
+      ))}
+    </ol>
+  </details>
+</nav>
+
+<script>
+  import { initializeArticleContents } from '../../scripts/article/contents';
+
+  initializeArticleContents();
+</script>
+
+<style>
+  .article-contents {
+    position: sticky;
+    top: 32px;
+    max-height: calc(100dvh - 64px);
+    overflow-y: auto;
+    min-width: 0;
+    margin-top: var(--contents-top-offset, 22px);
+  }
+  summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 0 12px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    line-height: 1.4;
+    letter-spacing: -0.025em;
+    list-style: none;
+  }
+  summary::-webkit-details-marker {
+    display: none;
+  }
+  summary svg {
+    display: none;
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+  }
+  ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  a {
+    display: grid;
+    grid-template-columns: 24px minmax(0, 1fr);
+    align-items: baseline;
+    gap: 12px;
+    min-height: 44px;
+    padding-block: 10px;
+    color: var(--muted);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    overflow-wrap: anywhere;
+  }
+  a:hover {
+    color: var(--accent);
+  }
+  .contents-number {
+    font-size: 0.8rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  @media (width < 1488px) {
+    .article-contents {
+      position: static;
+      max-height: none;
+      margin: 0 0 32px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-card);
+    }
+    summary {
+      min-height: 48px;
+      margin: 0;
+      padding: 12px 16px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    summary svg {
+      display: block;
+    }
+    details[open] summary svg {
+      transform: rotate(180deg);
+    }
+    ol {
+      padding: 0 16px 8px;
+    }
+  }
+</style>

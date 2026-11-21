@@ -1,0 +1,11 @@
+---
+import { languageScriptSettings } from '../../i18n/locales';
+---
+
+<script
+  is:inline
+  id="language-preference"
+  src="/scripts/language.js"
+  data-action="redirect"
+  data-settings={JSON.stringify(languageScriptSettings)}
+></script>

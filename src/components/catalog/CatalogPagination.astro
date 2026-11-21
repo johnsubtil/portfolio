@@ -1,0 +1,17 @@
+---
+import { getLocale } from '../../i18n/locales';
+import { getUI } from '../../i18n/ui';
+
+const text = getUI(getLocale(Astro.url));
+---
+
+<nav
+  class="catalog-pagination"
+  aria-label={text.pagination.label}
+  data-catalog-pagination
+  data-previous={text.pagination.previous}
+  data-next={text.pagination.next}
+  data-page-label={text.pagination.page}
+  data-summary={text.pagination.summary}
+  hidden
+></nav>

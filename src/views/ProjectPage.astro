@@ -1,0 +1,103 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { render } from 'astro:content';
+import PageLayout from '../layouts/PageLayout.astro';
+import PostList from '../components/posts/PostList.astro';
+import ArticleContents from '../components/layout/ArticleContents.astro';
+import ProjectPresentation from '../components/projects/ProjectPresentation.astro';
+import { contentSlug } from '../lib/content/identity';
+import { getPostsForProject } from '../lib/content/queries';
+import { getLocale, localeSettings, localizedUrl, type Locale } from '../i18n/locales';
+import { getUI } from '../i18n/ui';
+import { articleContentsMinimum } from '../config/content';
+import { site } from '../config/site';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+  locales: Locale[];
+}
+
+const { project, locales } = Astro.props;
+const locale = getLocale(Astro.url);
+const text = getUI(locale);
+const { Content, headings } = await render(project);
+const contents = headings.filter(({ depth }) => depth === 2);
+const hasContents = contents.length >= articleContentsMinimum;
+const posts = await getPostsForProject(project.id);
+const recentPosts = posts.slice(0, 4);
+const postFilters = new URLSearchParams({ project: contentSlug(project.id) });
+const postsUrl = `${localizedUrl(locale, '/posts/')}?${postFilters}`;
+const absolute = (path: string) => new URL(path, Astro.site).href;
+const { title, description, category, cover, skills, links, publishedAt, updated } = project.data;
+const structuredData = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': links.github ? 'SoftwareSourceCode' : 'CreativeWork',
+  name: title,
+  description,
+  url: absolute(Astro.url.pathname),
+  inLanguage: localeSettings[locale].language,
+  datePublished: publishedAt.toISOString(),
+  dateModified: updated.toISOString(),
+  genre: text.projects.categories[category],
+  keywords: skills.length > 0 ? skills.join(', ') : undefined,
+  image: cover ? absolute(cover.src) : undefined,
+  codeRepository: links.github || undefined,
+  author: { '@type': 'Person', name: site.name, url: absolute(localizedUrl(locale)) },
+}).replace(/</g, '\\u003c');
+---
+
+<PageLayout
+  class={`article-page project-page${hasContents ? ' article-with-contents' : ''}`}
+  heading={project.data.title}
+  description={project.data.description}
+  ambient={false}
+  availableLocales={locales}
+  breadcrumbs={[
+    { label: text.common.home, href: localizedUrl(locale) },
+    { label: text.projects.title, href: localizedUrl(locale, '/projects/') },
+    { label: project.data.title },
+  ]}
+>
+  <script slot="head" is:inline type="application/ld+json" set:html={structuredData}></script>
+  <Fragment slot="sidebar">
+    {hasContents && <ArticleContents headings={contents} label={text.projects.contents} />}
+  </Fragment>
+  <ProjectPresentation slot="heading" project={project}>
+    <Content />
+  </ProjectPresentation>
+
+  {posts.length > 0 && <section class="project-posts" aria-labelledby="project-posts">
+    <div class="posts-heading">
+      <h2 id="project-posts">{text.posts.recent}</h2>
+      <a class="text-link" href={postsUrl}>{text.posts.allPosts}</a>
+    </div>
+    <PostList posts={recentPosts} showFilters={false} layout="horizontal" />
+  </section>}
+</PageLayout>
+
+<style>
+  .project-posts {
+    max-width: var(--content-width);
+    margin-inline: auto;
+    margin-top: 56px;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+  }
+
+  .posts-heading {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px 20px;
+    margin-bottom: 18px;
+  }
+
+  .posts-heading h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: var(--heading-weight);
+    letter-spacing: var(--heading-tracking);
+  }
+
+</style>

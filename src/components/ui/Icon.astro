@@ -1,0 +1,29 @@
+---
+import BehanceIcon from '../../assets/icons/behance.svg';
+import EmailIcon from '../../assets/icons/email.svg';
+import GitHubIcon from '../../assets/icons/github.svg';
+import GlobeIcon from '../../assets/icons/globe.svg';
+import InstagramIcon from '../../assets/icons/instagram.svg';
+import LinkedInIcon from '../../assets/icons/linkedin.svg';
+import TikTokIcon from '../../assets/icons/tiktok.svg';
+import YouTubeIcon from '../../assets/icons/youtube.svg';
+
+const icons = {
+  behance: BehanceIcon,
+  email: EmailIcon,
+  github: GitHubIcon,
+  globe: GlobeIcon,
+  instagram: InstagramIcon,
+  linkedin: LinkedInIcon,
+  tiktok: TikTokIcon,
+  youtube: YouTubeIcon,
+};
+
+interface Props {
+  name: keyof typeof icons;
+}
+
+const Component = icons[Astro.props.name];
+---
+
+<Component aria-hidden="true" focusable="false" />

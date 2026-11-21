@@ -1,0 +1,113 @@
+---
+import CoverImage from '../media/CoverImage.astro';
+import { contentSlug } from '../../lib/content/identity';
+import { formatContentDate } from '../../lib/content/dates';
+import { getLocale, localizedUrl } from '../../i18n/locales';
+import type { Post } from '../../lib/content/queries';
+
+interface Props {
+  posts: Post[];
+  skeletonSlots?: number;
+}
+
+const { posts, skeletonSlots = 0 } = Astro.props;
+const [lead, ...rest] = posts;
+const locale = getLocale(Astro.url);
+const urlFor = (post: Post) => localizedUrl(locale, `/posts/${contentSlug(post.id)}/`);
+const coverFor = (post: Post) => post.data.cover ?? post.project?.data.cover;
+---
+
+{lead && (
+  <div class="feed" data-count={posts.length + skeletonSlots}>
+    <article class="lead">
+      <a href={urlFor(lead)} aria-labelledby={`feed-${contentSlug(lead.id)}`}>
+        <div class="lead-media"><CoverImage cover={coverFor(lead)} /></div>
+        <div class="meta">
+          <span class="labels"><span class="format">{lead.data.format}</span>{lead.project && <><span class="sep" aria-hidden="true">&nbsp;•&nbsp;</span><span class="project">{lead.project.data.title}</span></>}</span>
+          <time datetime={lead.data.publishedAt.toISOString()}>{formatContentDate(lead.data.publishedAt, locale)}</time>
+        </div>
+        <h3 id={`feed-${contentSlug(lead.id)}`}>{lead.data.title}</h3>
+        <p>{lead.data.description}</p>
+      </a>
+    </article>
+
+    {(rest.length > 0 || skeletonSlots > 0) && (
+      <ol class="list">
+        {rest.map((post) => (
+          <li>
+            <a class="item" href={urlFor(post)} aria-labelledby={`feed-${contentSlug(post.id)}`}>
+              <div class="thumb"><CoverImage cover={coverFor(post)} /></div>
+              <div class="item-body">
+                <div class="meta">
+                  <span class="labels"><span class="format">{post.data.format}</span>{post.project && <><span class="sep" aria-hidden="true">&nbsp;•&nbsp;</span><span class="project">{post.project.data.title}</span></>}</span>
+                </div>
+                <h3 id={`feed-${contentSlug(post.id)}`}>{post.data.title}</h3>
+                <time datetime={post.data.publishedAt.toISOString()}>{formatContentDate(post.data.publishedAt, locale)}</time>
+              </div>
+            </a>
+          </li>
+        ))}
+        {Array.from({ length: skeletonSlots }, () => (
+          <li class="skeleton" aria-hidden="true">
+            <div class="item">
+              <div class="thumb"><CoverImage skeleton /></div>
+              <div class="item-body">
+                <span class="bar bar-meta"></span>
+                <span class="bar bar-title"></span>
+                <span class="bar bar-title bar-short"></span>
+              </div>
+            </div>
+          </li>
+        ))}
+      </ol>
+    )}
+  </div>
+)}
+
+<style>
+  .feed { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: clamp(32px, 5vw, 72px); align-items: stretch; }
+  .feed[data-count='1'] { grid-template-columns: minmax(0, 1fr); }
+
+  .lead a { display: block; }
+  .lead-media { overflow: hidden; border-radius: var(--radius-image); }
+  .lead-media :global(.cover-image) { aspect-ratio: 16 / 10; border-radius: 0; transition: transform 600ms cubic-bezier(.2, .65, .3, 1); }
+  .lead a:hover .lead-media :global(.cover-image) { transform: scale(1.03); }
+  .lead .meta { margin-top: 24px; }
+  .lead h3 { margin: 12px 0 0; font-size: clamp(1.6rem, 2.8vw, 2.4rem); font-weight: var(--heading-weight); line-height: 1.1; letter-spacing: var(--heading-tracking); text-wrap: balance; }
+  .lead p { max-width: 52ch; margin: 14px 0 0; color: var(--muted); line-height: 1.6; }
+
+  .list { display: grid; grid-auto-rows: 1fr; margin: 0; padding: 0; list-style: none; }
+  .list li { border-top: 1px solid var(--line); }
+  .list li:first-child { border-top: 0; }
+  .item { display: grid; grid-template-columns: minmax(0, 9.5rem) minmax(0, 1fr); gap: 20px; align-items: center; height: 100%; padding-block: 20px; }
+  .list li:first-child .item { padding-top: 0; }
+  .list li:last-child .item { padding-bottom: 0; }
+  .thumb { overflow: hidden; border-radius: var(--radius-image); }
+  .thumb :global(.cover-image) { border-radius: 0; transition: transform 500ms cubic-bezier(.2, .65, .3, 1); }
+  .item:hover .thumb :global(.cover-image) { transform: scale(1.05); }
+  .item h3 { margin: 8px 0 8px; font-size: 1.1rem; font-weight: var(--heading-weight); line-height: 1.25; letter-spacing: var(--heading-tracking); }
+
+  .meta { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
+  .format { color: var(--accent); }
+  .sep { color: var(--muted); }
+  .project { color: var(--accent); }
+  .meta time { margin-left: auto; color: var(--muted); font-weight: 400; letter-spacing: 0; text-transform: none; }
+  .item .meta { letter-spacing: 0.06em; }
+  .item time { color: var(--muted); font-size: 0.8rem; }
+
+  .skeleton .item-body { display: grid; gap: 12px; }
+  .bar { display: block; height: 0.8rem; border-radius: var(--radius-pill); background: var(--surface-elevated); }
+  .bar-meta { width: 38%; height: 0.6rem; }
+  .bar-title { width: 88%; }
+  .bar-short { width: 55%; }
+
+  a:is(:hover, :focus-visible) { color: var(--text); }
+  a:is(:hover, :focus-visible) h3 { color: var(--accent); }
+
+  @media (max-width: 900px) {
+    .feed { grid-template-columns: minmax(0, 1fr); }
+    .list li:first-child { border-top: 1px solid var(--line); }
+    .list li:first-child .item { padding-top: 20px; }
+  }
+  @media (max-width: 480px) { .item { grid-template-columns: minmax(0, 7rem) minmax(0, 1fr); gap: 14px; } }
+</style>

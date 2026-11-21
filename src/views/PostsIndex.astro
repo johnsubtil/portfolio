@@ -1,0 +1,20 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import PostList from '../components/posts/PostList.astro';
+import { getPosts } from '../lib/content/queries';
+import { getLocale } from '../i18n/locales';
+import { getUI } from '../i18n/ui';
+
+const locale = getLocale(Astro.url);
+const text = getUI(locale);
+const posts = await getPosts(locale);
+---
+
+<PageLayout
+  class="catalog-page"
+  heading={text.posts.title}
+  metaDescription={text.posts.metaDescription}
+  noindex={posts.length === 0}
+>
+  <PostList posts={posts} headingLevel="h2" />
+</PageLayout>

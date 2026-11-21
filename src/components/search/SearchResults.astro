@@ -1,0 +1,145 @@
+---
+import { getLocale, localizedUrl } from '../../i18n/locales';
+import { getUI } from '../../i18n/ui';
+import CatalogPagination from '../catalog/CatalogPagination.astro';
+import '../../styles/search.css';
+import '../../styles/catalog.css';
+
+const locale = getLocale(Astro.url);
+const text = getUI(locale);
+---
+
+<section
+  class="search-page"
+  data-search-page
+  data-index-url={`${localizedUrl(locale)}search-index.json`}
+  data-project-label={text.search.project}
+  data-post-label={text.search.post}
+  data-one={text.search.resultOne}
+  data-many={text.search.resultMany}
+  data-error={text.search.error}
+  aria-label={text.search.results}
+>
+  <form role="search" aria-label={text.search.label} action={localizedUrl(locale, '/search/')} method="get">
+    <label for="page-search-input">{text.search.label}</label>
+    <div class="search-fields">
+      <input id="page-search-input" type="search" name="q" placeholder={text.search.placeholder} />
+      <button type="submit">{text.search.submit}</button>
+    </div>
+  </form>
+  <p class="search-status catalog-status" role="status" aria-atomic="true" hidden>{text.search.loading}</p>
+  <p class="catalog-empty" data-search-empty hidden>{text.search.empty}</p>
+  <ul class="search-results-list" data-search-results></ul>
+  <CatalogPagination />
+  <noscript>
+    <p>{text.search.noScript}</p>
+    <a class="text-link" href={localizedUrl(locale, '/projects/')}>{text.projects.title}</a>
+    <a class="text-link" href={localizedUrl(locale, '/posts/')}>{text.posts.title}</a>
+  </noscript>
+</section>
+
+<script>
+  import { initializeSearchPage } from '../../scripts/search/page';
+
+  initializeSearchPage();
+</script>
+
+<style>
+  form {
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+  .search-fields {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 18px;
+  }
+  input,
+  button {
+    min-width: 0;
+    min-height: 44px;
+    padding: 10px 12px;
+    border: 1px solid var(--control-line);
+    border-radius: var(--radius-control);
+  }
+  button {
+    padding-inline: 28px;
+    border-color: transparent;
+    border-radius: var(--radius-pill);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  input {
+    width: 100%;
+    color: var(--text);
+    background: var(--background);
+  }
+  button {
+    color: var(--on-accent);
+    background: var(--text);
+  }
+  button:hover {
+    color: var(--accent-ink);
+    background: var(--accent);
+  }
+  input::placeholder {
+    color: var(--muted);
+    opacity: 1;
+  }
+  input:hover {
+    border-color: var(--accent);
+  }
+  .search-results-list :global(li) {
+    border-top: 1px solid var(--line);
+  }
+
+  .search-results-list :global(li:last-child) {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .search-results-list :global(.search-result-title) {
+    font-size: clamp(1.3rem, 2vw, 1.6rem);
+    line-height: 1.15;
+    letter-spacing: var(--heading-tracking);
+  }
+
+  .search-results-list :global(.search-result-description) {
+    max-width: 75ch;
+  }
+
+  @media (max-width: 640px) {
+    .search-results-list {
+      --thumb: 6.5rem;
+    }
+
+    .search-results-list :global(.search-result) {
+      column-gap: 14px;
+    }
+
+    .search-results-list :global(.search-result-description) {
+      display: none;
+    }
+
+    .search-fields {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    input {
+      font-size: 1rem;
+    }
+
+    button {
+      justify-self: start;
+    }
+  }
+</style>
