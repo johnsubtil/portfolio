@@ -1,0 +1,9 @@
+# Keep line endings the same on every machine (see .editorconfig).
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.gif binary
+*.woff2 binary
