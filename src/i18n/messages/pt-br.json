@@ -159,15 +159,15 @@
     "introduction": "Sou o John, alguém curioso: levo <strong>o que aprendo</strong> em uma área para <strong>o que construo</strong> em outra. Este site é meu <strong>caderno aberto</strong>, onde compartilho projetos, experimentos e descobertas enquanto ganham forma.",
     "disciplinesLabel": "O que eu faço",
     "disciplines": {
-      "software": "Construo sistemas do banco à interface: APIs seguras e testadas, consultas afinadas e deploy.",
-      "hardware": "Monto e programo circuitos e microcontroladores, da bancada de testes à placa que roda sozinha.",
-      "pedagogy": "Desenho trilhas de estudo: conceitos difíceis em passos curtos, com exercícios e retorno.",
-      "design": "Desenho interfaces e identidades visuais: tipografia, cor e ritmo a serviço de uma ideia clara.",
-      "games": "Prototipo jogos pequenos: regras, ritmo e sensação de controle antes de qualquer arte.",
-      "art": "Desenho e pinto digitalmente: estudos de luz, forma e cor, de esboços a ilustrações acabadas.",
-      "security": "Estudo como sistemas quebram: modelagem de ameaças, revisão de código e laboratórios práticos.",
-      "video": "Produzo vídeos para redes sociais: roteiro, edição e publicação a partir das histórias que escrevo.",
-      "stories": "Escrevo histórias e mundos: personagens, enredos e pequenas regras de um universo vivo."
+      "software": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.",
+      "hardware": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.",
+      "pedagogy": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+      "design": "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim.",
+      "games": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.",
+      "art": "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur.",
+      "security": "Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.",
+      "video": "Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur.",
+      "stories": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore."
     },
     "readMore": "Mais sobre mim"
   }

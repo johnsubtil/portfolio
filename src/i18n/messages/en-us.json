@@ -159,15 +159,15 @@
     "introduction": "I'm John, a curious person: I take <strong>what I learn</strong> in one field into <strong>what I build</strong> in another. This site is my <strong>open notebook</strong>, where I share projects, experiments and discoveries as they take shape.",
     "disciplinesLabel": "What I do",
     "disciplines": {
-      "software": "I build systems from database to interface: secure, tested APIs, tuned queries and deployment.",
-      "hardware": "I assemble and program circuits and microcontrollers, from the test bench to a board that runs alone.",
-      "pedagogy": "I design learning paths: hard concepts in short steps, with exercises and feedback.",
-      "design": "I design interfaces and visual identities: type, color and rhythm serving a clear idea.",
-      "games": "I prototype small games: rules, pacing and feel tested before any art, in short cycles.",
-      "art": "I draw and paint digitally: studies of light, form and color, from sketches to finished pieces.",
-      "security": "I study how systems break: threat modeling, code review and hands-on labs, to defend what I build.",
-      "video": "I produce videos for social media: scripts, editing and publishing, built from the stories I write.",
-      "stories": "I write stories and worlds: characters, plots and the small rules of a living universe."
+      "software": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.",
+      "hardware": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.",
+      "pedagogy": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+      "design": "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim.",
+      "games": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.",
+      "art": "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur.",
+      "security": "Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.",
+      "video": "Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur.",
+      "stories": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore."
     },
     "readMore": "More about me"
   }
