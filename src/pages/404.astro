@@ -1,0 +1,49 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Cta from '../components/ui/Cta.astro';
+import { site } from '../config/site';
+import { defaultLocale, languageScriptSettings, localizedUrl, supportedLocales } from '../i18n/locales';
+import { getUI } from '../i18n/ui';
+
+---
+
+<BaseLayout title={`404 - ${site.name}`} description={getUI(defaultLocale).notFound.title} noindex>
+  <main id="content" class="not-found wrap" tabindex="-1">
+    <p class="code" aria-hidden="true">404</p>
+    {supportedLocales.map((locale) => {
+      const text = getUI(locale).notFound;
+      return (
+        <div class="message" data-locale={locale} hidden={locale !== defaultLocale}>
+          <h1>{text.title}</h1>
+          <div class="actions">
+            <Cta href={localizedUrl(locale)} variant="fill" tone="light">{text.home}</Cta>
+          </div>
+        </div>
+      );
+    })}
+    <script is:inline src="/scripts/language.js" data-action="messages" data-settings={JSON.stringify(languageScriptSettings)}></script>
+  </main>
+</BaseLayout>
+
+<style>
+  .not-found {
+    display: grid;
+    align-content: center;
+    justify-items: start;
+    gap: 20px;
+    min-height: calc(100svh - 220px);
+    padding-block: clamp(40px, 8vw, 96px);
+  }
+  .code {
+    margin: 0;
+    font-family: var(--display);
+    font-weight: var(--heading-weight);
+    font-size: clamp(6.5rem, 34vw, 15rem);
+    line-height: 0.82;
+    letter-spacing: -0.02em;
+    color: color-mix(in srgb, var(--accent) 28%, var(--background));
+    user-select: none;
+  }
+  h1 { margin: 0; max-width: 16ch; font-size: clamp(2rem, 6vw, 3.6rem); font-weight: var(--heading-weight); line-height: 1.02; letter-spacing: var(--heading-tracking); }
+  .actions { margin-top: 12px; }
+</style>

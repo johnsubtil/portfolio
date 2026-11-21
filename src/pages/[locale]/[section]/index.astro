@@ -1,0 +1,23 @@
+---
+import ProjectsIndex from '../../../views/ProjectsIndex.astro';
+import PostsIndex from '../../../views/PostsIndex.astro';
+import SearchPage from '../../../views/SearchPage.astro';
+import AboutPage from '../../../views/AboutPage.astro';
+import { localeSettings, routeSections, routeSegments, supportedLocales } from '../../../i18n/locales';
+
+export function getStaticPaths() {
+  return supportedLocales.flatMap((locale) =>
+    routeSections.map((section) => ({
+      params: { locale: localeSettings[locale].path, section: routeSegments[locale][section] },
+      props: { section },
+    })),
+  );
+}
+
+const { section } = Astro.props;
+---
+
+{section === 'projects' && <ProjectsIndex />}
+{section === 'posts' && <PostsIndex />}
+{section === 'about' && <AboutPage />}
+{section === 'search' && <SearchPage />}

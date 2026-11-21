@@ -1,0 +1,36 @@
+---
+import LanguagePreference from '../components/i18n/LanguagePreference.astro';
+import { defaultLocale, localeSettings, localizedUrl, supportedLocales } from '../i18n/locales';
+import { site } from '../config/site';
+
+---
+
+<!doctype html>
+<html lang={localeSettings[defaultLocale].language}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, follow" />
+    <meta name="theme-color" content={site.themeColor} />
+    <link rel="canonical" href={new URL(localizedUrl(defaultLocale), Astro.site).href} />
+    {supportedLocales.map((locale) => (
+      <link rel="alternate" hreflang={localeSettings[locale].language} href={new URL(localizedUrl(locale), Astro.site).href} />
+    ))}
+    <link rel="icon" href="/icons/favicon.svg" type="image/svg+xml" />
+    <noscript><meta http-equiv="refresh" content={`0;url=${localizedUrl(defaultLocale)}`} /></noscript>
+    <title>{site.name}</title>
+    <style>
+      body { display: grid; place-items: center; min-height: 100svh; margin: 0; background: var(--background); color: var(--text); font-family: var(--sans); }
+      nav { display: flex; gap: 20px; }
+      a { color: inherit; }
+    </style>
+  </head>
+  <body>
+    <LanguagePreference />
+    <nav aria-label={site.name}>
+      {supportedLocales.map((locale) => (
+        <a href={localizedUrl(locale)} lang={localeSettings[locale].language} hreflang={localeSettings[locale].language}>{localeSettings[locale].label}</a>
+      ))}
+    </nav>
+  </body>
+</html>

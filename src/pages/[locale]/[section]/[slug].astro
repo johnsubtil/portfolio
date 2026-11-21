@@ -1,0 +1,14 @@
+---
+import ProjectPage from '../../../views/ProjectPage.astro';
+import PostPage from '../../../views/PostPage.astro';
+import { getPostPaths, getProjectPaths } from '../../../lib/content/queries';
+
+export async function getStaticPaths() {
+  return [...(await getProjectPaths()), ...(await getPostPaths())];
+}
+
+const props = Astro.props;
+---
+
+{props.kind === 'project' && <ProjectPage project={props.project} locales={props.locales} />}
+{props.kind === 'post' && <PostPage post={props.post} locales={props.locales} />}

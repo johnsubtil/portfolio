@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import HeroSection from '../../components/home/HeroSection.astro';
+import RecentProjectsSection from '../../components/home/RecentProjectsSection.astro';
+import RecentPostsSection from '../../components/home/RecentPostsSection.astro';
+import CreatorIntroduction from '../../components/home/CreatorIntroduction.astro';
+import { getLocalePaths } from '../../i18n/locales';
+
+export function getStaticPaths() {
+  return getLocalePaths();
+}
+---
+
+<BaseLayout>
+  <main id="content" tabindex="-1">
+    <HeroSection />
+    <CreatorIntroduction />
+    <RecentProjectsSection />
+    <RecentPostsSection />
+  </main>
+</BaseLayout>
