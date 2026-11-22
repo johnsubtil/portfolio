@@ -9,19 +9,19 @@ publishedAt: '2026-11-18'
 updated: '2026-11-18'
 ---
 
-Na página inicial, cada área em que trabalho tem um pequeno emblema: **uma letra e um material**. Esta página explica o que eles significam, para que a página inicial continue limpa.
+Na página inicial, cada área em que trabalho tem um pequeno emblema: **uma letra e um material**. Esta página explica o que eles significam.
 
 ## Por que ranks, e por que por área
 
-Todo campo tem habilidades sem fim. Uma lista de ferramentas nunca estaria completa, e uma barra para cada uma diria pouco. Por isso eu classifico a **área como um todo**: o quanto consigo trabalhar em engenharia de software ou em escrita.
+Cada área envolve muitas habilidades. Uma lista de ferramentas nunca estaria completa, e uma barra para cada uma diria pouco. Por isso, classifico a **área como um todo**, considerando o quanto consigo trabalhar com autonomia nela.
 
-O rank é a **minha própria avaliação**, não um certificado. **Prefiro mostrar uma letra baixa que seja verdadeira a uma alta que não seja**, e vou mudá-la quando deixar de ser verdade.
+O rank é a **minha própria avaliação**, não um certificado. **Prefiro mostrar uma letra baixa que seja verdadeira a uma alta que não seja**, e vou mudá-la quando ela não representar mais o que consigo fazer.
 
 ## A escala que sigo
 
 Duas ideias se misturam aqui, cada uma com uma função:
 
-- **As letras, de E a S**, seguem uma convenção comum em jogos: **E** é o rank mais baixo e **S** o mais alto, com o **S** acima do **A**. Esse **S** vem das notas das escolas japonesas.
+- **As letras, de E a S**, seguem uma convenção comum em jogos: **E** é o rank mais baixo e **S** o mais alto.
 - **O significado de cada degrau** vem do **modelo de Dreyfus de aquisição de habilidade** (Hubert e Stuart Dreyfus, 1980): novato, iniciante avançado, competente, proficiente e especialista, com a maestria acima. Ele descreve como a pessoa trabalha em cada fase e **vale para qualquer área**.
 
 | Rank | Nome | Material | O que significa |
@@ -39,7 +39,7 @@ Escolhi materiais para os ranks seguindo a lógica dos jogos: cada nível leva o
 
 ## Como um rank muda
 
-Um rank sobe quando consigo cumprir os critérios do próximo degrau **em trabalho de verdade, sozinho**, e não só em exercícios. Até lá **ele fica onde está**, mesmo que eu esteja estudando o nível seguinte.
+Um rank sobe quando consigo cumprir os critérios do próximo degrau **em trabalho de verdade, sozinho**, e não só em exercícios.
 
 ## Ferramentas e habilidades
 
@@ -50,4 +50,3 @@ As **ferramentas e habilidades** utilizadas no processo ficam no fim de cada pá
 ## Referências
 
 - Hubert L. Dreyfus e Stuart E. Dreyfus, 1980. Resumo: [Dreyfus model of skill acquisition](https://en.wikipedia.org/wiki/Dreyfus_model_of_skill_acquisition) (Wikipédia, em inglês). Os nomes e o significado dos degraus.
-- [S Rank](https://consolegameswiki.com/wiki/S-Rank) (Console Games Wiki, em inglês). Sobre o S acima do A, que vem das notas das escolas japonesas; a própria página diz que a origem exata não está documentada.
