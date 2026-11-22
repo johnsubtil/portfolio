@@ -4,7 +4,7 @@ export type ProjectStatus = (typeof projectStatuses)[number];
 export const projectCategories = ['software', 'security', 'hardware', 'pedagogy', 'design', 'games', 'art', 'video', 'stories'] as const;
 export type ProjectCategory = (typeof projectCategories)[number];
 
-export const homeCategories: readonly ProjectCategory[] = ['software', 'security', 'design', 'video', 'stories'];
+export const homeCategories: readonly ProjectCategory[] = ['software', 'design', 'stories'];
 
 export const articleContentsMinimum = 3;
 

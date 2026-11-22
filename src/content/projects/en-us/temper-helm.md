@@ -5,12 +5,10 @@ status: planned
 category: software
 cover:
   src: /images/projects/temper-helm/cover.svg
-  alt: 'An eight-handled helm wheel with a spark at the point of impact and an arc showing a one-step turn'
 featured: true
 publishedAt: '2026-10-29'
 updated: '2026-10-29'
 links:
-  website: https://temperhelm.com
   github: https://github.com/johnsubtil/temper-helm
 ---
 

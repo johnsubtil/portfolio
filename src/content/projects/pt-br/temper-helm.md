@@ -5,12 +5,10 @@ status: planned
 category: software
 cover:
   src: /images/projects/temper-helm/cover.svg
-  alt: 'Uma roda de leme de oito cabos, com uma faísca no ponto do impacto e um arco indicando o giro de um passo'
 featured: true
 publishedAt: '2026-10-29'
 updated: '2026-10-29'
 links:
-  website: https://temperhelm.com
   github: https://github.com/johnsubtil/temper-helm
 ---
 
