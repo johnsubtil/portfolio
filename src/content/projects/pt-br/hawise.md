@@ -1,11 +1,10 @@
 ---
 title: Hawise
 description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-status: planned
+status: in-progress
 category: stories
 cover:
   src: /images/projects/hawise/cover.svg
-  alt: 'Um grande sol luminoso nascendo atrás de camadas de colinas roxas em névoa'
 featured: true
 publishedAt: '2026-11-06'
 updated: '2026-11-06'

@@ -39,7 +39,6 @@
     "statusLabel": "Status",
     "allStatuses": "All statuses",
     "statuses": {
-      "planned": "Planned",
       "in-progress": "In progress",
       "completed": "Completed"
     },
@@ -53,13 +52,6 @@
     "skillFilter": "See projects using",
     "categories": {
       "software": "Software engineering",
-      "art": "Digital art",
-      "security": "Cybersecurity",
-      "hardware": "Hardware engineering",
-      "pedagogy": "Pedagogy",
-      "design": "Design",
-      "games": "Game development",
-      "video": "Video and content",
       "stories": "Writing"
     },
     "recent": "Recent projects",
@@ -160,13 +152,6 @@
     "disciplinesLabel": "What I do",
     "disciplines": {
       "software": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.",
-      "hardware": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.",
-      "pedagogy": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-      "design": "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim.",
-      "games": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.",
-      "art": "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur.",
-      "security": "Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.",
-      "video": "Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur.",
       "stories": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore."
     },
     "readMore": "More about me"

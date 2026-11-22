@@ -1,11 +1,10 @@
 ---
 title: Hawise
 description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-status: planned
+status: in-progress
 category: stories
 cover:
   src: /images/projects/hawise/cover.svg
-  alt: 'A large glowing sun rising behind layers of misty purple hills'
 featured: true
 publishedAt: '2026-11-06'
 updated: '2026-11-06'

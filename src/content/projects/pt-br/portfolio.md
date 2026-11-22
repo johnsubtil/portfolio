@@ -6,7 +6,6 @@ category: software
 skills: [Astro, TypeScript, React, Motion, CSS, Markdown, Zod, CSP, GitHub Actions, Dependabot, Cloudflare Pages]
 cover:
   src: /images/projects/portfolio/cover.svg
-  alt: 'Monograma JS em branco e dourado dentro de um anel, sobre fundo preto'
 publishedAt: '2026-10-26'
 updated: '2026-10-26'
 links:

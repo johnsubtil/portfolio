@@ -1,5 +1,5 @@
 ---
-import { homeCategories } from '../../config/content';
+import { projectCategories } from '../../config/content';
 import { ranks, nicheRanks, rankGuidePost } from '../../config/ranks';
 import '../../styles/rank-emblem.css';
 import { getLocale, localizedUrl } from '../../i18n/locales';
@@ -13,7 +13,7 @@ const projectsUrl = localizedUrl(locale, '/projects/');
 const hasGuide = rankGuidePost ? (await getPosts(locale)).some((post) => contentSlug(post.id) === rankGuidePost) : false;
 const guideUrl = hasGuide ? localizedUrl(locale, `/posts/${rankGuidePost}/`) : undefined;
 
-const niches = homeCategories.map((category) => ({
+const niches = projectCategories.map((category) => ({
   rank: nicheRanks[category]?.rank,
   name: text.projects.categories[category],
   description: text.home.disciplines[category],

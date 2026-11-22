@@ -31,7 +31,7 @@ A project (`my-project.md`):
 ---
 title: My project
 description: A short description.
-status: planned
+status: in-progress
 category: stories
 publishedAt: '2026-11-06'
 updated: '2026-11-06'
@@ -40,7 +40,7 @@ updated: '2026-11-06'
 Project text in Markdown.
 ```
 
-Statuses: `planned`, `in-progress`, `completed`. Categories: `software` (the default), `security`, `hardware`, `pedagogy`, `design`, `games`, `art`, `video`, `stories`. Projects are published as soon as their files exist. Add `featured: true` to show a project in the home page hero (up to three, newest first). Without any featured project the home page shows a text hero instead. Add `skills: [Astro, TypeScript]` to list the technologies a project uses: they show as `#` tags at the end of the project page, where each one opens the projects list filtered by it, and they are part of the site search.
+Statuses: `in-progress`, `completed`. Categories: `software` (the default), `stories`. Projects are published as soon as their files exist. Add `featured: true` to show a project in the home page hero (up to three, newest first). Without any featured project the home page shows a text hero instead. Add `skills: [Astro, TypeScript]` to list the technologies a project uses: they show as `#` tags at the end of the project page, where each one opens the projects list filtered by it, and they are part of the site search.
 
 A post (`my-post.md`):
 
@@ -92,7 +92,7 @@ GIFs are served unchanged. Keep animations short and export them at suitable siz
 
 - `src/config/site.ts`: site identity, email, social links, and the path of the About page photo.
 - `src/config/ranks.ts`: the rank of each area, from E to S (shown in the home "What I do" section), and the post that explains the ranks (`rankGuidePost`, linked by the "?" in the home "What I do" section). The titles of the letters live in `src/i18n/messages` (`ranks`).
-- `src/config/content.ts`: statuses and categories, which categories the home "What I do" section lists (`homeCategories`; each needs a text in `home.disciplines` and, optionally, a rank in `ranks.ts`), whether project cards show their category, and the limits for the home hero (and how many seconds each featured project stays before the next one comes in), the home project list and the home recent posts (free slots show as gray placeholders; `showPlaceholderSlots` turns that off), and the article table of contents.
+- `src/config/content.ts`: statuses and categories (each category needs a name in `projects.categories`, a text in `home.disciplines`, and, optionally, a rank in `ranks.ts`), whether project cards show their category, and the limits for the home hero (and how many seconds each featured project stays before the next one comes in), the home project list and the home recent posts (free slots show as gray placeholders; `showPlaceholderSlots` turns that off), and the article table of contents.
 - `src/i18n/messages/`: interface text; keep keys aligned between languages.
 - `src/styles/tokens.css`: colors, radii, spacing, and typography. Use these tokens instead of hard-coded values.
 - `public/`: the JS monogram icon (`favicon.svg`, `favicon.ico`, `apple-touch-icon.png`), social preview image (`og-image.png`), `robots.txt`, `_headers`, and `scripts/language.js` (chooses the language for the bare address and the 404 page). The sitemap is generated at `/sitemap.xml`.

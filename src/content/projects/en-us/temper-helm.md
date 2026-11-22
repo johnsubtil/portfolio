@@ -1,7 +1,7 @@
 ---
 title: Temper Helm
 description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-status: planned
+status: in-progress
 category: software
 cover:
   src: /images/projects/temper-helm/cover.svg

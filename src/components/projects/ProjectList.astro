@@ -3,7 +3,7 @@ import type { CollectionEntry } from 'astro:content';
 import '../../styles/catalog.css';
 import CoverImage from '../media/CoverImage.astro';
 import CatalogPagination from '../catalog/CatalogPagination.astro';
-import { homeCategories, projectCategories, projectStatuses, showProjectCategory } from '../../config/content';
+import { projectCategories, projectStatuses, showProjectCategory } from '../../config/content';
 import { contentSlug } from '../../lib/content/identity';
 import { getLocale, localizedUrl } from '../../i18n/locales';
 import { getUI } from '../../i18n/ui';
@@ -19,8 +19,6 @@ const { projects, showFilters = true, headingLevel = 'h2', skeletonSlots = 0 } =
 const Heading = headingLevel;
 const hasStatusChoices = new Set(projects.map((project) => project.data.status)).size > 1;
 const hasCategoryChoices = new Set(projects.map((project) => project.data.category)).size > 1;
-const categoryOptions = projectCategories.filter((category) =>
-  homeCategories.includes(category) || projects.some((project) => project.data.category === category));
 const initialFacets = Number(hasStatusChoices) + Number(hasCategoryChoices);
 const locale = getLocale(Astro.url);
 const text = getUI(locale);
@@ -46,7 +44,7 @@ const text = getUI(locale);
         <span>{text.projects.categoryLabel}</span>
         <select name="category">
           <option value="all">{text.projects.allCategories}</option>
-          {categoryOptions.map((category) => (
+          {projectCategories.map((category) => (
             <option value={category}>{text.projects.categories[category]}</option>
           ))}
         </select>

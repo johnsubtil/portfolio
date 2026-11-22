@@ -31,7 +31,7 @@ Um projeto (`meu-projeto.md`):
 ---
 title: Meu projeto
 description: Uma descrição curta.
-status: planned
+status: in-progress
 category: stories
 publishedAt: '2026-11-06'
 updated: '2026-11-06'
@@ -40,7 +40,7 @@ updated: '2026-11-06'
 Texto do projeto em Markdown.
 ```
 
-Status: `planned`, `in-progress`, `completed`. Categorias: `software` (padrão), `security`, `hardware`, `pedagogy`, `design`, `games`, `art`, `video`, `stories`. Projetos são publicados assim que seus arquivos existem. Adicione `featured: true` para exibir um projeto no hero da home (até três, mais recentes primeiro). Sem projetos em destaque, a home mostra um hero de texto. Adicione `skills: [Astro, TypeScript]` para listar as tecnologias que um projeto usa: elas aparecem como etiquetas `#` no fim da página do projeto, onde cada uma abre a lista de projetos filtrada por ela, e entram na busca do site.
+Status: `in-progress`, `completed`. Categorias: `software` (padrão), `stories`. Projetos são publicados assim que seus arquivos existem. Adicione `featured: true` para exibir um projeto no hero da home (até três, mais recentes primeiro). Sem projetos em destaque, a home mostra um hero de texto. Adicione `skills: [Astro, TypeScript]` para listar as tecnologias que um projeto usa: elas aparecem como etiquetas `#` no fim da página do projeto, onde cada uma abre a lista de projetos filtrada por ela, e entram na busca do site.
 
 Um post (`meu-post.md`):
 
@@ -92,7 +92,7 @@ GIFs são servidos sem processamento. Mantenha animações curtas e exporte-as e
 
 - `src/config/site.ts`: identidade do site, e-mail, redes sociais e o caminho da foto da página Sobre.
 - `src/config/ranks.ts`: o rank de cada área, de E a S (mostrado na seção "O que eu faço" da home), e o post que explica os ranks (`rankGuidePost`, ligado pelo "?" da seção "O que eu faço" da home). Os títulos das letras ficam em `src/i18n/messages` (`ranks`).
-- `src/config/content.ts`: status e categorias, quais categorias a seção "O que eu faço" da home lista (`homeCategories`; cada uma precisa de um texto em `home.disciplines` e, se quiser, de um rank em `ranks.ts`), se os cards de projeto mostram a categoria, e os limites do hero da home (e quantos segundos cada projeto em destaque fica antes do próximo entrar), da lista de projetos da home e dos posts recentes da home (os espaços livres aparecem como blocos cinza; `showPlaceholderSlots` desliga isso) e do índice dos artigos.
+- `src/config/content.ts`: status e categorias (cada categoria precisa de um nome em `projects.categories`, de um texto em `home.disciplines` e, se quiser, de um rank em `ranks.ts`), se os cards de projeto mostram a categoria, e os limites do hero da home (e quantos segundos cada projeto em destaque fica antes do próximo entrar), da lista de projetos da home e dos posts recentes da home (os espaços livres aparecem como blocos cinza; `showPlaceholderSlots` desliga isso) e do índice dos artigos.
 - `src/i18n/messages/`: textos da interface; mantenha as chaves iguais nos idiomas.
 - `src/styles/tokens.css`: cores, raios, espaçamentos e tipografia. Use estes tokens em vez de valores fixos.
 - `public/`: favicon, imagem de pré-visualização social (`og-image.png`), `robots.txt`, `_headers` e `scripts/language.js` (escolhe o idioma do endereço sem prefixo e da página 404). O sitemap é gerado em `/sitemap.xml`.
