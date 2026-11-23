@@ -1,30 +1,38 @@
 ---
-title: Portfolio website
-description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-status: in-progress
+title: Portfolio Website
+description: Portfólio que reúne meus projetos e os posts que contam o processo por trás deles.
+status: completed
 category: software
 skills: [Astro, TypeScript, React, Motion, CSS, Markdown, Zod, CSP, GitHub Actions, Dependabot, Cloudflare Pages]
 cover:
   src: /images/projects/portfolio/cover.svg
-publishedAt: '2026-10-26'
-updated: '2026-10-26'
+publishedAt: '2026-11-21'
+updated: '2026-11-23'
 links:
   website: https://www.johnsubtil.com/
   github: https://github.com/johnsubtil/portfolio
 ---
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+## Por que criei
 
-## Lorem ipsum
+Queria um lugar para reunir projetos de áreas diferentes e contar como estou fazendo cada um.
 
-Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+## Como organizei o site
 
-## Dolor sit amet
+- **Projetos**, cada um com status, as ferramentas usadas e links. Clicar numa ferramenta abre a lista de projetos que a usam.
+- **Posts** sobre o processo.
+- **Busca** que cobre projetos e posts.
+- **Ranks**: cada área em que trabalho tem uma letra de E a S. Explico melhor em: [Como funcionam os ranks](/pt-br/posts/ranks/).
 
-Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+## Como foi feito
 
-Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+Site estático feito com **Astro** e **TypeScript**, com o conteúdo em Markdown.
 
-## Consectetur adipiscing
+- **Astro:** framework rápido e com foco em SEO. Gera as páginas como HTML estático no build e me deixa carregar JavaScript só onde preciso.
+- **Markdown:** consigo escrever e editar o conteúdo em arquivos, sem manter um banco de dados. Os arquivos ficam em content collections, com schema **Zod** validado no build.
+- **React só onde precisa:** as animações ficam em ilhas **React** com **Motion**. Usar React no site inteiro seria desnecessário.
+- **Cloudflare Pages:** tem plano gratuito para site estático, então não precisei gastar com hospedagem ou VPS no início do projeto.
+- **CSP rígida:** o site não tem backend nem envia dados a terceiros, mas quis manter um bom nível de segurança. A **CSP** só permite scripts e estilos do próprio domínio ou com hash, sem `unsafe-inline`.
+- **Licença dividida:** o código é livre, sob licença MIT, mas o conteúdo, como artes e textos, tem os direitos reservados.
 
-Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.
+O **GitHub Actions** roda a checagem de tipos e o build a cada push e o `npm audit` toda semana, o **Dependabot** atualiza as dependências, e o deploy é automático no **Cloudflare Pages**.

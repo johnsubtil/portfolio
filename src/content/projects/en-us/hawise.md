@@ -1,27 +1,29 @@
 ---
 title: Hawise
-description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+description: The war ended a year ago. Adrien still roams the continent hunting what it left behind.
 status: in-progress
 category: stories
 cover:
   src: /images/projects/hawise/cover.svg
 featured: true
 publishedAt: '2026-11-06'
-updated: '2026-11-06'
+updated: '2026-11-23'
 ---
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+## About the story
 
-## Lorem ipsum
+Hawise is a **dark fantasy novel**. It follows Adrien, a survivor who hunts what the war left behind.
 
-Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+## The world
 
-## Dolor sit amet
+The war ended not long ago, and the **threats it left behind** still roam the continent. It's a brutal world. Some of the horror comes afterward, as the people who survive have to go on living with what happened.
 
-Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+Each kingdom remembers the war differently. Someone might have a statue in one city and still be hated across the border. The version you hear depends on where you are and who's left to tell it.
 
-Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+## Between past and present
 
-## Consectetur adipiscing
+We follow Adrien on his hunts and see how he changes along the way. Bit by bit, we get to see what his life was like before the war and start to understand how he got here.
 
-Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.
+## Where it stands
+
+I'm still writing the book. I've already organized my notes on the world and the characters, along with the timeline.

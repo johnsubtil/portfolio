@@ -1,29 +1,29 @@
 ---
 title: Temper Helm
-description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+description: Aplicativo de aprendizado autodirigido que transforma um objetivo concreto em caminho de estudo.
 status: in-progress
 category: software
 cover:
   src: /images/projects/temper-helm/cover.svg
 featured: true
 publishedAt: '2026-10-29'
-updated: '2026-10-29'
+updated: '2026-11-23'
 links:
   github: https://github.com/johnsubtil/temper-helm
 ---
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+## O problema
 
-## Lorem ipsum
+Quem estuda sozinho consome conteúdo, sente que aprendeu e mesmo assim **trava diante de algo real para construir**.
 
-Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+## A ideia
 
-## Dolor sit amet
+O aplicativo parte de um **objetivo pessoal**, como "fazer meu próprio jogo", e organiza o que estudar. Para mostrar que aprendeu, você precisa construir algo e conseguir usar esse conhecimento fora do projeto original.
 
-Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+## O método
 
-Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+Cada plano, chamado de **forja**, começa com um objetivo, o tempo disponível e um prazo. Depois é dividido em blocos e itens, cada um com uma atividade prática e um critério para saber quando foi concluído.
 
-## Consectetur adipiscing
+## Onde está
 
-Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.
+Ainda estou **pesquisando o problema e definindo o método**. Já revisei a pesquisa uma vez, conferindo as fontes e corrigindo dados. Há bastante coisa em aberto sobre como o aplicativo vai funcionar, e vou detalhar isso aqui conforme tomar essas decisões.

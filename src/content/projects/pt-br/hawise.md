@@ -1,27 +1,29 @@
 ---
 title: Hawise
-description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+description: A guerra acabou há um ano. Adrien ainda percorre o continente caçando o que sobrou dela.
 status: in-progress
 category: stories
 cover:
   src: /images/projects/hawise/cover.svg
 featured: true
 publishedAt: '2026-11-06'
-updated: '2026-11-06'
+updated: '2026-11-23'
 ---
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+## Sobre a história
 
-## Lorem ipsum
+Hawise é um **romance de fantasia sombria**. A história acompanha Adrien, um sobrevivente que caça o que restou do conflito.
 
-Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+## O mundo
 
-## Dolor sit amet
+A guerra acabou há pouco, e as **ameaças que ela deixou** ainda circulam pelo continente. É um mundo brutal, e parte do horror está no que acontece depois da violência, na vida de quem sobrevive e precisa seguir em frente.
 
-Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+Cada reino lembra a guerra de um jeito. A mesma pessoa pode ter uma estátua numa cidade e ser lembrada com ódio do outro lado da fronteira. A versão que se ouve depende de onde se está e de quem ficou pra contar.
 
-Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+## Entre o passado e o presente
 
-## Consectetur adipiscing
+O livro acompanha as caçadas de Adrien e o que vai mudando nele pelo caminho. Aos poucos, a história volta à vida que ele levava antes da guerra, e a gente começa a entender como ele chegou até ali.
 
-Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.
+## Onde está
+
+Ainda estou escrevendo o livro. Já organizei as notas sobre o mundo e os personagens, além da linha do tempo.
