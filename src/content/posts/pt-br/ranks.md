@@ -19,7 +19,7 @@ O rank é a **minha própria avaliação**, não um certificado. **Prefiro mostr
 
 ## A escala que sigo
 
-Duas ideias se misturam aqui, cada uma com uma função:
+As letras vêm dos jogos, e as descrições explicam como trabalho em cada nível:
 
 - **As letras, de E a S**, seguem uma convenção comum em jogos: **E** é o rank mais baixo e **S** o mais alto.
 - **O significado de cada degrau** vem do **modelo de Dreyfus de aquisição de habilidade** (Hubert e Stuart Dreyfus, 1980): novato, iniciante avançado, competente, proficiente e especialista, com a maestria acima. Ele descreve como a pessoa trabalha em cada fase e **vale para qualquer área**.
@@ -35,7 +35,7 @@ Duas ideias se misturam aqui, cada uma com uma função:
 
 ## Os materiais
 
-Escolhi materiais para os ranks seguindo a lógica dos jogos: cada nível leva o nome de um material, e os materiais ficam mais nobres conforme o rank sobe. Aqui a escada é cobre, ferro, prata, ouro, platina e, por fim, **um diamante azul**.
+Os materiais também vêm da ideia dos ranks em jogos. Cada nível tem o seu, começando pelo cobre, depois ferro, prata, ouro, platina e, por fim, **um diamante azul**.
 
 ## Como um rank muda
 

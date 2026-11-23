@@ -9,7 +9,7 @@ publishedAt: '2026-11-18'
 updated: '2026-11-18'
 ---
 
-On the home page, each area I work in carries a small badge: **a letter and a material**. This page explains what they mean.
+On the home page, each area I work in has a small badge: **a letter and a material**. Here's what they mean.
 
 ## Why ranks, and why by area
 
@@ -19,7 +19,7 @@ The rank is **my own assessment**, not a certification. **I’d rather show an h
 
 ## The scale I follow
 
-Two ideas are mixed here, each for a different job:
+The letters come from games, while the descriptions explain how I work at each level:
 
 - **The letters, E to S**, follow a convention that is common in games: **E** is the lowest rank and **S** the highest.
 - **The meaning of each step** comes from the **Dreyfus model of skill acquisition** (Hubert and Stuart Dreyfus, 1980): novice, advanced beginner, competent, proficient and expert, with mastery above them. It describes how a person works at each stage, and **it applies to any field**.
@@ -28,18 +28,18 @@ Two ideas are mixed here, each for a different job:
 | --- | --- | --- | --- |
 | E | **Novice** | Copper | Follows rules and examples step by step. Needs help to know what matters. |
 | D | **Advanced beginner** | Iron | Recognizes common situations and solves small tasks alone, but still leans on rules and guides. |
-| C | **Competent** | Silver | Plans, sets priorities and answers for the result. Can finish a whole piece of work alone. |
+| C | **Competent** | Silver | Plans, sets priorities and takes responsibility for the result. Can complete a project independently. |
 | B | **Proficient** | Gold | Sees the situation as a whole, picks the right approach quickly and spots problems early. |
-| A | **Expert** | Platinum | Works fluidly from experience, solves unusual problems and can teach others. |
+| A | **Expert** | Platinum | Draws on experience to work confidently, solve unfamiliar problems and teach others. |
 | S | **Master** | Diamond | Shapes the craft itself: new methods that others learn from. |
 
 ## The materials
 
-I chose materials for the ranks following the logic of games: each tier is named after a material, and the materials get nobler as the rank goes up. Here the ladder is copper, iron, silver, gold, platinum and finally **a blue diamond**.
+The materials are inspired by game ranks too. Each level has its own, starting with copper, then iron, silver, gold, platinum and finally **a blue diamond**.
 
 ## How a rank changes
 
-A rank goes up when I can meet the criteria of the next step **on real work, alone**, and not only in exercises.
+I move up a rank when I can meet the next level's criteria **independently on real projects**, beyond practice exercises.
 
 ## Tools and skills
 
