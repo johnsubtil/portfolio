@@ -1,7 +1,7 @@
 {
   "metadata": {
     "title": "John Subtil",
-    "description": "Personal portfolio of John Subtil: the projects I have built and how each one evolved."
+    "description": "Personal portfolio of John Subtil."
   },
   "navigation": {
     "projects": "Projects",
@@ -33,7 +33,7 @@
   "projects": {
     "contents": "In this project",
     "title": "Projects",
-    "metaDescription": "All the projects by John Subtil, and where each one stands.",
+    "metaDescription": "All the projects by John Subtil.",
     "searchLabel": "Search projects",
     "searchPlaceholder": "Name, description, keyword or skill",
     "statusLabel": "Status",
@@ -67,7 +67,7 @@
   "posts": {
     "contents": "In this post",
     "title": "Posts",
-    "metaDescription": "Notes, articles and essays by John Subtil about his projects and the ideas behind them.",
+    "metaDescription": "Notes and articles by John Subtil.",
     "recent": "Recent posts",
     "allPosts": "View all posts",
     "searchLabel": "Search posts",
@@ -104,7 +104,7 @@
     "hint": "Type a word to see suggestions.",
     "results": "Search results",
     "seeAll": "See all results",
-    "loading": "Loading results…",
+    "loading": "Loading results...",
     "empty": "No results found. Try different words.",
     "error": "Results could not be loaded. Reload the page to try again.",
     "project": "Project",
@@ -134,25 +134,27 @@
     "metaDescription": "John Subtil writes stories and also makes software. Meet the author and how the work happens.",
     "statement": "Lorem ipsum <strong>dolor sit amet</strong>, consectetur adipiscing elit. Sed do <strong>eiusmod tempor</strong> incididunt ut labore et <strong>dolore magna</strong> aliqua.",
     "story": [
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
-      "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.",
-      "Sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium."
+      "I got into tech when I was about 12. Back then, my first program was a batch script I'd send my friends over Skype to shut down their computers. It was simple, but I had fun with it.",
+      "Years later, I worked in <strong>IT infrastructure at a hospital</strong>. Sometimes computers would come in with several things wrong, and I'd have to make do with whatever parts I had on hand. I even held a CPU cooler in place with zip ties once, haha. The best part was figuring out what had gone wrong and getting the machine running again, even if it meant improvising a little.",
+      "I've been working in <strong>back-end development for almost five years, mostly with .NET</strong>. Getting to the bottom of a problem and fixing it is still one of my favorite things about working in tech.",
+      "Writing and art came from a different place. I got interested in both because of the things I'd experienced and, more than anything, the people who left a mark on me. Making things became a way to express what stayed with me, and I want people who read or see my work to take a moment to reflect, too.",
+      "I'll keep <strong>experimenting and digging deeper</strong> into these fields and plenty of others, always open to learning. After all, things I'm sure of today might look completely different to me in the future."
     ],
-    "portraitAlt": "Portrait of John Subtil",
+    "portraitAlt": "Portrait",
     "reachLabel": "Reach me"
   },
   "home": {
-    "heroLineOne": "Lorem ipsum",
-    "heroLineTwo": "dolor sit amet",
-    "heroDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    "heroLineOne": "John",
+    "heroLineTwo": "Subtil",
+    "heroDescription": "My projects and posts",
     "heroPrimary": "See projects",
     "heroSecondary": "Follow along",
     "introductionLabel": "About",
-    "introduction": "I'm John, a curious person: I take <strong>what I learn</strong> in one field into <strong>what I build</strong> in another. This site is my <strong>open notebook</strong>, where I share projects, experiments and discoveries as they take shape.",
+    "introduction": "Hi, I'm John, someone who enjoys making things and experimenting across different fields. This site is my <strong>lab</strong>: I share my projects here and write about the whole creative process.",
     "disciplinesLabel": "What I do",
     "disciplines": {
-      "software": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.",
-      "stories": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore."
+      "software": "I build and maintain applications and tools end-to-end, from the database and API to the interface, focusing on security and scalability.",
+      "stories": "I write stories and build their worlds and characters, focusing on how the relationships between them change with everything they go through."
     },
     "readMore": "More about me"
   }

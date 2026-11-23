@@ -1,7 +1,7 @@
 {
   "metadata": {
     "title": "John Subtil",
-    "description": "Portfólio pessoal de John Subtil: os projetos que construí e como cada um evoluiu."
+    "description": "Portfólio pessoal de John Subtil."
   },
   "navigation": {
     "projects": "Projetos",
@@ -33,7 +33,7 @@
   "projects": {
     "contents": "Neste projeto",
     "title": "Projetos",
-    "metaDescription": "Todos os projetos de John Subtil e em que ponto cada um está.",
+    "metaDescription": "Todos os projetos de John Subtil.",
     "searchLabel": "Pesquisar projetos",
     "searchPlaceholder": "Nome, descrição, palavra-chave ou habilidade",
     "statusLabel": "Status",
@@ -67,7 +67,7 @@
   "posts": {
     "contents": "Neste post",
     "title": "Posts",
-    "metaDescription": "Notas, artigos e ensaios de John Subtil sobre seus projetos e as ideias por trás deles.",
+    "metaDescription": "Notas e artigos de John Subtil.",
     "recent": "Posts recentes",
     "allPosts": "Ver todos os posts",
     "searchLabel": "Pesquisar posts",
@@ -98,13 +98,13 @@
     "metaDescription": "Pesquise os projetos e posts de John Subtil.",
     "label": "Pesquisar no site",
     "close": "Fechar pesquisa",
-    "placeholder": "Projetos, posts ou skills",
+    "placeholder": "Projetos, posts ou habilidades",
     "submit": "Pesquisar",
     "suggestions": "Sugestões de pesquisa",
     "hint": "Digite algo para ver sugestões.",
     "results": "Resultados da pesquisa",
     "seeAll": "Ver todos os resultados",
-    "loading": "Carregando resultados…",
+    "loading": "Carregando resultados...",
     "empty": "Nenhum resultado encontrado. Tente outras palavras.",
     "error": "Não foi possível carregar os resultados. Recarregue a página para tentar novamente.",
     "project": "Projeto",
@@ -134,25 +134,27 @@
     "metaDescription": "John Subtil escreve histórias e também cria software. Conheça o autor e como o trabalho acontece.",
     "statement": "Lorem ipsum <strong>dolor sit amet</strong>, consectetur adipiscing elit. Sed do <strong>eiusmod tempor</strong> incididunt ut labore et <strong>dolore magna</strong> aliqua.",
     "story": [
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
-      "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.",
-      "Sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium."
+      "Comecei a me interessar por tecnologia com uns 12 anos. Naquela época, meu primeiro programa foi um script em Batch pra desligar o computador dos meus amigos, que eu mandava pelo Skype. Era simples, mas era divertido.",
+      "Anos depois, trabalhei com <strong>infraestrutura em um hospital</strong>. Às vezes chegavam computadores com vários defeitos e eu tinha que me virar com as peças que tinha à mão. Cheguei a prender o cooler de um processador com abraçadeiras de náilon, hahaha. A melhor parte era investigar o problema e ver a máquina voltar a funcionar, mesmo que precisasse dar uma pequena improvisada.",
+      "Hoje trabalho com <strong>back-end há quase cinco anos, principalmente com .NET</strong>. Investigar e resolver problemas ainda é uma das coisas que mais gosto de fazer dentro da área de tecnologia.",
+      "Com a escrita e a arte foi diferente. Esse interesse veio muito do que vivi, principalmente das pessoas que me marcaram pelo caminho. Criar virou um jeito de expressar o que ficou dessas experiências e quero que quem lê ou vê minhas obras pare um pouco pra refletir também.",
+      "Vou seguir <strong>experimentando e me aprofundando</strong> nessas e em muitas outras áreas, sempre disposto a aprender. Afinal, coisas que hoje dou por certas podem parecer completamente diferentes no futuro."
     ],
-    "portraitAlt": "Retrato de John Subtil",
+    "portraitAlt": "Retrato",
     "reachLabel": "Fale comigo"
   },
   "home": {
-    "heroLineOne": "Lorem ipsum",
-    "heroLineTwo": "dolor sit amet",
-    "heroDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    "heroLineOne": "John",
+    "heroLineTwo": "Subtil",
+    "heroDescription": "Meus projetos e posts",
     "heroPrimary": "Ver projetos",
     "heroSecondary": "Acompanhar nas redes",
     "introductionLabel": "Sobre",
-    "introduction": "Sou o John, alguém curioso: levo <strong>o que aprendo</strong> em uma área para <strong>o que construo</strong> em outra. Este site é meu <strong>caderno aberto</strong>, onde compartilho projetos, experimentos e descobertas enquanto ganham forma.",
+    "introduction": "Olá, sou o John, alguém que curte criar e experimentar em áreas diferentes. Este site é meu <strong>laboratório</strong>: mostro aqui meus projetos e escrevo sobre todo o processo de criação.",
     "disciplinesLabel": "O que eu faço",
     "disciplines": {
-      "software": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.",
-      "stories": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore."
+      "software": "Desenvolvo e mantenho aplicações e ferramentas de ponta a ponta, do banco de dados e da API à interface, com foco em segurança e escalabilidade.",
+      "stories": "Escrevo histórias e construo seus mundos e personagens, com foco em como as relações entre eles mudam pelo que vivem."
     },
     "readMore": "Mais sobre mim"
   }
