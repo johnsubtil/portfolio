@@ -7,7 +7,7 @@ export const site = {
       platform: 'Instagram',
       icon: 'instagram',
       name: 'John Subtil',
-      href: 'https://www.instagram.com/johnsubtil/',
+      href: 'https://www.instagram.com/john.subtil/',
     },
     {
       platform: 'GitHub',
