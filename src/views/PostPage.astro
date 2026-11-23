@@ -71,8 +71,26 @@ const breadcrumbs = hasTranslation
         <Content />
       </article>
       {(older || newer) && <nav class="post-neighbors" aria-label={text.posts.navigation}>
-        {older && <a href={localizedUrl(locale, `/posts/${contentSlug(older.id)}/`)} rel="prev"><span>{text.posts.previous}</span><strong>{older.data.title}</strong></a>}
-        {newer && <a href={localizedUrl(locale, `/posts/${contentSlug(newer.id)}/`)} rel="next"><span>{text.posts.next}</span><strong>{newer.data.title}</strong></a>}
+        {older && (
+          <a class="neighbor neighbor-prev" href={localizedUrl(locale, `/posts/${contentSlug(older.id)}/`)} rel="prev">
+            <div class="neighbor-thumb"><CoverImage cover={older.data.cover ?? older.project?.data.cover} /></div>
+            <div class="neighbor-body">
+              <span class="neighbor-label"><span class="arrow-icon arrow-back" aria-hidden="true"></span>{text.posts.previous}</span>
+              <strong class="neighbor-title">{older.data.title}</strong>
+              <time datetime={older.data.publishedAt.toISOString()}>{formatContentDate(older.data.publishedAt, locale)}</time>
+            </div>
+          </a>
+        )}
+        {newer && (
+          <a class="neighbor neighbor-next" href={localizedUrl(locale, `/posts/${contentSlug(newer.id)}/`)} rel="next">
+            <div class="neighbor-thumb"><CoverImage cover={newer.data.cover ?? newer.project?.data.cover} /></div>
+            <div class="neighbor-body">
+              <span class="neighbor-label">{text.posts.next}<span class="arrow-icon" aria-hidden="true"></span></span>
+              <strong class="neighbor-title">{newer.data.title}</strong>
+              <time datetime={newer.data.publishedAt.toISOString()}>{formatContentDate(newer.data.publishedAt, locale)}</time>
+            </div>
+          </a>
+        )}
       </nav>}
     </div>
   )}
@@ -95,10 +113,25 @@ const breadcrumbs = hasTranslation
   .post-format, .post-project { color: var(--accent); }
   .post-sep { color: var(--muted); }
   .post-cover { margin-bottom: 32px; }
-  .post-neighbors { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 24px; margin-top: var(--space-section); padding-top: 24px; border-top: 1px solid var(--line); }
-  .post-neighbors a { display: grid; gap: 8px; min-height: 44px; padding-block: 8px; }
-  .post-neighbors span { color: var(--muted); font-size: 0.8rem; }
-  .post-neighbors strong { line-height: 1.5; }
+  .post-neighbors { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; margin-top: var(--space-section); padding-top: 24px; border-top: 1px solid var(--line); }
+  .neighbor { display: grid; grid-template-columns: minmax(0, 7rem) minmax(0, 1fr); gap: 16px; align-items: center; padding-block: 8px; }
+  .neighbor-prev { grid-column: 1; }
+  .neighbor-next { grid-column: 2; }
+  .neighbor-thumb { overflow: hidden; border-radius: var(--radius-image); }
+  .neighbor-thumb :global(.cover-image) { border-radius: 0; transition: transform 500ms cubic-bezier(.2, .65, .3, 1); }
+  .neighbor:hover .neighbor-thumb :global(.cover-image) { transform: scale(1.05); }
+  .neighbor-body { display: grid; gap: 6px; min-width: 0; }
+  .neighbor-label { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 0.8rem; }
+  .neighbor-title { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; overflow: hidden; font-family: var(--serif); font-size: 1.1rem; font-weight: var(--heading-weight); line-height: 1.25; letter-spacing: var(--heading-tracking); }
+  .neighbor time { color: var(--muted); font-size: 0.8rem; }
+  .neighbor:is(:hover, :focus-visible) .neighbor-title { color: var(--accent); }
+  .neighbor:is(:hover, :focus-visible) .arrow-icon { transform: translateX(4px); }
+  .neighbor:is(:hover, :focus-visible) .arrow-back { transform: scaleX(-1) translateX(4px); }
+
+  @media (max-width: 640px) {
+    .post-neighbors { grid-template-columns: minmax(0, 1fr); }
+    .neighbor-prev, .neighbor-next { grid-column: 1; }
+  }
   .translation-notice {
     padding: 35px;
     border: 1px solid var(--line);
