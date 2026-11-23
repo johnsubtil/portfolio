@@ -52,7 +52,8 @@
     "skillFilter": "Ver projetos com",
     "categories": {
       "software": "Engenharia de software",
-      "stories": "Escrita"
+      "stories": "Escrita",
+      "art": "Arte digital"
     },
     "recent": "Projetos recentes",
     "allProjects": "Ver todos os projetos",
@@ -153,7 +154,8 @@
     "disciplinesLabel": "O que eu faço",
     "disciplines": {
       "software": "Desenvolvo e mantenho aplicações e ferramentas de ponta a ponta, do banco de dados e da API à interface, com foco em segurança e escalabilidade.",
-      "stories": "Escrevo histórias e construo seus mundos e personagens, com foco em como as relações entre eles mudam pelo que vivem."
+      "stories": "Escrevo histórias e construo seus mundos e personagens, com foco em como as relações entre eles mudam pelo que vivem.",
+      "art": "Crio sprites de personagens e objetos, cenários e animações em pixel art, além de ícones e interfaces para jogos."
     },
     "readMore": "Mais sobre mim"
   }

@@ -1,7 +1,7 @@
 export const projectStatuses = ['in-progress', 'completed'] as const;
 export type ProjectStatus = (typeof projectStatuses)[number];
 
-export const projectCategories = ['software', 'stories'] as const;
+export const projectCategories = ['software', 'stories', 'art'] as const;
 export type ProjectCategory = (typeof projectCategories)[number];
 
 export const articleContentsMinimum = 3;

@@ -52,7 +52,8 @@
     "skillFilter": "See projects using",
     "categories": {
       "software": "Software engineering",
-      "stories": "Writing"
+      "stories": "Writing",
+      "art": "Digital art"
     },
     "recent": "Recent projects",
     "allProjects": "See all projects",
@@ -153,7 +154,8 @@
     "disciplinesLabel": "What I do",
     "disciplines": {
       "software": "I build and maintain applications and tools end-to-end, from the database and API to the interface, focusing on security and scalability.",
-      "stories": "I write stories and build their worlds and characters, focusing on how the relationships between them change with everything they go through."
+      "stories": "I write stories and build their worlds and characters, focusing on how the relationships between them change with everything they go through.",
+      "art": "I create pixel art sprites for characters and objects, as well as backgrounds, animations, icons and interfaces for games."
     },
     "readMore": "More about me"
   }

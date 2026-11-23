@@ -40,7 +40,7 @@ updated: '2026-11-06'
 Texto do projeto em Markdown.
 ```
 
-Status: `in-progress`, `completed`. Categorias: `software` (padrão), `stories`. Projetos são publicados assim que seus arquivos existem. Adicione `featured: true` para exibir um projeto no hero da home (até três, mais recentes primeiro). Sem projetos em destaque, a home mostra um hero de texto. Adicione `skills: [Astro, TypeScript]` para listar as tecnologias que um projeto usa: elas aparecem como etiquetas `#` no fim da página do projeto, onde cada uma abre a lista de projetos filtrada por ela, e entram na busca do site.
+Status: `in-progress`, `completed`. Categorias: `software` (padrão), `stories`, `art`. Projetos são publicados assim que seus arquivos existem. Adicione `featured: true` para exibir um projeto no hero da home (até três, mais recentes primeiro). Sem projetos em destaque, a home mostra um hero de texto. Adicione `skills: [Astro, TypeScript]` para listar as tecnologias que um projeto usa: elas aparecem como etiquetas `#` no fim da página do projeto, onde cada uma abre a lista de projetos filtrada por ela, e entram na busca do site.
 
 Um post (`meu-post.md`):
 

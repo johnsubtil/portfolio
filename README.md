@@ -40,7 +40,7 @@ updated: '2026-11-06'
 Project text in Markdown.
 ```
 
-Statuses: `in-progress`, `completed`. Categories: `software` (the default), `stories`. Projects are published as soon as their files exist. Add `featured: true` to show a project in the home page hero (up to three, newest first). Without any featured project the home page shows a text hero instead. Add `skills: [Astro, TypeScript]` to list the technologies a project uses: they show as `#` tags at the end of the project page, where each one opens the projects list filtered by it, and they are part of the site search.
+Statuses: `in-progress`, `completed`. Categories: `software` (the default), `stories`, `art`. Projects are published as soon as their files exist. Add `featured: true` to show a project in the home page hero (up to three, newest first). Without any featured project the home page shows a text hero instead. Add `skills: [Astro, TypeScript]` to list the technologies a project uses: they show as `#` tags at the end of the project page, where each one opens the projects list filtered by it, and they are part of the site search.
 
 A post (`my-post.md`):
 

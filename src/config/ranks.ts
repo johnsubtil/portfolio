@@ -12,4 +12,5 @@ export const rankGuidePost: string | undefined = 'ranks';
 export const nicheRanks: Partial<Record<ProjectCategory, NicheRank>> = {
   software: { rank: 'C' },
   stories: { rank: 'D' },
+  art: { rank: 'E' },
 };
