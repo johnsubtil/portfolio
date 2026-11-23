@@ -23,7 +23,7 @@ const coverFor = (post: Post) => post.data.cover ?? post.project?.data.cover;
       <a href={urlFor(lead)} aria-labelledby={`feed-${contentSlug(lead.id)}`}>
         <div class="lead-media"><CoverImage cover={coverFor(lead)} /></div>
         <div class="meta">
-          <span class="labels"><span class="format">{lead.data.format}</span>{lead.project && <><span class="sep" aria-hidden="true">&nbsp;•&nbsp;</span><span class="project">{lead.project.data.title}</span></>}</span>
+          <span class="labels">{lead.data.format && <span class="format">{lead.data.format}</span>}{lead.data.format && lead.project && <span class="sep" aria-hidden="true">&nbsp;•&nbsp;</span>}{lead.project && <span class="project">{lead.project.data.title}</span>}</span>
           <time datetime={lead.data.publishedAt.toISOString()}>{formatContentDate(lead.data.publishedAt, locale)}</time>
         </div>
         <h3 id={`feed-${contentSlug(lead.id)}`}>{lead.data.title}</h3>
@@ -39,7 +39,7 @@ const coverFor = (post: Post) => post.data.cover ?? post.project?.data.cover;
               <div class="thumb"><CoverImage cover={coverFor(post)} /></div>
               <div class="item-body">
                 <div class="meta">
-                  <span class="labels"><span class="format">{post.data.format}</span>{post.project && <><span class="sep" aria-hidden="true">&nbsp;•&nbsp;</span><span class="project">{post.project.data.title}</span></>}</span>
+                  <span class="labels">{post.data.format && <span class="format">{post.data.format}</span>}{post.data.format && post.project && <span class="sep" aria-hidden="true">&nbsp;•&nbsp;</span>}{post.project && <span class="project">{post.project.data.title}</span>}</span>
                 </div>
                 <h3 id={`feed-${contentSlug(post.id)}`}>{post.data.title}</h3>
                 <time datetime={post.data.publishedAt.toISOString()}>{formatContentDate(post.data.publishedAt, locale)}</time>

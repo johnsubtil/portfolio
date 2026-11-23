@@ -59,8 +59,9 @@ const breadcrumbs = hasTranslation
     <div class="post-reading">
       <div class="post-meta">
         <span class="post-labels">
-          <span class="post-format">{post.data.format}</span>
-          {project && <><span class="post-sep" aria-hidden="true">•</span><a class="post-project" href={projectUrl}>{project.data.title}</a></>}
+          {post.data.format && <span class="post-format">{post.data.format}</span>}
+          {post.data.format && project && <span class="post-sep" aria-hidden="true">•</span>}
+          {project && <a class="post-project" href={projectUrl}>{project.data.title}</a>}
         </span>
         <time datetime={post.data.publishedAt.toISOString()}>{text.posts.published} {formatContentDate(post.data.publishedAt, locale)}</time>
         {post.data.updated.getTime() !== post.data.publishedAt.getTime() && <time datetime={post.data.updated.toISOString()}>{text.common.updated} {formatContentDate(post.data.updated, locale)}</time>}

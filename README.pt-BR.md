@@ -57,7 +57,7 @@ draft: true
 Texto do post em Markdown.
 ```
 
-Defina `draft: false` para publicar um post; omitir `draft` também publica. Um post pode existir sozinho. O campo opcional `project: pt-br/meu-projeto` o vincula a um projeto existente no mesmo idioma; traduções devem apontar para traduções do mesmo projeto, ou as duas ficarem sem associação. Posts não têm habilidades: elas ficam nos projetos.
+Defina `draft: false` para publicar um post; omitir `draft` também publica. Um post pode existir sozinho. O campo `format` é opcional; sem ele, aparece só o nome do projeto ao lado da data. O campo opcional `project: pt-br/meu-projeto` o vincula a um projeto existente no mesmo idioma; traduções devem apontar para traduções do mesmo projeto, ou as duas ficarem sem associação. Posts não têm habilidades: elas ficam nos projetos.
 
 As listas ordenam por `updated`, do mais recente ao mais antigo. As datas usam `AAAA-MM-DD`; `updated` também aceita um carimbo ISO com fuso horário. Todos os campos e regras de validação estão em [src/content.config.ts](src/content.config.ts).
 

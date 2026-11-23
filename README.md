@@ -57,7 +57,7 @@ draft: true
 Post text in Markdown.
 ```
 
-Set `draft: false` to publish a post; omitting `draft` also publishes it. A post may stand alone. Optional `project: en-us/my-project` links it to an existing project in the same language; translations must link to translations of the same project, or both omit the association. Posts carry no skills: those belong to projects.
+Set `draft: false` to publish a post; omitting `draft` also publishes it. A post may stand alone. `format` is optional; when omitted, only the project name shows next to the date. Optional `project: en-us/my-project` links it to an existing project in the same language; translations must link to translations of the same project, or both omit the association. Posts carry no skills: those belong to projects.
 
 Lists sort by `updated`, newest first. Dates use `YYYY-MM-DD`; `updated` also accepts an ISO timestamp with a timezone offset. All supported fields and validation rules are in [src/content.config.ts](src/content.config.ts).
 

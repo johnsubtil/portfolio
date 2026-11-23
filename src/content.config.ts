@@ -24,7 +24,7 @@ const posts = defineCollection({
   schema: z.object({
     title: requiredText,
     description: requiredText,
-    format: requiredText,
+    format: requiredText.optional(),
     cover,
     project: reference('projects').optional(),
     publishedAt,

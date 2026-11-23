@@ -60,7 +60,7 @@ const projects = showFilters ? await getProjects(locale) : [];
       const searchText = [
         post.data.title,
         post.data.description,
-        post.data.format,
+        post.data.format ?? '',
         post.project?.data.title ?? '',
       ].join(' ');
       return (
@@ -76,7 +76,7 @@ const projects = showFilters ? await getProjects(locale) : [];
             </div>
             <div class="catalog-body">
               <div class="catalog-meta">
-                <span class="catalog-labels"><span class="catalog-format">{post.data.format}</span>{post.project && <><span class="catalog-sep" aria-hidden="true">&nbsp;•&nbsp;</span><span class="catalog-context">{post.project.data.title}</span></>}</span>
+                <span class="catalog-labels">{post.data.format && <span class="catalog-format">{post.data.format}</span>}{post.data.format && post.project && <span class="catalog-sep" aria-hidden="true">&nbsp;•&nbsp;</span>}{post.project && <span class="catalog-context">{post.project.data.title}</span>}</span>
                 <time datetime={post.data.publishedAt.toISOString()}>{formatContentDate(post.data.publishedAt, locale)}</time>
               </div>
               <Heading class="catalog-title" id={`post-${slug}`}>{post.data.title}</Heading>
