@@ -1,6 +1,6 @@
 {
   "name": "portfolio",
-  "description": "John Subtil: bilingual portfolio and story hub built with Astro.",
+  "description": "John Subtil: portfolio and story hub built with Astro.",
   "private": true,
   "type": "module",
   "version": "0.0.1",

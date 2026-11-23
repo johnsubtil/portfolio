@@ -2,7 +2,7 @@
 
 ## Commands
 
-- `npm ci`, then `npm run dev`. To start the dev server in the background use `astro dev --background`; manage it with `astro dev stop`, `astro dev status`, and `astro dev logs`.
+- `npm ci`, then `npm run dev`. To start the dev server in the background use `npm run dev -- --background`; manage it with `npm run astro -- dev status`, `npm run astro -- dev logs`, and `npm run astro -- dev stop`.
 - Before finishing a change: `npm run check` and `npm run build` must pass.
 
 ## Conventions

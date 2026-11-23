@@ -2,7 +2,7 @@
 
 [English](README.md) | Português
 
-Portfólio e hub de histórias bilíngue do John Subtil. Site estático feito com Astro, TypeScript, CSS e conteúdo em Markdown, com pequenas ilhas em React. Português em `/pt-br/` e inglês em `/en-us/` (por exemplo `/pt-br/projetos/` e `/en-us/projects/`); o endereço sem prefixo `/` só leva a pessoa a um dos dois.
+Portfólio e hub de histórias do John Subtil. Site estático feito com Astro, TypeScript, CSS e conteúdo em Markdown, com pequenas ilhas em React. Português em `/pt-br/` e inglês em `/en-us/` (por exemplo `/pt-br/projetos/` e `/en-us/projects/`); o endereço sem prefixo `/` só leva a pessoa a um dos dois.
 
 ## Desenvolvimento
 
@@ -95,7 +95,7 @@ GIFs são servidos sem processamento. Mantenha animações curtas e exporte-as e
 - `src/config/content.ts`: status e categorias (cada categoria precisa de um nome em `projects.categories`, de um texto em `home.disciplines` e, se quiser, de um rank em `ranks.ts`), se os cards de projeto mostram a categoria, e os limites do hero da home (e quantos segundos cada projeto em destaque fica antes do próximo entrar), da lista de projetos da home e dos posts recentes da home (os espaços livres aparecem como blocos cinza; `showPlaceholderSlots` desliga isso) e do índice dos artigos.
 - `src/i18n/messages/`: textos da interface; mantenha as chaves iguais nos idiomas.
 - `src/styles/tokens.css`: cores, raios, espaçamentos e tipografia. Use estes tokens em vez de valores fixos.
-- `public/`: favicon, imagem de pré-visualização social (`og-image.png`), `robots.txt`, `_headers` e `scripts/language.js` (escolhe o idioma do endereço sem prefixo e da página 404). O sitemap é gerado em `/sitemap.xml`.
+- `public/`: favicon, imagem de pré-visualização social (`images/site/og-image.png`), `robots.txt`, `_headers` e `scripts/language.js` (escolhe o idioma do endereço sem prefixo e da página 404). O sitemap é gerado em `/sitemap.xml`.
 
 ## Estrutura do projeto
 

@@ -2,7 +2,7 @@
 
 English | [Português](README.pt-BR.md)
 
-Bilingual portfolio and story hub for John Subtil. A static site built with Astro, TypeScript, CSS, and Markdown content, with small React islands. Portuguese lives under `/pt-br/` and English under `/en-us/` (for example `/pt-br/projetos/` and `/en-us/projects/`); the bare address `/` only sends the reader to one of them.
+Portfolio and story hub for John Subtil. A static site built with Astro, TypeScript, CSS, and Markdown content, with small React islands. Portuguese lives under `/pt-br/` and English under `/en-us/` (for example `/pt-br/projetos/` and `/en-us/projects/`); the bare address `/` only sends the reader to one of them.
 
 ## Development
 
@@ -95,7 +95,7 @@ GIFs are served unchanged. Keep animations short and export them at suitable siz
 - `src/config/content.ts`: statuses and categories (each category needs a name in `projects.categories`, a text in `home.disciplines`, and, optionally, a rank in `ranks.ts`), whether project cards show their category, and the limits for the home hero (and how many seconds each featured project stays before the next one comes in), the home project list and the home recent posts (free slots show as gray placeholders; `showPlaceholderSlots` turns that off), and the article table of contents.
 - `src/i18n/messages/`: interface text; keep keys aligned between languages.
 - `src/styles/tokens.css`: colors, radii, spacing, and typography. Use these tokens instead of hard-coded values.
-- `public/`: the JS monogram icon (`favicon.svg`, `favicon.ico`, `apple-touch-icon.png`), social preview image (`og-image.png`), `robots.txt`, `_headers`, and `scripts/language.js` (chooses the language for the bare address and the 404 page). The sitemap is generated at `/sitemap.xml`.
+- `public/`: the JS monogram icon (`favicon.svg`, `favicon.ico`, `apple-touch-icon.png`), social preview image (`images/site/og-image.png`), `robots.txt`, `_headers`, and `scripts/language.js` (chooses the language for the bare address and the 404 page). The sitemap is generated at `/sitemap.xml`.
 
 ## Project structure
 
