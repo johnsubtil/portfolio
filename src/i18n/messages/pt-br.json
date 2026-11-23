@@ -131,8 +131,7 @@
   },
   "about": {
     "title": "Sobre",
-    "metaDescription": "John Subtil escreve histórias e também cria software. Conheça o autor e como o trabalho acontece.",
-    "statement": "Lorem ipsum <strong>dolor sit amet</strong>, consectetur adipiscing elit. Sed do <strong>eiusmod tempor</strong> incididunt ut labore et <strong>dolore magna</strong> aliqua.",
+    "metaDescription": "Como comecei na tecnologia e cheguei à escrita e à arte.",
     "story": [
       "Comecei a me interessar por tecnologia com uns 12 anos. Naquela época, meu primeiro programa foi um script em Batch pra desligar o computador dos meus amigos, que eu mandava pelo Skype. Era simples, mas era divertido.",
       "Anos depois, trabalhei com <strong>infraestrutura em um hospital</strong>. Às vezes chegavam computadores com vários defeitos e eu tinha que me virar com as peças que tinha à mão. Cheguei a prender o cooler de um processador com abraçadeiras de náilon, hahaha. A melhor parte era investigar o problema e ver a máquina voltar a funcionar, mesmo que precisasse dar uma pequena improvisada.",

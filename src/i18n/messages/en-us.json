@@ -131,8 +131,7 @@
   },
   "about": {
     "title": "About",
-    "metaDescription": "John Subtil writes stories and also makes software. Meet the author and how the work happens.",
-    "statement": "Lorem ipsum <strong>dolor sit amet</strong>, consectetur adipiscing elit. Sed do <strong>eiusmod tempor</strong> incididunt ut labore et <strong>dolore magna</strong> aliqua.",
+    "metaDescription": "How I got into tech, and then into writing and art.",
     "story": [
       "I got into tech when I was about 12. Back then, my first program was a batch script I'd send my friends over Skype to shut down their computers. It was simple, but I had fun with it.",
       "Years later, I worked in <strong>IT infrastructure at a hospital</strong>. Sometimes computers would come in with several things wrong, and I'd have to make do with whatever parts I had on hand. I even held a CPU cooler in place with zip ties once, haha. The best part was figuring out what had gone wrong and getting the machine running again, even if it meant improvising a little.",

@@ -11,7 +11,7 @@ const text = getUI(locale);
 const about = text.about;
 ---
 
-<PageLayout class="catalog-page about-page" heading={about.title} metaDescription={about.metaDescription}>
+<PageLayout class="catalog-page" heading={about.title} metaDescription={about.metaDescription}>
   <section class="about-intro" aria-label={about.title}>
     <figure class="portrait" data-placeholder={aboutPortrait ? undefined : ''}>
       {aboutPortrait ? (
@@ -23,49 +23,44 @@ const about = text.about;
         </svg>
       )}
     </figure>
-    <div class="about-text">
-      <p class="about-statement" set:html={about.statement} />
-      <div class="about-body">
-        {about.story.map((paragraph) => <p>{paragraph}</p>)}
-      </div>
-      <div class="about-reach">
-        <p class="eyebrow">{about.reachLabel}</p>
-        <ul class="find-links" aria-label={text.footer.socialsAndContact}>
-          {site.socials.map((social) => (
-            <li>
-              <a href={social.href} rel="me noopener" target="_blank" aria-label={`${social.platform} · ${social.name}`} title={social.platform}>
-                <Icon name={social.icon} />
-              </a>
-            </li>
-          ))}
+    <div class="about-body">
+      {about.story.map((paragraph) => <p set:html={paragraph} />)}
+    </div>
+    <div class="about-reach">
+      <p class="eyebrow">{about.reachLabel}</p>
+      <ul class="find-links" aria-label={text.footer.socialsAndContact}>
+        {site.socials.map((social) => (
           <li>
-            <a href={`mailto:${site.email}`} aria-label={`${text.footer.email}: ${site.email}`} title={site.email}>
-              <Icon name="email" />
+            <a href={social.href} rel="me noopener" target="_blank" aria-label={`${social.platform} · ${social.name}`} title={social.platform}>
+              <Icon name={social.icon} />
             </a>
           </li>
-        </ul>
-      </div>
+        ))}
+        <li>
+          <a href={`mailto:${site.email}`} aria-label={`${text.footer.email}: ${site.email}`} title={site.email}>
+            <Icon name="email" />
+          </a>
+        </li>
+      </ul>
     </div>
   </section>
 </PageLayout>
 
 <style>
-  .about-intro { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(32px, 5vw, 72px); align-items: stretch; }
-  .about-text { display: flex; flex-direction: column; }
+  .about-intro { container-type: inline-size; display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); grid-template-areas: 'portrait body' 'portrait reach'; grid-template-rows: auto 1fr; column-gap: clamp(32px, 5vw, 72px); align-items: start; }
 
-  .portrait { position: relative; display: grid; place-items: center; width: 100%; margin: 0; overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius-card); background: var(--surface); }
-  .portrait::before { content: ''; grid-area: 1 / 1; padding-top: 125%; }
+  .portrait { grid-area: portrait; align-self: stretch; min-height: 20rem; max-height: 47cqw; position: relative; display: grid; place-items: center; width: 100%; margin: 0; overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius-card); background: var(--surface); }
   .portrait > * { grid-area: 1 / 1; }
   .portrait img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; border-radius: 0; }
   .portrait[data-placeholder] { color: var(--muted); background: linear-gradient(160deg, var(--surface-elevated), var(--surface)); }
   .portrait-icon { width: clamp(56px, 24%, 96px); height: auto; opacity: 0.5; }
 
-  .about-statement { margin: 0 0 28px; font-family: var(--serif); font-size: clamp(1.7rem, 3.2vw, 2.8rem); line-height: 1.18; letter-spacing: var(--heading-tracking); text-align: justify; text-justify: inter-word; text-wrap: pretty; }
-  .about-statement :global(:is(strong, b)) { color: var(--accent); font-weight: 600; }
-  .about-body p { margin: 0 0 1.1em; color: var(--muted); font-size: 1.05rem; line-height: 1.75; text-align: justify; text-justify: inter-word; }
+  .about-body { grid-area: body; }
+  .about-body p { margin: 0 0 1.1em; color: var(--text); font-size: 1.05rem; line-height: 1.75; text-align: justify; text-justify: inter-word; }
   .about-body p:last-child { margin-bottom: 0; }
+  .about-body :global(:is(strong, b)) { color: var(--accent); font-weight: 600; }
 
-  .about-reach { margin-top: auto; padding-top: 36px; }
+  .about-reach { grid-area: reach; align-self: end; padding-top: 36px; }
   .about-reach .eyebrow { margin: 0 0 14px; }
   .find-links { display: flex; flex-wrap: wrap; gap: 12px; margin: 0; padding: 0; list-style: none; }
   .find-links a { display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid var(--control-line); border-radius: var(--radius-pill); color: var(--text); }
@@ -73,7 +68,9 @@ const about = text.about;
   .find-links :global(svg) { width: 20px; height: 20px; fill: currentColor; }
 
   @media (max-width: 900px) {
-    .about-intro { grid-template-columns: minmax(0, 1fr); }
-    .portrait { max-width: 420px; }
+    .about-intro { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto; grid-template-areas: 'portrait' 'body' 'reach'; row-gap: 0; }
+    .portrait { align-self: start; aspect-ratio: 4 / 5; min-height: 0; max-height: none; max-width: 420px; margin-bottom: 32px; }
+    .about-body { margin-bottom: 32px; }
+    .about-reach { padding-top: 0; }
   }
 </style>
