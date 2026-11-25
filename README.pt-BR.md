@@ -92,6 +92,7 @@ GIFs são servidos sem processamento. Mantenha animações curtas e exporte-as e
 
 - `src/config/site.ts`: identidade do site, e-mail, redes sociais e o caminho da foto da página Sobre.
 - `src/config/ranks.ts`: o rank de cada área, de E a S (mostrado na seção "O que eu faço" da home), e o post que explica os ranks (`rankGuidePost`, ligado pelo "?" da seção "O que eu faço" da home). Os títulos das letras ficam em `src/i18n/messages` (`ranks`).
+- `src/config/themes.ts`: os temas (id, cor do navegador) e qual é o padrão. O seletor do cabeçalho lista os temas e guarda a escolha no `localStorage`.
 - `src/config/content.ts`: status e categorias (cada categoria precisa de um nome em `projects.categories`, de um texto em `home.disciplines` e, se quiser, de um rank em `ranks.ts`), se os cards de projeto mostram a categoria, e os limites do hero da home (e quantos segundos cada projeto em destaque fica antes do próximo entrar), da lista de projetos da home e dos posts recentes da home (os espaços livres aparecem como blocos cinza; `showPlaceholderSlots` desliga isso) e do índice dos artigos.
 - `src/i18n/messages/`: textos da interface; mantenha as chaves iguais nos idiomas.
 - `src/styles/tokens.css`: cores, raios, espaçamentos e tipografia. Use estes tokens em vez de valores fixos.
@@ -101,6 +102,7 @@ GIFs são servidos sem processamento. Mantenha animações curtas e exporte-as e
 
 - `src/pages/`, `src/layouts/`: rotas e estrutura das páginas. As páginas ficam em `[locale]/` (`pt-br`, `en-us`) com uma seção traduzida (`[section]/`: `projetos`/`projects`, `posts`, `sobre`/`about`, `busca`/`search`); os nomes das seções estão em `src/i18n/locales.ts` (`routeSegments`), e os links são montados com `localizedUrl(locale, '/projects/')`. `src/views/` guarda o corpo das páginas. O `404.astro` guarda os dois idiomas e mostra o que combina com quem chegou.
 - `src/components/`: agrupados por área (`home`, `projects`, `posts`, `catalog`, `search`, `layout`, `i18n`, `media`, `ui`, `motion`). `ui/Cta.astro` é o botão compartilhado e `ui/Icon.astro` o ícone compartilhado.
+- `src/styles/themes/`, `src/components/themes/`: uma folha de estilo e uma pasta de efeitos por tema (`dark-lab`, `golden-royal`); para remover um tema, apague as duas partes, a entrada em `themes.ts` e o `favicon-<id>.svg`. Os seletores do tema usam `:root[data-theme='<id>']`, e o que só existe num tema leva `data-only='<id>'`.
 - `src/lib/`: consultas de conteúdo e motor de busca.
 - `src/scripts/`: comportamento no navegador, em `catalog/` (filtros, paginação), `search/` (cabeçalho e página) e `article/` (índice e tabelas).
 
