@@ -2,9 +2,10 @@
 import '../styles/global.css';
 import SiteHeader from '../components/layout/SiteHeader.astro';
 import SiteFooter from '../components/layout/SiteFooter.astro';
-import AmbientBackground from '../components/layout/AmbientBackground.astro';
+import ThemeEffects from '../components/themes/ThemeEffects.astro';
 import ScrollProgress from '../components/motion/ScrollProgress';
 import { site } from '../config/site';
+import { defaultTheme, initialTheme, themes, themeStorageKey } from '../config/themes';
 import {
   defaultLocale,
   getLocale,
@@ -50,22 +51,23 @@ const defaultAlternate = alternates.find(({ locale: alternate }) => alternate ==
 ---
 
 <!doctype html>
-<html lang={localeSettings[locale].language}>
+<html lang={localeSettings[locale].language} data-theme={defaultTheme}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     {noindex && <meta name="robots" content="noindex, follow" />}
-    <meta name="color-scheme" content="dark" />
-    <meta name="theme-color" content={site.themeColor} />
+    <meta name="color-scheme" content={initialTheme.colorScheme} />
+    <meta name="theme-color" content={initialTheme.themeColor} />
     <link rel="canonical" href={canonicalUrl} />
     {alternates.map(({ locale: alternate, href }) => (
       <link rel="alternate" hreflang={localeSettings[alternate].language} href={href} />
     ))}
     {defaultAlternate && <link rel="alternate" hreflang="x-default" href={defaultAlternate.href} />}
     <link rel="icon" href="/favicon.ico" sizes="48x48" />
-    <link rel="icon" href="/icons/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href={`/icons/favicon-${defaultTheme}.svg`} type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/images/site/apple-touch-icon.png" />
+    <script is:inline src="/scripts/theme.js" data-settings={JSON.stringify({ themes, defaultTheme, storageKey: themeStorageKey })}></script>
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={site.name} />
     <meta property="og:url" content={canonicalUrl} />
@@ -88,7 +90,7 @@ const defaultAlternate = alternates.find(({ locale: alternate }) => alternate ==
     <slot name="head" />
   </head>
   <body>
-    {ambient && <AmbientBackground />}
+    <ThemeEffects ambient={ambient} />
     <a class="skip-link" href="#content">
       {text.common.skip}
     </a>

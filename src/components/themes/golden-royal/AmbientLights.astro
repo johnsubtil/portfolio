@@ -1,0 +1,172 @@
+---
+const leaves = Array.from({ length: 18 });
+const feathers = Array.from({ length: 6 });
+const coins = Array.from({ length: 16 });
+---
+
+<div class="ambient" data-only="golden-royal" aria-hidden="true">
+  <div class="leaves">
+    {leaves.map(() => <i></i>)}
+  </div>
+  <div class="feathers">
+    {feathers.map(() => <i></i>)}
+  </div>
+  <div class="coins">
+    {coins.map(() => <i></i>)}
+  </div>
+</div>
+
+<style>
+  .ambient { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+
+  .leaves i {
+    position: absolute;
+    top: 0;
+    left: var(--x);
+    width: calc(var(--w) * var(--k, 1));
+    height: calc(var(--w) * var(--k, 1) * 1.6);
+    border-radius: 0 100% 0 100%;
+    background: linear-gradient(135deg, var(--gold-glint), var(--accent) 45%, color-mix(in srgb, var(--accent) 55%, var(--gold-shade)));
+    box-shadow: 0 0 10px 2px color-mix(in srgb, var(--accent) 48%, transparent);
+    opacity: 0;
+    animation: leaf-fall var(--t) linear var(--d) infinite;
+    will-change: transform, opacity;
+  }
+  .leaves i::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(135deg, transparent 47%, color-mix(in srgb, var(--gold-vein) 55%, transparent) 49.5%, transparent 52%);
+  }
+  .leaves i:nth-child(1) { --x: 9.7%; --w: 8px; --t: 47s; --d: -21s; --sw: 47px; --r: 435deg; --o: 0.61; }
+  .leaves i:nth-child(2) { --x: 38.8%; --w: 7px; --t: 38s; --d: -21s; --sw: 67px; --r: -409deg; --o: 0.68; }
+  .leaves i:nth-child(3) { --x: 73.4%; --w: 9px; --t: 42s; --d: -13s; --sw: -39px; --r: 372deg; --o: 0.72; }
+  .leaves i:nth-child(4) { --x: 50.2%; --w: 7px; --t: 45s; --d: -29s; --sw: -56px; --r: -431deg; --o: 0.56; }
+  .leaves i:nth-child(5) { --x: 34.5%; --w: 9px; --t: 42s; --d: -30s; --sw: 47px; --r: -308deg; --o: 0.58; }
+  .leaves i:nth-child(6) { --x: 19.6%; --w: 7px; --t: 35s; --d: -1s; --sw: -43px; --r: 300deg; --o: 0.51; }
+  .leaves i:nth-child(7) { --x: 5.0%; --w: 8px; --t: 47s; --d: -28s; --sw: 65px; --r: 391deg; --o: 0.63; }
+  .leaves i:nth-child(8) { --x: 94.1%; --w: 9px; --t: 41s; --d: -10s; --sw: -66px; --r: 397deg; --o: 0.67; }
+  .leaves i:nth-child(9) { --x: 22.5%; --w: 8px; --t: 34s; --d: -7s; --sw: 46px; --r: 423deg; --o: 0.51; }
+  .leaves i:nth-child(10) { --x: 8.2%; --w: 9px; --t: 41s; --d: -38s; --sw: 68px; --r: 366deg; --o: 0.6; }
+  .leaves i:nth-child(11) { --x: 42.4%; --w: 10px; --t: 40s; --d: -35s; --sw: 56px; --r: 342deg; --o: 0.52; }
+  .leaves i:nth-child(12) { --x: 23.9%; --w: 9px; --t: 43s; --d: -42s; --sw: -58px; --r: 411deg; --o: 0.7; }
+  .leaves i:nth-child(13) { --x: 2.5%; --w: 9px; --t: 46s; --d: -16s; --sw: -36px; --r: -423deg; --o: 0.52; }
+  .leaves i:nth-child(14) { --x: 15.5%; --w: 7px; --t: 43s; --d: -32s; --sw: -48px; --r: -318deg; --o: 0.51; }
+  .leaves i:nth-child(15) { --x: 85.0%; --w: 7px; --t: 43s; --d: -3s; --sw: 36px; --r: -405deg; --o: 0.51; }
+  .leaves i:nth-child(16) { --x: 69.3%; --w: 8px; --t: 41s; --d: -34s; --sw: -49px; --r: -328deg; --o: 0.57; }
+  .leaves i:nth-child(17) { --x: 81.4%; --w: 10px; --t: 47s; --d: -5s; --sw: -37px; --r: -427deg; --o: 0.69; }
+  .leaves i:nth-child(18) { --x: 17.7%; --w: 9px; --t: 42s; --d: -17s; --sw: 42px; --r: 399deg; --o: 0.61; }
+
+  .feathers i {
+    position: absolute;
+    top: 0;
+    left: var(--x);
+    width: calc(var(--w) * var(--k, 1));
+    height: calc(var(--w) * var(--k, 1) * 5);
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    background:
+      repeating-linear-gradient(118deg, transparent 0 2px, color-mix(in srgb, var(--gold-vein) 38%, transparent) 2px 3px),
+      linear-gradient(90deg, var(--accent), var(--gold-glint) 55%, var(--accent));
+    box-shadow: 0 0 9px 1px color-mix(in srgb, var(--accent) 42%, transparent);
+    opacity: 0;
+    animation: leaf-fall var(--t) linear var(--d) infinite;
+    will-change: transform, opacity;
+  }
+  .feathers i:nth-child(odd) { --r: 220deg; }
+  .feathers i:nth-child(even) { --r: -220deg; }
+  .feathers i::before {
+    content: '';
+    position: absolute;
+    top: -8%;
+    bottom: -14%;
+    left: 50%;
+    width: 1px;
+    background: color-mix(in srgb, var(--accent) 55%, white);
+    transform: translateX(-50%);
+  }
+  .feathers i:nth-child(1) { --x: 58.0%; --w: 6px; --t: 40s; --d: -17s; --sw: -42px; --o: 0.61; }
+  .feathers i:nth-child(2) { --x: 55.0%; --w: 6px; --t: 42s; --d: -31s; --sw: 63px; --o: 0.63; }
+  .feathers i:nth-child(3) { --x: 26.8%; --w: 5px; --t: 38s; --d: -18s; --sw: -43px; --o: 0.63; }
+  .feathers i:nth-child(4) { --x: 52.2%; --w: 7px; --t: 45s; --d: -11s; --sw: -65px; --o: 0.66; }
+  .feathers i:nth-child(5) { --x: 35.6%; --w: 7px; --t: 46s; --d: -32s; --sw: -52px; --o: 0.59; }
+  .feathers i:nth-child(6) { --x: 75.8%; --w: 7px; --t: 40s; --d: -22s; --sw: -58px; --o: 0.63; }
+
+  .coins i {
+    position: absolute;
+    top: 0;
+    left: var(--x);
+    width: calc(var(--w) * var(--k, 1));
+    height: calc(var(--w) * var(--k, 1));
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, var(--gold-glint), var(--accent) 52%, color-mix(in srgb, var(--accent) 55%, var(--gold-shade)));
+    box-shadow:
+      inset 0 0 0 1.5px color-mix(in srgb, var(--gold-vein) 55%, transparent),
+      inset 0 0 0 3px color-mix(in srgb, var(--gold-glint) 35%, transparent),
+      0 0 10px 2px color-mix(in srgb, var(--accent) 45%, transparent);
+    opacity: 0;
+    animation:
+      coin-fall var(--t) linear var(--d) infinite,
+      coin-spin var(--tw) ease-in-out infinite;
+    will-change: transform, translate, opacity;
+  }
+  .coins i::before {
+    content: '';
+    position: absolute;
+    inset: 28%;
+    border: 1.5px solid color-mix(in srgb, var(--gold-vein) 50%, transparent);
+    border-radius: 50%;
+  }
+  .coins i:nth-child(1) { --x: 47.7%; --w: 18px; --t: 33s; --d: -2s; --dx: 58px; --tw: 2.3s; --o: 0.86; }
+  .coins i:nth-child(2) { --x: 87.4%; --w: 18px; --t: 28s; --d: -25s; --dx: -50px; --tw: 2.1s; --o: 0.84; }
+  .coins i:nth-child(3) { --x: 59.3%; --w: 18px; --t: 34s; --d: -2s; --dx: 22px; --tw: 2.9s; --o: 0.71; }
+  .coins i:nth-child(4) { --x: 89.4%; --w: 22px; --t: 39s; --d: -5s; --dx: -32px; --tw: 1.6s; --o: 0.72; }
+  .coins i:nth-child(5) { --x: 71.2%; --w: 18px; --t: 46s; --d: -11s; --dx: 42px; --tw: 1.6s; --o: 0.82; }
+  .coins i:nth-child(6) { --x: 78.2%; --w: 22px; --t: 34s; --d: -21s; --dx: 23px; --tw: 2.9s; --o: 0.77; }
+  .coins i:nth-child(7) { --x: 41.2%; --w: 14px; --t: 41s; --d: -34s; --dx: 36px; --tw: 2.2s; --o: 0.87; }
+  .coins i:nth-child(8) { --x: 46.3%; --w: 22px; --t: 45s; --d: -45s; --dx: -36px; --tw: 2.3s; --o: 0.72; }
+  .coins i:nth-child(9) { --x: 64.7%; --w: 22px; --t: 38s; --d: -20s; --dx: 29px; --tw: 2.7s; --o: 0.68; }
+  .coins i:nth-child(10) { --x: 93.2%; --w: 18px; --t: 39s; --d: -19s; --dx: 38px; --tw: 2.1s; --o: 0.79; }
+  .coins i:nth-child(11) { --x: 13.3%; --w: 22px; --t: 30s; --d: -20s; --dx: 31px; --tw: 3.0s; --o: 0.86; }
+  .coins i:nth-child(12) { --x: 31.4%; --w: 20px; --t: 35s; --d: -25s; --dx: 57px; --tw: 1.9s; --o: 0.77; }
+  .coins i:nth-child(13) { --x: 83.6%; --w: 24px; --t: 43s; --d: -16s; --dx: -59px; --tw: 2.6s; --o: 0.69; }
+  .coins i:nth-child(14) { --x: 28.8%; --w: 24px; --t: 36s; --d: -11s; --dx: 68px; --tw: 2.8s; --o: 0.69; }
+  .coins i:nth-child(15) { --x: 67.2%; --w: 24px; --t: 30s; --d: -23s; --dx: -67px; --tw: 1.6s; --o: 0.69; }
+  .coins i:nth-child(16) { --x: 62.3%; --w: 24px; --t: 40s; --d: -17s; --dx: -61px; --tw: 2.4s; --o: 0.7; }
+
+  @media (pointer: fine) and (min-width: 641px) {
+    .leaves i:nth-child(3n) { --k: 0.72; animation-duration: calc(var(--t) * 1.3); }
+    .leaves i:nth-child(3n + 1) { --k: 1.18; animation-duration: calc(var(--t) * 0.85); }
+    .coins i:nth-child(3n) { --k: 0.72; animation-duration: calc(var(--t) * 1.3), var(--tw); }
+    .coins i:nth-child(3n + 1) { --k: 1.18; animation-duration: calc(var(--t) * 0.85), var(--tw); }
+  }
+
+  @keyframes leaf-fall {
+    0% { transform: translate3d(0, -6vh, 0) rotate(0deg); opacity: 0; }
+    8% { opacity: var(--o); }
+    50% { transform: translate3d(var(--sw), 52vh, 0) rotate(calc(var(--r) * 0.5)); }
+    92% { opacity: var(--o); }
+    100% { transform: translate3d(calc(var(--sw) * -0.4), 108vh, 0) rotate(var(--r)); opacity: 0; }
+  }
+  @keyframes coin-fall {
+    0% { translate: 0 -8vh; opacity: 0; }
+    8% { opacity: var(--o); }
+    92% { opacity: var(--o); }
+    100% { translate: var(--dx) 108vh; opacity: 0; }
+  }
+  @keyframes coin-spin {
+    0%, 100% { transform: scaleX(1); }
+    50% { transform: scaleX(0.14); }
+  }
+
+  .leaves, .feathers, .coins { --k: 0.7; }
+
+  @media (pointer: coarse), (max-width: 640px) {
+    .leaves, .feathers, .coins { --k: 0.5; }
+    .leaves i:nth-child(even), .feathers i:nth-child(even), .coins i:nth-child(even) { display: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .leaves, .feathers, .coins { display: none; }
+  }
+</style>

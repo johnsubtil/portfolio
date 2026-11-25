@@ -9,6 +9,7 @@ export default defineConfig({
     csp: {
       directives: [
         "default-src 'self'",
+        "img-src 'self' data:",
         "base-uri 'self'",
         "object-src 'none'",
         "form-action 'self'",

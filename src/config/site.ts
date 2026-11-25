@@ -1,6 +1,5 @@
 export const site = {
   name: 'John Subtil',
-  themeColor: '#000000',
   email: 'contact@johnsubtil.com',
   socials: [
     {

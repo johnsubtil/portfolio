@@ -1,0 +1,19 @@
+---
+import AmbientLights from './golden-royal/AmbientLights.astro';
+import GlyphRain from './dark-lab/GlyphRain.astro';
+import SignalGlitch from './dark-lab/SignalGlitch.astro';
+
+interface Props {
+  ambient?: boolean;
+}
+
+const { ambient = true } = Astro.props;
+---
+
+{ambient && (
+  <>
+    <AmbientLights />
+    <GlyphRain />
+  </>
+)}
+<SignalGlitch />

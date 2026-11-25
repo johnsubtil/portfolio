@@ -1,0 +1,182 @@
+---
+import { themes } from '../../config/themes';
+import { getLocale } from '../../i18n/locales';
+import { getUI } from '../../i18n/ui';
+
+const text = getUI(getLocale(Astro.url));
+---
+
+<div class="theme-picker" data-theme-picker hidden>
+  <button class="trigger" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="theme-panel" aria-label={text.header.theme} title={text.header.theme}>
+    <span class="icon" aria-hidden="true"></span>
+  </button>
+  <div class="panel" id="theme-panel" role="group" aria-label={text.header.theme} hidden>
+    {themes.map((theme) => (
+      <button class="option" type="button" data-theme-id={theme.id} aria-pressed="false">
+        <span class="swatch" aria-hidden="true"></span>
+        <span class="name">{text.themes[theme.id]}</span>
+        <span class="check" aria-hidden="true"></span>
+      </button>
+    ))}
+  </div>
+</div>
+
+<script>
+  const root = document.documentElement;
+  const picker = document.querySelector<HTMLElement>('[data-theme-picker]');
+  const trigger = picker?.querySelector<HTMLButtonElement>('.trigger');
+  const panel = picker?.querySelector<HTMLElement>('.panel');
+  const options = picker?.querySelectorAll<HTMLButtonElement>('.option');
+  const applyTheme = (window as unknown as { applyTheme?: (id: string) => void }).applyTheme;
+
+  if (picker && trigger && panel && options && applyTheme) {
+    const sync = () => {
+      options.forEach((option) => option.setAttribute('aria-pressed', String(option.dataset.themeId === root.dataset.theme)));
+    };
+
+    const setOpen = (open: boolean) => {
+      panel.hidden = !open;
+      trigger.setAttribute('aria-expanded', String(open));
+    };
+
+    const swap = (id: string) => {
+      applyTheme(id);
+      sync();
+      document.dispatchEvent(new CustomEvent('themechange', { detail: id }));
+    };
+
+    const choose = (id: string) => {
+      if (id === root.dataset.theme) return;
+      if (!document.startViewTransition || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        swap(id);
+        return;
+      }
+      root.dataset.switching = id;
+      const transition = document.startViewTransition(() => swap(id));
+      transition.ready.catch(() => {});
+      transition.updateCallbackDone.catch(() => {});
+      transition.finished.catch(() => {}).finally(() => delete root.dataset.switching);
+    };
+
+    picker.hidden = false;
+    trigger.addEventListener('click', () => setOpen(trigger.getAttribute('aria-expanded') !== 'true'));
+    options.forEach((option) => {
+      option.addEventListener('click', () => {
+        choose(option.dataset.themeId ?? '');
+        setOpen(false);
+        trigger.focus();
+      });
+    });
+    document.addEventListener('click', (event) => {
+      if (!picker.contains(event.target as Node)) setOpen(false);
+    });
+    document.addEventListener('keydown', (event) => {
+      if (event.key !== 'Escape' || trigger.getAttribute('aria-expanded') !== 'true') return;
+      setOpen(false);
+      trigger.focus();
+    });
+
+    sync();
+  }
+</script>
+
+<style>
+  .theme-picker {
+    position: relative;
+    flex-shrink: 0;
+    color: var(--text);
+  }
+
+  .trigger {
+    display: grid;
+    place-items: center;
+    width: var(--header-control-size, 44px);
+    height: var(--header-control-size, 44px);
+    padding: 0;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-pill);
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+    transition: background var(--ease), color var(--ease), border-color var(--ease);
+  }
+
+  .trigger:hover,
+  .trigger[aria-expanded='true'] {
+    color: var(--accent-ink);
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .icon {
+    width: 16px;
+    height: 16px;
+    border: 2px solid currentColor;
+    border-radius: 50%;
+    background: linear-gradient(90deg, currentColor 50%, transparent 50%);
+  }
+
+  .panel {
+    --text: var(--page-text);
+    --line: var(--page-line);
+    display: grid;
+    gap: 2px;
+    position: absolute;
+    top: calc(100% + 12px);
+    right: 0;
+    z-index: 40;
+    width: 220px;
+    padding: 6px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-card);
+    background: var(--surface);
+    color: var(--text);
+    box-shadow: 0 16px 40px var(--shadow);
+  }
+
+  .option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    min-height: 44px;
+    padding: 0 12px;
+    border: 0;
+    border-radius: var(--radius-control);
+    background: transparent;
+    color: inherit;
+    font: 600 0.8rem var(--sans);
+    text-align: left;
+    cursor: pointer;
+    transition: background var(--ease);
+  }
+
+  .option:hover {
+    background: color-mix(in srgb, var(--text) 8%, transparent);
+  }
+
+  .swatch {
+    flex: none;
+    width: 22px;
+    height: 22px;
+    border: 1px solid var(--control-line);
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--swatch-base) 47%, var(--swatch-accent) 53%);
+  }
+
+  .check {
+    flex: none;
+    width: 10px;
+    height: 6px;
+    margin-left: auto;
+    border-bottom: 2px solid var(--accent);
+    border-left: 2px solid var(--accent);
+    opacity: 0;
+    transform: translateY(-2px) rotate(-45deg);
+  }
+
+  .option[aria-pressed='true'] .check {
+    opacity: 1;
+  }
+
+</style>

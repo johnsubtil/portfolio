@@ -1,6 +1,8 @@
 @import '@fontsource-variable/schibsted-grotesk/wght.css';
 @import '@fontsource-variable/eb-garamond/wght.css';
 @import './tokens.css';
+@import './themes/golden-royal.css';
+@import './themes/dark-lab.css';
 
 :root {
   font-family: var(--sans);
@@ -224,6 +226,14 @@ main:focus {
   navigation: auto;
 }
 
+:root[data-switching]::view-transition-old(root) {
+  animation: none;
+}
+
+:root[data-switching]::view-transition-new(root) {
+  mix-blend-mode: normal;
+}
+
 ::view-transition-old(root),
 ::view-transition-new(root) {
   animation-duration: 240ms;
@@ -264,4 +274,31 @@ main:focus {
 .text-link:is(:hover, :focus-visible) .arrow-back,
 .catalog-pagination a[data-direction='previous']:is(:hover, :focus-visible)::before {
   transform: scaleX(-1) translateX(4px);
+}
+
+.home-section,
+.disciplines {
+  border-image: linear-gradient(90deg, transparent, color-mix(in srgb, var(--accent) 70%, transparent) 50%, transparent) 1;
+}
+
+@media print {
+  :root[data-theme] {
+    --background: #FFFFFF;
+    --page-text: #000000;
+    --text: #000000;
+    --muted: #444444;
+    --surface: #FFFFFF;
+    --surface-elevated: #FFFFFF;
+    --accent: #000000;
+  }
+
+  body {
+    background-image: none;
+  }
+
+  .ambient,
+  .glyph-rain,
+  .scroll-progress {
+    display: none;
+  }
 }
