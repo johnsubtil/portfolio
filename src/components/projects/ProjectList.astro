@@ -88,8 +88,8 @@ const text = getUI(locale);
               <span class="poster-title" aria-hidden="true">{project.data.title}</span>
             </div>
             <p class="catalog-caption">
-              {showProjectCategory && <><span>{text.projects.categories[project.data.category]}</span><span class="catalog-sep" aria-hidden="true">•</span></>}
-              <span>{text.projects.statuses[project.data.status]}</span>
+              {showProjectCategory && <><span class="project-category">{text.projects.categories[project.data.category]}</span><span class="catalog-sep" aria-hidden="true">•</span></>}
+              <span data-status={project.data.status}>{text.projects.statuses[project.data.status]}</span>
             </p>
           </a>
         </article>
