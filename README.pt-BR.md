@@ -96,12 +96,12 @@ GIFs são servidos sem processamento. Mantenha animações curtas e exporte-as e
 - `src/config/content.ts`: status e categorias (cada categoria precisa de um nome em `projects.categories`, de um texto em `home.disciplines` e, se quiser, de um rank em `ranks.ts`), se os cards de projeto mostram a categoria, e os limites do hero da home (e quantos segundos cada projeto em destaque fica antes do próximo entrar), da lista de projetos da home e dos posts recentes da home (os espaços livres aparecem como blocos cinza; `showPlaceholderSlots` desliga isso) e do índice dos artigos.
 - `src/i18n/messages/`: textos da interface; mantenha as chaves iguais nos idiomas.
 - `src/styles/tokens.css`: cores, raios, espaçamentos e tipografia. Use estes tokens em vez de valores fixos.
-- `public/`: favicon, imagem de pré-visualização social (`images/site/og-image.png`), `robots.txt`, `_headers` e `scripts/language.js` (escolhe o idioma do endereço sem prefixo e da página 404). O sitemap é gerado em `/sitemap.xml`.
+- `public/`: o monograma JS como favicon de cada tema (`favicon-dark-lab.svg`, `favicon-golden-royal.svg`, `favicon.ico`, `apple-touch-icon.png`), imagem de pré-visualização social (`images/site/og-image.png`), `robots.txt`, `_headers`, `scripts/language.js` (escolhe o idioma do endereço sem prefixo e da página 404) e `scripts/theme.js` (aplica o tema salvo antes de a página aparecer). O sitemap é gerado em `/sitemap.xml`.
 
 ## Estrutura do projeto
 
 - `src/pages/`, `src/layouts/`: rotas e estrutura das páginas. As páginas ficam em `[locale]/` (`pt-br`, `en-us`) com uma seção traduzida (`[section]/`: `projetos`/`projects`, `posts`, `sobre`/`about`, `busca`/`search`); os nomes das seções estão em `src/i18n/locales.ts` (`routeSegments`), e os links são montados com `localizedUrl(locale, '/projects/')`. `src/views/` guarda o corpo das páginas. O `404.astro` guarda os dois idiomas e mostra o que combina com quem chegou.
-- `src/components/`: agrupados por área (`home`, `projects`, `posts`, `catalog`, `search`, `layout`, `i18n`, `media`, `ui`, `motion`). `ui/Cta.astro` é o botão compartilhado e `ui/Icon.astro` o ícone compartilhado.
+- `src/components/`: agrupados por área (`home`, `projects`, `posts`, `catalog`, `search`, `layout`, `i18n`, `media`, `ui`, `motion`, `themes`). `ui/Cta.astro` é o botão compartilhado e `ui/Icon.astro` o ícone compartilhado.
 - `src/styles/themes/`, `src/components/themes/`: uma folha de estilo e uma pasta de efeitos por tema (`dark-lab`, `golden-royal`); para remover um tema, apague as duas partes, a entrada em `themes.ts` e o `favicon-<id>.svg`. Os seletores do tema usam `:root[data-theme='<id>']`, e o que só existe num tema leva `data-only='<id>'`.
 - `src/lib/`: consultas de conteúdo e motor de busca.
 - `src/scripts/`: comportamento no navegador, em `catalog/` (filtros, paginação), `search/` (cabeçalho e página) e `article/` (índice e tabelas).
@@ -114,7 +114,7 @@ O GitHub Actions roda checagem de tipos e build a cada push e pull request (`.gi
 
 ## Segurança
 
-O site não faz requisições a terceiros, e as fontes são próprias. O Astro adiciona a cada página uma Content Security Policy que proíbe estilos e scripts inline, então valores dinâmicos passam por variáveis CSS definidas via script (veja `src/components/motion/ScrollProgress.tsx`). Para reportar uma vulnerabilidade, veja [SECURITY.md](SECURITY.md).
+O site não faz requisições a terceiros, e as fontes são próprias. O Astro adiciona a cada página uma Content Security Policy que proíbe estilos e scripts inline (imagens também podem vir de URIs `data:`, que as texturas dos temas usam), então valores dinâmicos passam por variáveis CSS definidas via script (veja `src/components/motion/ScrollProgress.tsx`). Para reportar uma vulnerabilidade, veja [SECURITY.md](SECURITY.md).
 
 ## Licença
 
