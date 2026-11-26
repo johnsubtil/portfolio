@@ -16,6 +16,12 @@
   initial-value: 0px;
 }
 
+@property --drop-trim {
+  syntax: '<length>';
+  inherits: true;
+  initial-value: 0px;
+}
+
 :root[data-theme='golden-royal'] {
   --display: var(--serif);
   --heading-weight: 500;
@@ -96,7 +102,7 @@
   :root[data-theme='golden-royal'] :is(.prose, .about-body) > p:first-of-type:not(:has(> img, > .drop-cap))::first-letter,
   :root[data-theme='golden-royal'] .drop-cap {
     float: left;
-    margin: var(--drop-shift) 0.12em 0 0;
+    margin: var(--drop-shift) 0.12em var(--drop-trim) 0;
     font-family: var(--serif);
     font-size: var(--drop-size);
     font-weight: 600;
@@ -114,6 +120,7 @@
 :root[data-theme='golden-royal'] :is(.prose, .about-body) > p:first-of-type:not(:has(> img)) {
   --drop-size: calc((1lh + 0.71em) / 0.66);
   --drop-shift: calc(0.5lh - 0.35em - 0.195 * var(--drop-size));
+  --drop-trim: calc(2lh - var(--drop-size) - var(--drop-shift) - 1px);
   display: flow-root;
 }
 
