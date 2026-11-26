@@ -15,7 +15,7 @@ const about = text.about;
   <section class="about-intro" aria-label={about.title}>
     <figure class="portrait" data-placeholder={aboutPortrait ? undefined : ''}>
       {aboutPortrait ? (
-        <img src={aboutPortrait} alt={about.portraitAlt} width="800" height="1000" loading="eager" decoding="async" />
+        <img src={aboutPortrait} alt={about.portraitAlt} width="256" height="256" loading="eager" decoding="async" />
       ) : (
         <svg class="portrait-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
           <circle cx="24" cy="18" r="8" />
@@ -51,7 +51,7 @@ const about = text.about;
 
   .portrait { grid-area: portrait; align-self: stretch; min-height: 20rem; max-height: 47cqw; position: relative; display: grid; place-items: center; width: 100%; margin: 0; overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius-card); background: var(--surface); }
   .portrait > * { grid-area: 1 / 1; }
-  .portrait img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; border-radius: 0; }
+  .portrait img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; border-radius: 0; image-rendering: pixelated; }
   .portrait[data-placeholder] { color: var(--muted); background: linear-gradient(160deg, var(--surface-elevated), var(--surface)); }
   .portrait-icon { width: clamp(56px, 24%, 96px); height: auto; opacity: 0.5; }
 

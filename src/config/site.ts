@@ -23,5 +23,4 @@ export const site = {
   ],
 } as const;
 
-// Path of the About page photo under public/, e.g. '/images/about/portrait.jpg' (4:5).
-export const aboutPortrait: string | undefined = undefined;
+export const aboutPortrait: string | undefined = '/images/about/portrait.png';
