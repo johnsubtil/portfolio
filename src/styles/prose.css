@@ -118,7 +118,7 @@
   .prose td { padding: 0; border: 0; }
   .prose td:last-child { flex: 1 0 100%; min-width: 0; color: var(--muted); line-height: 1.6; }
 }
-.prose hr { margin-block: 40px; border: 0; border-top: 1px solid var(--line); }
+.prose hr { height: 1px; margin-block: 40px; border: 0; background: linear-gradient(90deg, transparent, var(--accent) 50%, transparent); }
 
 .prose > :is(p, ul, ol, h2, h3, h4, h5, h6, blockquote, pre, table, hr) {
   max-width: min(100%, var(--reading-width));

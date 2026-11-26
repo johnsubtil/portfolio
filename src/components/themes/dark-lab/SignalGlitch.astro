@@ -1,0 +1,17 @@
+<script>
+  const targets = document.querySelectorAll<HTMLElement>('.creator-statement :is(strong, b), .about-body :is(strong, b), .prose :is(strong, b)');
+  let frame = 0;
+
+  const mark = () => {
+    targets.forEach((target) => {
+      if (target.getClientRects().length === 1) target.dataset.text = target.textContent ?? '';
+      else delete target.dataset.text;
+    });
+  };
+
+  mark();
+  window.addEventListener('resize', () => {
+    window.cancelAnimationFrame(frame);
+    frame = window.requestAnimationFrame(mark);
+  });
+</script>

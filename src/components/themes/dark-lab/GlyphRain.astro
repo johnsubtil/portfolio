@@ -1,0 +1,106 @@
+---
+import { allGlyphs } from '../../../config/glyphs';
+
+const glyphs = Array.from({ length: 60 }, (_, index) => allGlyphs[index % allGlyphs.length]);
+---
+
+<div class="glyph-rain" data-only="dark-lab" aria-hidden="true">
+  {glyphs.map((glyph) => <span>{glyph}</span>)}
+</div>
+
+<script>
+  import { glyphGroups } from '../../../config/glyphs';
+
+  const root = document.documentElement;
+  const layer = document.querySelector<HTMLElement>('.glyph-rain');
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const totalWeight = glyphGroups.reduce((sum, group) => sum + group.weight, 0);
+
+  const between = (min: number, max: number) => min + Math.random() * (max - min);
+  const sign = () => (Math.random() < 0.5 ? -1 : 1);
+  function shuffled<T>(items: T[]): T[] {
+    for (let i = items.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [items[i], items[j]] = [items[j] as T, items[i] as T];
+    }
+    return items;
+  }
+
+  const pick = (current: string | null) => {
+    let next = current;
+    while (next === current) {
+      let roll = Math.random() * totalWeight;
+      const group = glyphGroups.find((item) => (roll -= item.weight) < 0) ?? glyphGroups[0]!;
+      next = group.glyphs[Math.floor(Math.random() * group.glyphs.length)] as string;
+    }
+    return next as string;
+  };
+
+  if (layer) {
+    const glyphs = Array.from(layer.querySelectorAll<HTMLElement>('span'));
+    const count = glyphs.length;
+    const columns = shuffled(Array.from({ length: count }, (_, index) => 1 + ((index + 0.5 + between(-0.35, 0.35)) * 97) / count));
+    const phases = shuffled(Array.from({ length: count }, (_, index) => (index + Math.random()) / count));
+
+    glyphs.forEach((glyph, index) => {
+      const duration = Math.round(between(26, 56));
+      const set = (name: string, value: string) => glyph.style.setProperty(name, value);
+      set('--x', `${(columns[index] as number).toFixed(1)}%`);
+      set('--fs', `${Math.round(between(10, 16))}px`);
+      set('--t', `${duration}s`);
+      set('--d', `-${Math.max(1, Math.round((phases[index] as number) * duration))}s`);
+      set('--dx', `${Math.round(sign() * between(0, 60))}px`);
+      set('--r', `${Math.round(sign() * between(120, 420))}deg`);
+      set('--o', between(0.37, 0.7).toFixed(2));
+    });
+
+    let timer = 0;
+    const tick = () => {
+      if (document.hidden) return;
+      for (let i = 0; i < 5; i++) {
+        const glyph = glyphs[Math.floor(Math.random() * count)] as HTMLElement;
+        glyph.textContent = pick(glyph.textContent);
+      }
+    };
+    const sync = () => {
+      window.clearInterval(timer);
+      if (root.dataset.theme === 'dark-lab' && !reduced.matches) timer = window.setInterval(tick, 100);
+    };
+    sync();
+    document.addEventListener('themechange', sync);
+    reduced.addEventListener('change', sync);
+  }
+</script>
+
+<style>
+  .glyph-rain { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+
+  span {
+    position: absolute;
+    top: 0;
+    left: var(--x);
+    font: 700 calc(var(--fs) * var(--k, 1)) / 1 var(--mono);
+    color: var(--text);
+    opacity: 0;
+    animation: glyph-fall var(--t) linear var(--d) infinite;
+    will-change: transform, opacity;
+  }
+  span:nth-child(3n + 1) { color: var(--red); }
+  span:nth-child(3n + 2) { color: var(--blue); }
+
+  @keyframes glyph-fall {
+    0% { transform: translate3d(0, -6vh, 0) rotate(0deg); opacity: 0; }
+    10% { opacity: var(--o); }
+    90% { opacity: var(--o); }
+    100% { transform: translate3d(var(--dx), 108vh, 0) rotate(var(--r)); opacity: 0; }
+  }
+
+  @media (pointer: coarse), (max-width: 640px) {
+    .glyph-rain { --k: 0.6; }
+    span:nth-child(even) { display: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .glyph-rain { display: none; }
+  }
+</style>

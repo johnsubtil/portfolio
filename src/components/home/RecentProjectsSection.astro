@@ -15,7 +15,7 @@ const recentProjects = (await getProjects(locale)).slice(0, homeProjectLimit);
 {/* The section stays on the home page even with no projects; the list shows its own empty message. */}
 <HomeSection
   id="recent-projects-title"
-  title={text.projects.title}
+  title={text.projects.recent}
   href={localizedUrl(locale, '/projects/')}
   linkLabel={text.projects.allProjects}
 >

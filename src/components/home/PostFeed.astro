@@ -69,9 +69,10 @@ const coverFor = (post: Post) => post.data.cover ?? post.project?.data.cover;
   .feed[data-count='1'] { grid-template-columns: minmax(0, 1fr); }
 
   .lead a { display: block; }
-  .lead-media { overflow: hidden; border-radius: var(--radius-image); }
+  .lead-media { overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius-image); transition: border-color var(--ease); }
   .lead-media :global(.cover-image) { aspect-ratio: 16 / 10; border-radius: 0; transition: transform 600ms cubic-bezier(.2, .65, .3, 1); }
   .lead a:hover .lead-media :global(.cover-image) { transform: scale(1.03); }
+  .lead a:is(:hover, :focus-visible) .lead-media { border-color: var(--border-hover); }
   .lead .meta { margin-top: 24px; }
   .lead h3 { margin: 12px 0 0; font-size: clamp(1.6rem, 2.8vw, 2.4rem); font-weight: var(--heading-weight); line-height: 1.1; letter-spacing: var(--heading-tracking); text-wrap: balance; }
   .lead p { max-width: 52ch; margin: 14px 0 0; color: var(--muted); line-height: 1.6; }
@@ -82,9 +83,10 @@ const coverFor = (post: Post) => post.data.cover ?? post.project?.data.cover;
   .item { display: grid; grid-template-columns: minmax(0, 9.5rem) minmax(0, 1fr); gap: 20px; align-items: center; height: 100%; padding-block: 20px; }
   .list li:first-child .item { padding-top: 0; }
   .list li:last-child .item { padding-bottom: 0; }
-  .thumb { overflow: hidden; border-radius: var(--radius-image); }
+  .thumb { overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius-image); transition: border-color var(--ease); }
   .thumb :global(.cover-image) { border-radius: 0; transition: transform 500ms cubic-bezier(.2, .65, .3, 1); }
   .item:hover .thumb :global(.cover-image) { transform: scale(1.05); }
+  .item:is(:hover, :focus-visible) .thumb { border-color: var(--border-hover); }
   .item h3 { margin: 8px 0 8px; font-size: 1.1rem; font-weight: var(--heading-weight); line-height: 1.25; letter-spacing: var(--heading-tracking); }
 
   .meta { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
@@ -95,6 +97,7 @@ const coverFor = (post: Post) => post.data.cover ?? post.project?.data.cover;
   .item .meta { letter-spacing: 0.06em; }
   .item time { color: var(--muted); font-size: 0.8rem; }
 
+  .skeleton .thumb { border: 0; }
   .skeleton .item-body { display: grid; gap: 12px; }
   .bar { display: block; height: 0.8rem; border-radius: var(--radius-pill); background: var(--surface-elevated); }
   .bar-meta { width: 38%; height: 0.6rem; }

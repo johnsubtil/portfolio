@@ -92,15 +92,17 @@ GIFs are served unchanged. Keep animations short and export them at suitable siz
 
 - `src/config/site.ts`: site identity, email, social links, and the path of the About page photo.
 - `src/config/ranks.ts`: the rank of each area, from E to S (shown in the home "What I do" section), and the post that explains the ranks (`rankGuidePost`, linked by the "?" in the home "What I do" section). The titles of the letters live in `src/i18n/messages` (`ranks`).
+- `src/config/themes.ts`: the themes (id, browser color) and which one is the default. The picker in the header lists them and remembers the choice in `localStorage`.
 - `src/config/content.ts`: statuses and categories (each category needs a name in `projects.categories`, a text in `home.disciplines`, and, optionally, a rank in `ranks.ts`), whether project cards show their category, and the limits for the home hero (and how many seconds each featured project stays before the next one comes in), the home project list and the home recent posts (free slots show as gray placeholders; `showPlaceholderSlots` turns that off), and the article table of contents.
 - `src/i18n/messages/`: interface text; keep keys aligned between languages.
 - `src/styles/tokens.css`: colors, radii, spacing, and typography. Use these tokens instead of hard-coded values.
-- `public/`: the JS monogram icon (`favicon.svg`, `favicon.ico`, `apple-touch-icon.png`), social preview image (`images/site/og-image.png`), `robots.txt`, `_headers`, and `scripts/language.js` (chooses the language for the bare address and the 404 page). The sitemap is generated at `/sitemap.xml`.
+- `public/`: the JS monogram icon (`favicon-dark-lab.svg`, `favicon-golden-royal.svg`, `favicon.ico`, `apple-touch-icon.png`), social preview image (`images/site/og-image.png`), `robots.txt`, `_headers`, `scripts/language.js` (chooses the language for the bare address and the 404 page), and `scripts/theme.js` (applies the saved theme before the page paints). The sitemap is generated at `/sitemap.xml`.
 
 ## Project structure
 
 - `src/pages/`, `src/layouts/`: routes and page shells. Pages are `[locale]/` (`pt-br`, `en-us`) with a translated section (`[section]/`: `projetos`/`projects`, `posts`, `sobre`/`about`, `busca`/`search`); the section names are in `src/i18n/locales.ts` (`routeSegments`), and links are built with `localizedUrl(locale, '/projects/')`. `src/views/` holds the page bodies. `404.astro` holds both languages and shows the one that matches the reader.
-- `src/components/`: grouped by area (`home`, `projects`, `posts`, `catalog`, `search`, `layout`, `i18n`, `media`, `ui`, `motion`). `ui/Cta.astro` is the shared button and `ui/Icon.astro` the shared icon.
+- `src/components/`: grouped by area (`home`, `projects`, `posts`, `catalog`, `search`, `layout`, `i18n`, `media`, `ui`, `motion`, `themes`). `ui/Cta.astro` is the shared button and `ui/Icon.astro` the shared icon.
+- `src/styles/themes/`, `src/components/themes/`: one stylesheet and one folder of effects per theme (`dark-lab`, `golden-royal`), so a theme can be removed by deleting its two parts, its entry in `themes.ts` and its `favicon-<id>.svg`. Theme selectors use `:root[data-theme='<id>']`, and theme-only markup carries `data-only='<id>'`.
 - `src/lib/`: content queries and the search engine.
 - `src/scripts/`: browser behavior, in `catalog/` (filters, pagination), `search/` (header and page) and `article/` (contents menu and tables).
 
@@ -112,7 +114,7 @@ GitHub Actions runs type checks and the build on every push and pull request (`.
 
 ## Security
 
-The site makes no third-party requests, and fonts are self-hosted. Astro adds a Content Security Policy to every page that forbids inline styles and scripts, so dynamic values go through CSS custom properties set from scripts (see `src/components/motion/ScrollProgress.tsx`). To report a vulnerability, see [SECURITY.md](SECURITY.md).
+The site makes no third-party requests, and fonts are self-hosted. Astro adds a Content Security Policy to every page that forbids inline styles and scripts (images may also come from `data:` URIs, which the theme textures use), so dynamic values go through CSS custom properties set from scripts (see `src/components/motion/ScrollProgress.tsx`). To report a vulnerability, see [SECURITY.md](SECURITY.md).
 
 ## License
 

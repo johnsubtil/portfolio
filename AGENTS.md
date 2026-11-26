@@ -8,6 +8,7 @@
 ## Conventions
 
 - **CSP:** pages forbid inline styles and scripts. Never write `style="..."` or `on*=` attributes; set dynamic values with `element.style.setProperty('--name', value)` and read them in CSS.
+- **Theme CSS:** selectors in `src/styles/themes/` need at least three classes of specificity (`:root[data-theme='x'] .a .b`) to beat the scoped CSS of components.
 - **Design tokens:** colors, radii (`--radius-card`, `--radius-control`, `--radius-pill`), spacing, and hover borders live in `src/styles/tokens.css`. Do not hard-code hex colors or radii. Breakpoints are 480, 640, 900, and 1200 px.
 - **Buttons and arrows:** use `src/components/ui/Cta.astro` for buttons. The arrow icon is `public/icons/arrow.svg`, used through the `.arrow-icon` class and the shared mask rules in `global.css`.
 - **Images:** render covers with `media/CoverImage.astro`; it shows the placeholder when there is no cover.

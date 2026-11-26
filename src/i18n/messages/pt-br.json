@@ -21,7 +21,12 @@
     "navigation": "Navegação principal",
     "switchLanguage": "Mudar para inglês",
     "openMenu": "Abrir menu",
-    "closeMenu": "Fechar menu"
+    "closeMenu": "Fechar menu",
+    "theme": "Tema"
+  },
+  "themes": {
+    "golden-royal": "Golden Royal",
+    "dark-lab": "Dark Lab"
   },
   "pagination": {
     "label": "Paginação",
@@ -150,7 +155,7 @@
     "heroPrimary": "Ver projetos",
     "heroSecondary": "Acompanhar nas redes",
     "introductionLabel": "Sobre",
-    "introduction": "Olá, sou o John, alguém que curte criar e experimentar em áreas diferentes. Este site é meu <strong>laboratório</strong>: mostro aqui meus projetos e escrevo sobre todo o processo de criação.",
+    "introduction": "Olá, sou o John. Alguém que curte <strong>criar</strong> e <strong>experimentar</strong> em áreas diferentes. Este site é meu <strong>laboratório</strong>: mostro aqui meus projetos e escrevo sobre todo o processo de criação.",
     "disciplinesLabel": "O que eu faço",
     "disciplines": {
       "software": "Desenvolvo e mantenho aplicações e ferramentas de ponta a ponta, do banco de dados e da API à interface, com foco em segurança e escalabilidade.",

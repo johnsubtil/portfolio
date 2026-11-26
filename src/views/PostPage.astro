@@ -117,9 +117,10 @@ const breadcrumbs = hasTranslation
   .neighbor { display: grid; grid-template-columns: minmax(0, 7rem) minmax(0, 1fr); gap: 16px; align-items: center; padding-block: 8px; }
   .neighbor-prev { grid-column: 1; }
   .neighbor-next { grid-column: 2; }
-  .neighbor-thumb { overflow: hidden; border-radius: var(--radius-image); }
+  .neighbor-thumb { overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius-image); transition: border-color var(--ease); }
   .neighbor-thumb :global(.cover-image) { border-radius: 0; transition: transform 500ms cubic-bezier(.2, .65, .3, 1); }
   .neighbor:hover .neighbor-thumb :global(.cover-image) { transform: scale(1.05); }
+  .neighbor:is(:hover, :focus-visible) .neighbor-thumb { border-color: var(--border-hover); }
   .neighbor-body { display: grid; gap: 6px; min-width: 0; }
   .neighbor-label { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 0.8rem; }
   .neighbor-title { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; overflow: hidden; font-family: var(--serif); font-size: 1.1rem; font-weight: var(--heading-weight); line-height: 1.25; letter-spacing: var(--heading-tracking); }

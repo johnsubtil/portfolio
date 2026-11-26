@@ -1,0 +1,306 @@
+:root[data-theme='dark-lab'] {
+  --display: var(--serif);
+  --heading-weight: 500;
+  --heading-tracking: 0;
+  --page-text: #F2F0E8;
+  --page-line: #2A323D;
+  --background: #0A0E14;
+  --surface: #11161D;
+  --surface-elevated: #171E27;
+  --muted: #9AA3AE;
+  --accent: #34E58A;
+  --on-accent: #000000;
+  --accent-ink: #000000;
+  --control-line: #6B7686;
+  --shadow: #00000066;
+  --hero-background: #0A0E14;
+  --header-scrolled-background: color-mix(in srgb, var(--footer-background) 92%, transparent);
+  --divider: color-mix(in srgb, var(--blue) 22%, var(--background));
+  --red: #FF4D5E;
+  --blue: #4DA3FF;
+  --nixie: #FF8A3D;
+  --empty-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48' fill='none' stroke='black' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M19 6h10M21 6v12L10 38a3 3 0 0 0 2.6 4.5h22.8A3 3 0 0 0 38 38L27 18V6'/%3E%3Cpath d='M14.5 30h19'/%3E%3C/svg%3E");
+  --empty-icon-size: 40px;
+  scrollbar-color: var(--accent) var(--background);
+  color-scheme: dark;
+}
+
+:root[data-theme='dark-lab'] body {
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--blue) 9%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--blue) 9%, transparent) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+:root[data-theme='dark-lab'] .header-shell:not(.on-home) {
+  background: transparent;
+}
+
+[data-theme-id='dark-lab'] {
+  --swatch-base: #0A0E14;
+  --swatch-accent: #34E58A;
+}
+
+:root:not([data-theme='dark-lab']) [data-only='dark-lab'] {
+  display: none;
+}
+
+:root[data-theme='dark-lab'] ::selection {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+:root[data-theme='dark-lab'] .wordmark-dot {
+  color: var(--accent);
+}
+
+:root[data-theme='dark-lab'] :is(.status-badge, .catalog-caption [data-status]) {
+  position: relative;
+  display: inline-block;
+  padding: 3px 9px;
+  border: 1.5px solid currentColor;
+  border-radius: 6px;
+  background: color-mix(in srgb, currentColor 14%, transparent);
+  font-size: 0.7rem;
+  font-weight: 800;
+  white-space: nowrap;
+  -webkit-mask-image: var(--wear);
+  mask-image: var(--wear);
+  -webkit-mask-size: 160px 100px;
+  mask-size: 160px 100px;
+}
+
+:root[data-theme='dark-lab'] :is(.status-badge, .catalog-caption [data-status])::before {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  border: 1px solid currentColor;
+  border-radius: 3px;
+  pointer-events: none;
+}
+
+:root[data-theme='dark-lab'] .catalog-caption {
+  align-items: center;
+}
+
+:root[data-theme='dark-lab'] :is(.status-badge, .catalog-caption [data-status])[data-status='in-progress'] {
+  color: var(--red);
+}
+
+:root[data-theme='dark-lab'] :is(.status-badge, .catalog-caption [data-status])[data-status='completed'] {
+  color: var(--blue);
+}
+
+:root[data-theme='dark-lab'] .rank {
+  --shape: inset(0 round 4px);
+  font-family: var(--sans);
+  font-weight: 700;
+}
+
+:root[data-theme='dark-lab'] .rank::before {
+  border: 1px solid var(--rc);
+  border-radius: 4px;
+  background: none;
+  clip-path: none;
+}
+
+:root[data-theme='dark-lab'] .rank i {
+  inset: 1px;
+  clip-path: inset(0 round 3px);
+}
+
+:root[data-theme='dark-lab'] .rank i > span {
+  display: none;
+}
+
+:root[data-theme='dark-lab'] .rank i::after {
+  content: var(--symbol);
+  font-size: calc(var(--s) * 0.52);
+  line-height: 1;
+}
+:root[data-theme='dark-lab'] .rank[data-rank='E'] { --symbol: 'Cu'; }
+:root[data-theme='dark-lab'] .rank[data-rank='D'] { --symbol: 'Fe'; }
+:root[data-theme='dark-lab'] .rank[data-rank='C'] { --symbol: 'Ag'; }
+:root[data-theme='dark-lab'] .rank[data-rank='B'] { --symbol: 'Au'; }
+:root[data-theme='dark-lab'] .rank[data-rank='A'] { --symbol: 'Pt'; }
+:root[data-theme='dark-lab'] .rank[data-rank='S'] { --symbol: 'C'; }
+
+:root[data-theme='dark-lab'] .rank:is([data-rank='B'], [data-rank='A'], [data-rank='S'])::after {
+  top: -30%;
+  right: -30%;
+}
+
+:root[data-theme='dark-lab'] :is(.creator-statement, .about-body, .prose) :is(strong, b) {
+  position: relative;
+  text-shadow: 0 0 8px color-mix(in srgb, var(--accent) 40%, transparent);
+  animation: glitch-jitter 5s steps(1, end) infinite;
+}
+
+:root[data-theme='dark-lab'] :is(.creator-statement, .about-body, .prose) :is(strong, b):not([data-text]) {
+  animation:
+    glitch-jitter 5s steps(1, end) infinite,
+    glitch-shadow 5s steps(1, end) infinite;
+}
+
+:root[data-theme='dark-lab'] :is(.creator-statement, .about-body, .prose) :is(strong, b)[data-text]::before,
+:root[data-theme='dark-lab'] :is(.creator-statement, .about-body, .prose) :is(strong, b)[data-text]::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  pointer-events: none;
+  text-shadow: none;
+  white-space: nowrap;
+}
+
+:root[data-theme='dark-lab'] :is(.creator-statement, .about-body, .prose) :is(strong, b)[data-text]::before {
+  color: var(--blue);
+  animation: glitch-slice-a 5s steps(1, end) infinite;
+}
+
+:root[data-theme='dark-lab'] :is(.creator-statement, .about-body, .prose) :is(strong, b)[data-text]::after {
+  color: var(--red);
+  animation: glitch-slice-b 5s steps(1, end) infinite;
+}
+
+@keyframes glitch-jitter {
+  0%, 90%, 97%, 100% { left: 0; }
+  91% { left: -2px; }
+  93% { left: 2px; }
+  95% { left: -1px; }
+}
+
+@keyframes glitch-shadow {
+  0%, 90%, 97%, 100% { text-shadow: 0 0 8px color-mix(in srgb, var(--accent) 40%, transparent); }
+  91%, 95% { text-shadow: -1px 0 var(--blue), 1px 0 var(--red); }
+  93% { text-shadow: 1px 0 var(--blue), -1px 0 var(--red); }
+}
+
+@keyframes glitch-slice-a {
+  0%, 90%, 97%, 100% { opacity: 0; }
+  91% { opacity: 1; clip-path: inset(10% 0 62% 0); translate: -4px 0; }
+  92.5% { opacity: 1; clip-path: inset(58% 0 12% 0); translate: 4px 0; }
+  94% { opacity: 1; clip-path: inset(30% 0 40% 0); translate: -3px 1px; }
+  95.5% { opacity: 1; clip-path: inset(75% 0 5% 0); translate: 5px 0; }
+}
+
+@keyframes glitch-slice-b {
+  0%, 90%, 97.5%, 100% { opacity: 0; }
+  91.5% { opacity: 1; clip-path: inset(45% 0 30% 0); translate: 4px 0; }
+  93% { opacity: 1; clip-path: inset(5% 0 80% 0); translate: -5px 0; }
+  94.5% { opacity: 1; clip-path: inset(65% 0 15% 0); translate: 3px -1px; }
+  96% { opacity: 1; clip-path: inset(20% 0 55% 0); translate: -4px 0; }
+}
+
+:root[data-theme='dark-lab'] .catalog-card[data-status='in-progress'] {
+  --border-hover: var(--red);
+}
+
+:root[data-theme='dark-lab'] .catalog-card[data-status='completed'] {
+  --border-hover: var(--blue);
+}
+
+:root[data-theme='dark-lab'] .scroll-progress {
+  height: 6px;
+  background: var(--accent);
+  -webkit-mask-image: repeating-linear-gradient(90deg, #000 0 10px, transparent 10px 13px);
+  mask-image: repeating-linear-gradient(90deg, #000 0 10px, transparent 10px 13px);
+  transform: none;
+  clip-path: inset(0 calc((1 - var(--progress, 0)) * 100%) 0 0);
+}
+
+@supports (width: round(down, 10px, 3px)) {
+  :root[data-theme='dark-lab'] .scroll-progress {
+    clip-path: inset(0 calc(100vw - round(down, calc(var(--progress, 0) * 100vw), 13px)) 0 0);
+  }
+}
+
+:root[data-theme='dark-lab'] .not-found .code {
+  display: flex;
+  gap: 0.05em;
+  color: var(--nixie);
+  font-family: var(--sans);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+:root[data-theme='dark-lab'] .not-found .code span {
+  display: grid;
+  place-items: center;
+  min-width: 0.72em;
+  padding: 0.1em 0.06em 0.14em;
+  border: 1px solid color-mix(in srgb, var(--nixie) 24%, var(--line));
+  border-radius: 0.3em 0.3em 0.12em 0.12em;
+  background:
+    repeating-linear-gradient(0deg, transparent 0 3px, color-mix(in srgb, var(--nixie) 7%, transparent) 3px 4px),
+    repeating-linear-gradient(90deg, transparent 0 3px, color-mix(in srgb, var(--nixie) 7%, transparent) 3px 4px),
+    linear-gradient(180deg, color-mix(in srgb, var(--surface) 88%, black), var(--background));
+  box-shadow: inset 0 0 0.5em color-mix(in srgb, var(--nixie) 12%, transparent);
+  text-shadow:
+    0 0 0.06em var(--nixie),
+    0 0 0.22em color-mix(in srgb, var(--nixie) 60%, transparent),
+    0 0 0.5em color-mix(in srgb, var(--nixie) 30%, transparent);
+}
+
+:root[data-theme='dark-lab'] .not-found .code span:nth-child(2) {
+  animation: nixie-flicker 8s steps(1, end) infinite;
+}
+
+@keyframes nixie-flicker {
+  0%, 93%, 95%, 97%, 100% { opacity: 1; }
+  94% { opacity: 0.55; }
+  96% { opacity: 0.75; }
+}
+
+:root[data-switching='dark-lab']::view-transition-new(root) {
+  animation: lab-reveal 520ms steps(1, end) both;
+  mix-blend-mode: normal;
+}
+
+@keyframes lab-reveal {
+  0% { clip-path: inset(0 0 92% 0); transform: translateX(-6px); }
+  20% { clip-path: inset(0 0 60% 0); transform: translateX(5px); }
+  40% { clip-path: inset(0 0 30% 0); transform: translateX(-3px); }
+  60% { clip-path: inset(0 0 8% 0); transform: translateX(2px); }
+  80% { clip-path: inset(0); transform: translateX(-1px); }
+  100% { clip-path: inset(0); transform: none; }
+}
+
+:root[data-theme='dark-lab'] :is(.project-category, .labels :is(.format, .project), .catalog-labels :is(.catalog-format, .catalog-context), .post-format, .post-project) {
+  position: relative;
+  text-shadow: 0 0 8px color-mix(in srgb, var(--accent) 40%, transparent);
+  animation: signal-shift 5s steps(1, end) infinite;
+}
+
+:root[data-theme='dark-lab'] .wordmark {
+  position: relative;
+  animation: wordmark-shift 11s steps(1, end) infinite;
+}
+
+:root[data-theme='dark-lab'] .site-footer .wordmark {
+  animation-delay: -5s;
+}
+
+@keyframes signal-shift {
+  0%, 90%, 97%, 100% { translate: 0 0; text-shadow: 0 0 8px color-mix(in srgb, var(--accent) 40%, transparent); }
+  91% { translate: -2px 0; text-shadow: -1px 0 var(--blue), 1px 0 var(--red); }
+  93% { translate: 2px 0; text-shadow: 1px 0 var(--blue), -1px 0 var(--red); }
+  95% { translate: -1px 0; text-shadow: -1px 0 var(--blue), 1px 0 var(--red); }
+}
+
+@keyframes wordmark-shift {
+  0%, 95%, 98.5%, 100% { translate: 0 0; text-shadow: none; }
+  96% { translate: -2px 0; text-shadow: -1px 0 var(--blue), 1px 0 var(--red); }
+  97% { translate: 2px 0; text-shadow: 1px 0 var(--blue), -1px 0 var(--red); }
+  98% { translate: -1px 0; text-shadow: -1px 0 var(--blue), 1px 0 var(--red); }
+}
+
+:root[data-theme='dark-lab'] .cta.cta-light {
+  background: var(--accent);
+}
+
+:root[data-theme='dark-lab'] .cta {
+  box-shadow: 0 0 8px color-mix(in srgb, var(--accent) 40%, transparent);
+}

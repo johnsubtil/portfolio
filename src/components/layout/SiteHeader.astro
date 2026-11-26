@@ -1,6 +1,7 @@
 ---
 import LanguageSwitcher from '../i18n/LanguageSwitcher.astro';
 import HeaderSearch from '../search/HeaderSearch.astro';
+import ThemePicker from '../themes/ThemePicker.astro';
 import Wordmark from './Wordmark.astro';
 import { getLocale, localizedUrl, unlocalizedPath } from '../../i18n/locales';
 import { getUI } from '../../i18n/ui';
@@ -26,6 +27,7 @@ const links = [
     </nav>
     <div class="header-actions">
       <HeaderSearch />
+      <ThemePicker />
       <LanguageSwitcher />
       <button class="menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-controls="mobile-menu" aria-label={text.header.openMenu}>
         <span class="menu-bars" aria-hidden="true"></span>
@@ -112,7 +114,7 @@ const links = [
 
   .site-header { position: relative; z-index: 10; display: flex; align-items: center; gap: 12px; min-height: 76px; transition: background 250ms ease, border-color 250ms ease, padding 250ms ease, min-height 250ms ease; border: 1px solid transparent; border-radius: var(--radius-card); }
   .header-shell.is-hidden { transform: translateY(-130%); }
-  .on-home.is-scrolled .site-header { min-height: 64px; padding-inline: 20px; background: color-mix(in srgb, var(--hero-ink) 92%, transparent); border-color: color-mix(in srgb, var(--on-hero) 12%, transparent); }
+  .on-home.is-scrolled .site-header { min-height: 64px; padding-inline: 20px; background: var(--header-scrolled-background); border-color: color-mix(in srgb, var(--on-hero) 12%, transparent); }
   .brand { display: inline-flex; align-items: center; min-height: 44px; }
 
   nav { display: flex; align-items: center; gap: 8px; margin-left: auto; }
@@ -156,6 +158,11 @@ const links = [
     .site-header:has(:global([data-header-search][open])) .header-actions { flex: 1; min-width: 0; }
   }
 
+  @media (max-width: 360px) and (scripting: enabled) {
+    .site-header { --header-control-size: 40px; gap: 8px; }
+    .header-actions { gap: 4px; }
+  }
+
   @media (max-width: 640px) and (scripting: enabled) {
     .site-header { min-height: 64px; }
     #main-navigation { display: none; }
@@ -164,6 +171,7 @@ const links = [
     .on-home.is-scrolled .site-header { padding-inline: 14px; }
     .site-header:has(:global([data-header-search][open])) .brand,
     .site-header:has(:global([data-header-search][open])) :global(.language-switcher),
+    .site-header:has(:global([data-header-search][open])) :global(.theme-picker),
     .site-header:has(:global([data-header-search][open])) .menu-toggle { display: none; }
 
     .menu-backdrop {

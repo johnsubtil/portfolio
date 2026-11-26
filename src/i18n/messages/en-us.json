@@ -21,7 +21,12 @@
     "navigation": "Main",
     "switchLanguage": "Switch to Portuguese",
     "openMenu": "Open menu",
-    "closeMenu": "Close menu"
+    "closeMenu": "Close menu",
+    "theme": "Theme"
+  },
+  "themes": {
+    "golden-royal": "Golden Royal",
+    "dark-lab": "Dark Lab"
   },
   "pagination": {
     "label": "Pagination",
@@ -150,7 +155,7 @@
     "heroPrimary": "See projects",
     "heroSecondary": "Follow along",
     "introductionLabel": "About",
-    "introduction": "Hi, I'm John, someone who enjoys making things and experimenting across different fields. This site is my <strong>lab</strong>: I share my projects here and write about the whole creative process.",
+    "introduction": "Hi, I'm John. Someone who enjoys <strong>making things</strong> and <strong>experimenting</strong> across different fields. This site is my <strong>lab</strong>: I share my projects here and write about the whole creative process.",
     "disciplinesLabel": "What I do",
     "disciplines": {
       "software": "I build and maintain applications and tools end-to-end, from the database and API to the interface, focusing on security and scalability.",

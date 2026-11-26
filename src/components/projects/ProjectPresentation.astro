@@ -36,9 +36,9 @@ const projectLinks = ([
   </header>
   <div class="project-details">
     <div class="project-meta">
-      {showProjectCategory && <><span class="project-category">{text.projects.categories[category]}</span><span class="project-sep" aria-hidden="true">•</span></>}
-      <ProjectStatusBadge status={status} />
-      <time datetime={updated.toISOString()}>{text.common.updated} {formatContentDate(updated, locale)}</time>
+      {showProjectCategory && <><div class="meta-item"><span class="meta-label">{text.projects.categoryLabel}</span><span class="project-category">{text.projects.categories[category]}</span></div><span class="project-sep" aria-hidden="true">•</span></>}
+      <div class="meta-item"><span class="meta-label">{text.projects.statusLabel}</span><ProjectStatusBadge status={status} /></div>
+      <time class="meta-time" datetime={updated.toISOString()}><span class="meta-updated">{text.common.updated}</span> {formatContentDate(updated, locale)}</time>
     </div>
     {projectLinks.length > 0 && (
       <nav class="project-links" aria-label={text.projects.links}>
@@ -103,6 +103,8 @@ const projectLinks = ([
   .skill-list a:focus-visible { outline-offset: 3px; }
   @media (pointer: coarse) { .skill-list a { padding-block: 9px; } }
   .project-sep { color: var(--muted); }
+  .meta-item { display: contents; }
+  .meta-label { display: none; }
   .project-category {
     color: var(--accent);
     font-size: 0.72rem;
