@@ -254,19 +254,6 @@
   96% { opacity: 0.75; }
 }
 
-:root[data-theme='dark-lab'] .rank-tip strong::before {
-  margin-right: 8px;
-  color: var(--accent);
-  font: 600 0.68rem var(--mono);
-}
-
-:root[data-theme='dark-lab'] .rank-tip:has([data-current][data-rank='E']) strong::before { content: '29'; }
-:root[data-theme='dark-lab'] .rank-tip:has([data-current][data-rank='D']) strong::before { content: '26'; }
-:root[data-theme='dark-lab'] .rank-tip:has([data-current][data-rank='C']) strong::before { content: '47'; }
-:root[data-theme='dark-lab'] .rank-tip:has([data-current][data-rank='B']) strong::before { content: '79'; }
-:root[data-theme='dark-lab'] .rank-tip:has([data-current][data-rank='A']) strong::before { content: '78'; }
-:root[data-theme='dark-lab'] .rank-tip:has([data-current][data-rank='S']) strong::before { content: '6'; }
-
 :root[data-switching='dark-lab']::view-transition-new(root) {
   animation: lab-reveal 520ms steps(1, end) both;
   mix-blend-mode: normal;
