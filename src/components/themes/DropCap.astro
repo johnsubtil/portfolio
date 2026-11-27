@@ -1,18 +1,14 @@
 <script>
-  const native = CSS.supports('initial-letter', '2') || CSS.supports('-webkit-initial-letter', '2');
-
-  if (!native) {
-    document.querySelectorAll<HTMLElement>('.prose > p:first-of-type, .about-body > p:first-of-type').forEach((paragraph) => {
-      const text = paragraph.firstChild;
-      if (text?.nodeType !== Node.TEXT_NODE || paragraph.querySelector(':scope > img')) return;
-      const content = text.textContent ?? '';
-      const match = /^[^\p{L}\s]*\p{L}/u.exec(content);
-      if (!match) return;
-      const cap = document.createElement('span');
-      cap.className = 'drop-cap';
-      cap.textContent = match[0];
-      text.textContent = content.slice(match[0].length);
-      paragraph.insertBefore(cap, text);
-    });
-  }
+  document.querySelectorAll<HTMLElement>('.prose > p:first-of-type, .about-body > p:first-of-type').forEach((paragraph) => {
+    const text = paragraph.firstChild;
+    if (text?.nodeType !== Node.TEXT_NODE || paragraph.querySelector(':scope > img')) return;
+    const content = text.textContent ?? '';
+    const match = /^[^\p{L}\s]*\p{L}/u.exec(content);
+    if (!match) return;
+    const cap = document.createElement('span');
+    cap.className = 'drop-cap';
+    cap.textContent = match[0];
+    text.textContent = content.slice(match[0].length);
+    paragraph.insertBefore(cap, text);
+  });
 </script>

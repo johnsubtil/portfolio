@@ -124,17 +124,6 @@
   display: flow-root;
 }
 
-@supports (initial-letter: 2) or (-webkit-initial-letter: 2) {
-  :root[data-theme='golden-royal'] :is(.prose, .about-body) > p:first-of-type:not(:has(> img))::first-letter {
-    float: none;
-    margin: 0 0.12em 0 0;
-    font-size: inherit;
-    line-height: inherit;
-    -webkit-initial-letter: 2;
-    initial-letter: 2;
-  }
-}
-
 :root[data-theme='golden-royal'] .not-found .code {
   font-weight: 600;
 }
