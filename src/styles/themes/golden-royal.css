@@ -266,6 +266,29 @@
   text-transform: uppercase;
 }
 
+@media (max-width: 640px) {
+  :root[data-theme='golden-royal'] .project-meta {
+    display: grid;
+    width: 100%;
+    padding-block: 0;
+  }
+
+  :root[data-theme='golden-royal'] .project-meta :is(.meta-item, .meta-time) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin: 0;
+    padding: 13px 0;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  :root[data-theme='golden-royal'] .project-meta :is(.meta-item, .meta-time):last-child {
+    border-bottom: 0;
+  }
+}
+
 :root[data-switching='golden-royal']::view-transition-new(root) {
   animation: gold-reveal 480ms ease-out both;
 }
